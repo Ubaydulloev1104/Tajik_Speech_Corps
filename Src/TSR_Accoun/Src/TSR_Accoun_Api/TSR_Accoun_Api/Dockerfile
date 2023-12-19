@@ -8,10 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["TSR_Accoun_Api/TSR_Accoun_Api.csproj", "TSR_Accoun_Api/"]
-RUN dotnet restore "./TSR_Accoun_Api/./TSR_Accoun_Api.csproj"
+COPY ["Src/TSR_Accoun_Api/TSR_Accoun_Api/TSR_Accoun_Api.csproj", "Src/TSR_Accoun_Api/TSR_Accoun_Api/"]
+RUN dotnet restore "./Src/TSR_Accoun_Api/TSR_Accoun_Api/./TSR_Accoun_Api.csproj"
 COPY . .
-WORKDIR "/src/TSR_Accoun_Api"
+WORKDIR "/src/Src/TSR_Accoun_Api/TSR_Accoun_Api"
 RUN dotnet build "./TSR_Accoun_Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
