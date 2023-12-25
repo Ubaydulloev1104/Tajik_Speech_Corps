@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -19,6 +19,18 @@
   <ItemGroup>
     <ProjectReference Include="..\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj" />
     <ProjectReference Include="..\TSR_Accoun_Domain\TSR_Accoun_Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Interfaces\Services\" />
+    <Folder Include="Features\Users\" />
+    <Folder Include="Features\UserRoles\" />
+    <Folder Include="Features\Role\" />
+    <Folder Include="Features\UserClaims\" />
+    <Folder Include="Features\Educations\" />
+    <Folder Include="Features\UserProfiles\" />
+    <Folder Include="Features\Claims\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
