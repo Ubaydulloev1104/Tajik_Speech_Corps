@@ -22,14 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Interfaces\Services\" />
     <Folder Include="Features\Users\" />
     <Folder Include="Features\UserRoles\" />
     <Folder Include="Features\Role\" />
     <Folder Include="Features\UserClaims\" />
     <Folder Include="Features\Educations\" />
     <Folder Include="Features\UserProfiles\" />
-    <Folder Include="Features\Claims\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
