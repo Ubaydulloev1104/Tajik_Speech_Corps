@@ -21,14 +21,4 @@
     <ProjectReference Include="..\TSR_Accoun_Domain\TSR_Accoun_Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Users\" />
-    <Folder Include="Features\UserRoles\" />
-    <Folder Include="Features\Role\" />
-    <Folder Include="Features\UserClaims\" />
-    <Folder Include="Features\Educations\" />
-    <Folder Include="Features\UserProfiles\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
