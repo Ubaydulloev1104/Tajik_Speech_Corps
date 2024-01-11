@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TSR_Accoun_Application.Common.Interfaces.DbContexts;
 using TSR_Accoun_Domain.Entities;
 using TSR_Accoun_Infrastructure.Persistence.TableConfigurations;
