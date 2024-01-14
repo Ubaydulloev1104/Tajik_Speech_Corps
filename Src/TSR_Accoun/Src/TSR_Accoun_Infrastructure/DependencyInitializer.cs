@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using TSR_Accoun_Application.Common.Interfaces.DbContexts;
 using TSR_Accoun_Application.Common.Interfaces.Services;
