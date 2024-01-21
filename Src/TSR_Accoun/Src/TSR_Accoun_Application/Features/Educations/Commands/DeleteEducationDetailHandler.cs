@@ -23,14 +23,14 @@ namespace TSR_Accoun_Application.Features.Educations.Commands
 		{
 			var userId = _userHttpContextAccessor.GetUserId();
 			var user = await _context.Users
-				.Include(u => u.Experiences)
+				.Include(u => u.Educations)
 				.FirstOrDefaultAsync(u => u.Id == userId);
 			_ = user ?? throw new NotFoundException("user is not found");
 
-			var education = user.Experiences.FirstOrDefault(e => e.Id == request.Id);
+			var education = user.Educations.FirstOrDefault(e => e.Id == request.Id);
 			_ = education ?? throw new NotFoundException("This User has not such education");
 
-			user.Experiences.Remove(education);
+			user.Educations.Remove(education);
 
 			await _context.SaveChangesAsync();
 

@@ -24,7 +24,7 @@ namespace TSR_Accoun_Application.Features.Educations.Commands
 		{
 			var userId = _userHttpContextAccessor.GetUserId();
 			var user = await _context.Users
-				.Include(u => u.Experiences)
+				.Include(u => u.Educations)
 				.FirstOrDefaultAsync(u => u.Id.Equals(userId));
 			_ = user ?? throw new NotFoundException("user is not found");
 
@@ -32,7 +32,7 @@ namespace TSR_Accoun_Application.Features.Educations.Commands
 			var university = textInfo.ToTitleCase(request.University.Trim());
 			var speciality = textInfo.ToTitleCase(request.Speciality.Trim());
 
-			var existingEducation = user.Experiences.FirstOrDefault(e =>
+			var existingEducation = user.Educations.FirstOrDefault(e =>
 				e.University.Equals(university, StringComparison.OrdinalIgnoreCase) &&
 				e.Speciality.Equals(speciality, StringComparison.OrdinalIgnoreCase));
 

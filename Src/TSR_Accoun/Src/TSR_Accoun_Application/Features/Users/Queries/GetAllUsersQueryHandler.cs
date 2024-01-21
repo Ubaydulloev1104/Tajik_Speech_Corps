@@ -2,11 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TSR_Accoun_Application.Contracts.User.Queries;
 using TSR_Accoun_Application.Contracts.User.Responses;
 using TSR_Accoun_Domain.Entities;

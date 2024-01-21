@@ -35,11 +35,11 @@ namespace TSR_Accoun_Application.Features.Educations.Queries
 				userName = request.UserName;
 
 			var user = await _context.Users
-				.Include(u => u.Experiences)
+				.Include(u => u.Educations)
 				.FirstOrDefaultAsync(u => u.UserName == userName);
 			_ = user ?? throw new NotFoundException("user is not found");
 
-			var userEducationResponses = user.Experiences
+			var userEducationResponses = user.Educations
 				.Select(e => _mapper.Map<UserEducationResponse>(e)).ToList();
 
 			return userEducationResponses;

@@ -7,9 +7,13 @@ using TSR_Accoun_Domain.Entities;
 
 namespace TSR_Accoun_Application.Features.Users.Queries
 {
-	public class CheckUserDetailsQueryHandler(UserManager<ApplicationUser> userManager) : IRequestHandler<CheckUserDetailsQuery, UserDetailsResponse>
+	public class CheckUserDetailsQueryHandler : IRequestHandler<CheckUserDetailsQuery, UserDetailsResponse>
 	{
-		private readonly UserManager<ApplicationUser> _userManager = userManager;
+        public CheckUserDetailsQueryHandler(UserManager<ApplicationUser> userManager)
+        {
+			_userManager = userManager;
+		}
+        private readonly UserManager<ApplicationUser> _userManager;
 
 		public async Task<UserDetailsResponse> Handle(CheckUserDetailsQuery request, CancellationToken cancellationToken)
 		{
