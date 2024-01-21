@@ -4,9 +4,15 @@ using TSR_Accoun_Application.Common.Exceptions;
 
 namespace TSR_Accoun_Api.Filters
 {
-	public class ApiExceptionFilterAttribute(ILogger<ApiExceptionFilterAttribute> logger) : ExceptionFilterAttribute
+	public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 	{
-		public override void OnException(ExceptionContext context)
+		public ILogger<ApiExceptionFilterAttribute> _logger { get; }
+
+		public ApiExceptionFilterAttribute(ILogger<ApiExceptionFilterAttribute> logger)
+        {
+			_logger = logger;
+		}
+        public override void OnException(ExceptionContext context)
 		{
 			context.ExceptionHandled = context switch
 			{
@@ -32,7 +38,7 @@ namespace TSR_Accoun_Api.Filters
 				Detail = context.Exception.Message
 			};
 			context.Result = new ObjectResult(details) { StatusCode = StatusCodes.Status400BadRequest };
-			logger.LogError(context.Exception, nameof(HandleGenericException));
+			_logger.LogError(context.Exception, nameof(HandleGenericException));
 			return true;
 		}
 
@@ -67,7 +73,7 @@ namespace TSR_Accoun_Api.Filters
 			};
 
 			context.Result = new ObjectResult(details) { StatusCode = StatusCodes.Status500InternalServerError };
-			logger.LogError(context.Exception, nameof(HandleUnknownException));
+			_logger.LogError(context.Exception, nameof(HandleUnknownException));
 			return true;
 		}
 
