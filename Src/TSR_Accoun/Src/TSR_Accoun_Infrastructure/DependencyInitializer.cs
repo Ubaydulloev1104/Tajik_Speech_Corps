@@ -47,12 +47,9 @@ namespace TSR_Accoun_Infrastructure
 				options.Password.RequiredLength = 8;
 				options.ClaimsIdentity.EmailClaimType = ClaimTypes.Email;
 				options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role;
-				options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Id;
-				options.ClaimsIdentity.UserNameClaimType = ClaimTypes.Username;
 				options.User.RequireUniqueEmail = false;
 			})
-				.AddEntityFrameworkStores<ApplicationDbContext>()
-				.AddDefaultTokenProviders();
+				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 
@@ -87,16 +84,6 @@ namespace TSR_Accoun_Infrastructure
 					.RequireRole(ApplicationClaimValues.SuperAdministrator, ApplicationClaimValues.Administrator));
 			});
 
-			var corsAllowedHosts = configurations.GetSection("MraIdentity-CORS").Get<string[]>();
-			services.AddCors(options =>
-			{
-				options.AddPolicy("CORS_POLICY", policyConfig =>
-				{
-					policyConfig.WithOrigins(corsAllowedHosts)
-								.AllowAnyHeader()
-								.AllowAnyMethod();
-				});
-			});
 		}
 
 

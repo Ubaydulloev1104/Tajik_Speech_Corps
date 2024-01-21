@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using TSR_Accoun_Application.Common.Interfaces.Services;
 
 namespace TSR_Accoun_Infrastructure.Account.Services
@@ -22,7 +17,7 @@ namespace TSR_Accoun_Infrastructure.Account.Services
 		{
 			var user = _httpContextAccessor.HttpContext?.User;
 
-			var idClaim = user?.FindFirst(ClaimTypes.Id);
+			var idClaim = user?.FindFirst(ClaimTypes.Name);
 
 			if (idClaim != null && Guid.TryParse(idClaim.Value, out Guid id))
 				return id;
@@ -33,7 +28,7 @@ namespace TSR_Accoun_Infrastructure.Account.Services
 		public string GetUserName()
 		{
 			var user = _httpContextAccessor.HttpContext?.User;
-			var userNameClaim = user?.FindFirst(ClaimTypes.Username);
+			var userNameClaim = user?.FindFirst(ClaimTypes.Name);
 
 			return userNameClaim != null ? userNameClaim.Value : string.Empty;
 		}

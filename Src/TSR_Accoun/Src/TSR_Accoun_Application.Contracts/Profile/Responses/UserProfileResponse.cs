@@ -1,6 +1,4 @@
-﻿using TSR_Accoun_Domain.Enumes;
-
-namespace TSR_Accoun_Application.Contracts.Profile.Responses
+﻿namespace TSR_Accoun_Application.Contracts.Profile.Responses
 {
 	public class UserProfileResponse
 	{
