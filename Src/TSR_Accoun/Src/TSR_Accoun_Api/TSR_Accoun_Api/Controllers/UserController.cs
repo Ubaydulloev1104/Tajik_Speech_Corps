@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TSR_Accoun_Application.Contracts.User.Queries;
+using TSR_Accoun_Application.Contracts.User.Queries.CheckUserDetails;
 using TSR_Accoun_Infrastructure.Identity;
 
 namespace TSR_Accoun_Api.Controllers
@@ -35,7 +36,7 @@ namespace TSR_Accoun_Api.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> CheckUserName([FromRoute] string userName)
 		{
-			var result = await _mediator.Send(new CheckUserNameQuery() { UserName = userName });
+			var result = await _mediator.Send(new CheckUserDetailsQuery() { UserName = userName });
 			return Ok(result);
 		}
 	}
