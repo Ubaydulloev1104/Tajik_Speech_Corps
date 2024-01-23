@@ -28,4 +28,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Src\TSR_Accoun\Src\TSR_Accoun_Api\TSR_Accoun_Api\TSR_Accoun_Api.csproj" />
+    <ProjectReference Include="..\..\..\Src\TSR_Accoun\Src\TSR_Accoun_Domain\TSR_Accoun_Domain.csproj" />
+  </ItemGroup>
+
 </Project>

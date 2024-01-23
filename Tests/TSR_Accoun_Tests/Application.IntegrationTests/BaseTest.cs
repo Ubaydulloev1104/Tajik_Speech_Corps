@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using TSR_Accoun_Application.Common.Interfaces.Services;
+using TSR_Accoun_Domain.Entities;
+using TSR_Accoun_Infrastructure.Persistence;
 
 namespace Application.IntegrationTests
 {
