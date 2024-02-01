@@ -83,6 +83,16 @@ namespace TSR_Accoun_Infrastructure
 				auth.AddPolicy(ApplicationPolicies.Administrator, op => op
 					.RequireRole(ApplicationClaimValues.SuperAdministrator, ApplicationClaimValues.Administrator));
 			});
+			var corsAllowedHosts = configurations.GetSection("CORS").Get<string[]>();
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CORS_POLICY", policyConfig =>
+				{
+					policyConfig.WithOrigins(corsAllowedHosts)
+								.AllowAnyHeader()
+								.AllowAnyMethod();
+				});
+			});
 
 		}
 
