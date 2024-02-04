@@ -22,7 +22,7 @@ namespace Application.Common.Behaviours
 			string userName = _currentUserService.GetUserName() ?? "";
 			await Task.CompletedTask;
 
-			_logger.LogInformation("TSP Request: {Name} {@UserId} {@UserName} {@Request}",
+			_logger.LogInformation("TSR Request: {Name} {@UserId} {@UserName} {@Request}",
 				requestName, userId, userName, request);
 		}
 	}

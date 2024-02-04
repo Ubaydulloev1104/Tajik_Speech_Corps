@@ -39,7 +39,7 @@ namespace Application.Common.Behaviours
 				Guid? userId = _currentUserService.GetUserId();
 				string userName = _currentUserService.GetUserName();
 				_logger.LogWarning(
-					"TSP Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
+					"TSR Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
 					requestName, elapsedMilliseconds, userId, userName, request);
 			}
 
