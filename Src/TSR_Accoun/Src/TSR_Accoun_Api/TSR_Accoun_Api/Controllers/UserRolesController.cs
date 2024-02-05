@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TSR_Accoun_Application.Contracts.UserRoles.Commands;
 using TSR_Accoun_Application.Contracts.UserRoles.Queries;
-using TSR_Accoun_Infrastructure.Identity;
 
 namespace TSR_Accoun_Api.Controllers
 {

@@ -1,5 +1,4 @@
 using FluentValidation.AspNetCore;
-using FluentValidation;
 using TSR_Accoun_Api.Filters;
 using TSR_Accoun_Application;
 using TSR_Accoun_Infrastructure;
@@ -17,17 +16,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 
+WebApplication app = builder.Build();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 using (var scope = app.Services.CreateScope())
 {
 	var initialiser = scope.ServiceProvider.GetRequiredService<DbMigration>();
