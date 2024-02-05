@@ -20,6 +20,10 @@ namespace TSR_Accoun_Application.Features.Users.Queries
 			IRequestHandler<GetAccessTokenUsingRefreshTokenQuery, JwtTokenResponse>.Handle(
 				GetAccessTokenUsingRefreshTokenQuery request, CancellationToken cancellationToken)
 		{
+			if (!AreTokensRelated(request))
+			{
+				throw new ValidationException("Tokens are not related");
+			}
 			var claims = GetTokenClaims(request.AccessToken);
 			if (claims.Count != 0)
 			{
@@ -31,6 +35,18 @@ namespace TSR_Accoun_Application.Features.Users.Queries
 				});
 			}
 			throw new ValidationException("Could not validate token");
+		}
+		private bool AreTokensRelated(GetAccessTokenUsingRefreshTokenQuery query)
+		{
+			var tokenHandler = new JwtSecurityTokenHandler();
+
+			var refreshClaims = tokenHandler.ReadJwtToken(query.RefreshToken);
+			var refreshUserId = refreshClaims.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Id);
+			var accessClaims = tokenHandler.ReadJwtToken(query.AccessToken);
+			var accessUserId = accessClaims.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Id);
+			return refreshUserId != null &&
+				   accessUserId != null &&
+				   refreshUserId.Value == accessUserId.Value;
 		}
 		private List<Claim> GetTokenClaims(string token)
 		{

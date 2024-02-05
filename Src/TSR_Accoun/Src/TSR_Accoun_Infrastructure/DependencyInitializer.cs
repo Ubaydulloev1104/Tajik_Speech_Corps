@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,11 +46,14 @@ namespace TSR_Accoun_Infrastructure
 				options.Password.RequireUppercase = true;
 				options.Password.RequireDigit = true;
 				options.Password.RequiredLength = 8;
-				options.ClaimsIdentity.EmailClaimType = ClaimTypes.Email;
-				options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role;
+				options.ClaimsIdentity.EmailClaimType = TSR_Accoun_Application.ClaimTypes.Email;
+				options.ClaimsIdentity.RoleClaimType = TSR_Accoun_Application.ClaimTypes.Role;
+				options.ClaimsIdentity.UserIdClaimType = TSR_Accoun_Application.ClaimTypes.Id;
+				options.ClaimsIdentity.UserNameClaimType = TSR_Accoun_Application.ClaimTypes.Username;
 				options.User.RequireUniqueEmail = false;
 			})
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+		   .AddEntityFrameworkStores<ApplicationDbContext>()
+		   .AddDefaultTokenProviders();
 
 
 

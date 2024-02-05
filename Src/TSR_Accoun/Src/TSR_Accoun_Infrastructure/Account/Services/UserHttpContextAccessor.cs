@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using TSR_Accoun_Application.Common.Interfaces.Services;
+using TSR_Accoun_Application;
 
 namespace TSR_Accoun_Infrastructure.Account.Services
 {
@@ -17,7 +18,7 @@ namespace TSR_Accoun_Infrastructure.Account.Services
 		{
 			var user = _httpContextAccessor.HttpContext?.User;
 
-			var idClaim = user?.FindFirst(ClaimTypes.Name);
+			var idClaim = user?.FindFirst(TSR_Accoun_Application.ClaimTypes.Id);
 
 			if (idClaim != null && Guid.TryParse(idClaim.Value, out Guid id))
 				return id;
@@ -28,7 +29,7 @@ namespace TSR_Accoun_Infrastructure.Account.Services
 		public string GetUserName()
 		{
 			var user = _httpContextAccessor.HttpContext?.User;
-			var userNameClaim = user?.FindFirst(ClaimTypes.Name);
+			var userNameClaim = user?.FindFirst(TSR_Accoun_Application.ClaimTypes.Username);
 
 			return userNameClaim != null ? userNameClaim.Value : string.Empty;
 		}
@@ -36,7 +37,7 @@ namespace TSR_Accoun_Infrastructure.Account.Services
 		public List<string> GetUserRoles()
 		{
 			var user = _httpContextAccessor.HttpContext?.User;
-			var roleClaims = user?.FindAll(ClaimTypes.Role);
+			var roleClaims = user?.FindAll(TSR_Accoun_Application.ClaimTypes.Role);
 
 			return roleClaims?.Select(rc => rc.Value).ToList() ?? new List<string>();
 		}
