@@ -23,11 +23,11 @@ namespace TSR_Accoun_Infrastructure.Persistence
 		}
 		public async Task SeedAsync()
 		{
-			//await CreateRolesAsync();
+			await CreateRolesAsync();
 
-			//await CreateSuperAdminAsync();
+			await CreateSuperAdminAsync();
 
-			//await CreateApplicationAdmin("TSR", "tsr1245$.AU");
+			await CreateApplicationAdmin("TSR", "tsr1245$.AU");
 		}
 
 		private async Task CreateApplicationAdmin(string applicationName, string adminPassword)
@@ -70,7 +70,7 @@ namespace TSR_Accoun_Infrastructure.Persistence
 			//create role claim
 			if (!await _context.UserClaims.AnyAsync(s =>
 					s.UserId == mraJobsAdminUser.Id &&
-					s.ClaimType == TSR_Accoun_Application. ClaimTypes.Role))
+					s.ClaimType == TSR_Accoun_Application.ClaimTypes.Role))
 			{
 				var userRoleClaim = new ApplicationUserClaim
 				{
