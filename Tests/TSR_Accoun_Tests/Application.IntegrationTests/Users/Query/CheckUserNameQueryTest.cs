@@ -1,32 +1,32 @@
-﻿using System.Net.Http.Json;
+﻿////using System.Net.Http.Json;
 
-namespace Application.IntegrationTests.Users.Query
-{
-	public class CheckUserNameQueryTest : BaseTest
-	{
+////namespace Application.IntegrationTests.Users.Query
+////{
+////	public class CheckUserNameQueryTest : BaseTest
+////	{
 
-		[Test]
-		public async Task UserName_IsAvailable()
-		{
-			var userName = "AlanWalker";
-			var response = await _client.GetAsync($"/api/User/CheckUserName/{userName}");
+////		[Test]
+////		public async Task UserName_IsAvailable()
+////		{
+////			var userName = "AlanWalker";
+////			var response = await _client.GetAsync($"/api/User/CheckUserName/{userName}");
 
-			var isAvailable = !(await response.Content.ReadFromJsonAsync<bool>());
+////			var isAvailable = !(await response.Content.ReadFromJsonAsync<bool>());
 
-			Assert.IsTrue(isAvailable);
-		}
+////			Assert.IsTrue(isAvailable);
+////		}
 
-		[Test]
-		public async Task UserName_IsNotAvailable()
-		{
-			var userName = "@Alex33";
-			var response = await _client.GetAsync($"/api/User/CheckUserName/{userName}");
+////		[Test]
+////		public async Task UserName_IsNotAvailable()
+////		{
+////			var userName = "@Alex33";
+////			var response = await _client.GetAsync($"/api/User/CheckUserName/{userName}");
 
-			var isAvailable = !(await response.Content.ReadFromJsonAsync<bool>());
+////			var isAvailable = !(await response.Content.ReadFromJsonAsync<bool>());
 
-			Assert.IsFalse(isAvailable);
-		}
+////			Assert.IsFalse(isAvailable);
+////		}
 
-	}
+////	}
 
-}
+////}

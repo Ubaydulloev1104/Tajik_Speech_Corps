@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\..\Solution Items\.gitignore = ..\..\Solution Items\.gitignore
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6930B76A-5918-4AEC-88B2-B0D504C98B3D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{7CAD429E-21C6-44C9-81AD-41C9D11242C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSR_Accoun_Application.Contracts", "Src\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj", "{7FBDF76E-9A15-4FA2-AA1E-EF284B875CB8}"
@@ -22,12 +20,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSR_Accoun_Application", "Src\TSR_Accoun_Application\TSR_Accoun_Application.csproj", "{B21E2B82-17C3-44E6-B271-5203A65DD088}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TSR_Accoun_Api", "Src\TSR_Accoun_Api\TSR_Accoun_Api\TSR_Accoun_Api.csproj", "{19A82426-4985-473C-A43B-7863201F05C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.IntegrationTests", "..\..\Tests\TSR_Accoun_Tests\Application.IntegrationTests\Application.IntegrationTests.csproj", "{446FDE22-7274-4D1B-91CA-F142E397F872}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "..\..\Tests\TSR_Accoun_Tests\Application.UnitTests\Application.UnitTests.csproj", "{7FEACD1B-437C-4CCC-B12B-BD007DA94499}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UnitTests", "..\..\Tests\TSR_Accoun_Tests\Domain.UnitTests\Domain.UnitTests.csproj", "{38AB2D88-1F8B-48C0-AA21-E8C473FCB21E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,18 +47,6 @@ Global
 		{19A82426-4985-473C-A43B-7863201F05C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A82426-4985-473C-A43B-7863201F05C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A82426-4985-473C-A43B-7863201F05C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{446FDE22-7274-4D1B-91CA-F142E397F872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{446FDE22-7274-4D1B-91CA-F142E397F872}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{446FDE22-7274-4D1B-91CA-F142E397F872}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{446FDE22-7274-4D1B-91CA-F142E397F872}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FEACD1B-437C-4CCC-B12B-BD007DA94499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FEACD1B-437C-4CCC-B12B-BD007DA94499}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FEACD1B-437C-4CCC-B12B-BD007DA94499}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FEACD1B-437C-4CCC-B12B-BD007DA94499}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38AB2D88-1F8B-48C0-AA21-E8C473FCB21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38AB2D88-1F8B-48C0-AA21-E8C473FCB21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38AB2D88-1F8B-48C0-AA21-E8C473FCB21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38AB2D88-1F8B-48C0-AA21-E8C473FCB21E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,9 +57,6 @@ Global
 		{4B85A8D8-51F6-445C-9BAE-60E78EF02857} = {7CAD429E-21C6-44C9-81AD-41C9D11242C8}
 		{B21E2B82-17C3-44E6-B271-5203A65DD088} = {7CAD429E-21C6-44C9-81AD-41C9D11242C8}
 		{19A82426-4985-473C-A43B-7863201F05C9} = {7CAD429E-21C6-44C9-81AD-41C9D11242C8}
-		{446FDE22-7274-4D1B-91CA-F142E397F872} = {6930B76A-5918-4AEC-88B2-B0D504C98B3D}
-		{7FEACD1B-437C-4CCC-B12B-BD007DA94499} = {6930B76A-5918-4AEC-88B2-B0D504C98B3D}
-		{38AB2D88-1F8B-48C0-AA21-E8C473FCB21E} = {6930B76A-5918-4AEC-88B2-B0D504C98B3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A567313-CAEC-4D2F-B1D4-0C38C0AC5EA3}

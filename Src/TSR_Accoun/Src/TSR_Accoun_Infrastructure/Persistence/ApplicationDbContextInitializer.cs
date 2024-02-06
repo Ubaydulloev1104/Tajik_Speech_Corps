@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using TSR_Accoun_Application.Common.Interfaces.DbContexts;
 using TSR_Accoun_Domain.Entities;
 using TSR_Accoun_Infrastructure.Identity;
@@ -24,11 +23,11 @@ namespace TSR_Accoun_Infrastructure.Persistence
 		}
 		public async Task SeedAsync()
 		{
-			await CreateRolesAsync();
+			//await CreateRolesAsync();
 
-			await CreateSuperAdminAsync();
+			//await CreateSuperAdminAsync();
 
-			await CreateApplicationAdmin("TSR", "tsr1245$.AU");
+			//await CreateApplicationAdmin("TSR", "tsr1245$.AU");
 		}
 
 		private async Task CreateApplicationAdmin(string applicationName, string adminPassword)
