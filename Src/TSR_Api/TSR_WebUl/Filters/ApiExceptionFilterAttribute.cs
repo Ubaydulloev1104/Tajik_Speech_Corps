@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Application.Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 
 namespace TSR_WebUl.Filters
 {
