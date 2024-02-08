@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Application.Contracts.Common;
+using Microsoft.Extensions.Options;
 using Sieve.Models;
 using Sieve.Services;
 using System.Reflection;
