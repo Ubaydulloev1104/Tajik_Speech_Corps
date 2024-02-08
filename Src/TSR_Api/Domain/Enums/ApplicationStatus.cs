@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain.Enums
 {
@@ -58,14 +53,6 @@ namespace Domain.Enums
 		StatusChanged = 3,
 		Note = 4,
 		Error = 5
-	}
-
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum TrainingFormat
-	{
-		Online,
-		Offline,
-		OnlineAndOffline
 	}
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
