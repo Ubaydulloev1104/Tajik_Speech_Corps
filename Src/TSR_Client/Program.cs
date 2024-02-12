@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
 using TSR_Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
