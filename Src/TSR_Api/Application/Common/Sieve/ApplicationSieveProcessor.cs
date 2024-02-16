@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Common;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Sieve.Models;
 using Sieve.Services;
@@ -40,9 +41,9 @@ namespace Application.Common.Sieve
 
 		protected override SievePropertyMapper MapProperties(SievePropertyMapper mapper)
 		{
-			//var markers = _services.GetServices<ISieveConfigurationsAssemblyMarker>();
-			//foreach (var marker in markers)
-			mapper.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+			var markers = _services.GetServices<ISieveConfigurationsAssemblyMarker>();
+			foreach (var marker in markers)
+				mapper.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
 			return mapper;
 		}
