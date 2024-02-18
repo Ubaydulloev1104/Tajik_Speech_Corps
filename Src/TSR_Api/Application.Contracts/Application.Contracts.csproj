@@ -12,4 +12,9 @@
     <PackageReference Include="Sieve" Version="2.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Applications\Queries\" />
+    <Folder Include="Applications\Responses\" />
+  </ItemGroup>
+
 </Project>
