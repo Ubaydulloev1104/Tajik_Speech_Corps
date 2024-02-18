@@ -12,7 +12,7 @@ namespace Domain.Entities
 		public Guid ApplicantId { get; set; }
 		public ICollection<ApplicationTimelineEvent> History { get; set; }
 
-		public Text Text { get; set; }
+		public Word Text { get; set; }
 		public Guid TextId { get; set; }
 		public IEnumerable<Audio> Audios { get; set; }
 
