@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
 	public class WordTimelineEvent : TimelineEvent
 	{
-		public Guid TextId { get; set; }
-		public Word Texts { get; set; }
+		public Guid WordId { get; set; }
+		public Word Words { get; set; }
 	}
 }

@@ -8,6 +8,6 @@ namespace Domain.Entities
 	{
 		public string Name { get; set; }
 		public string Slug { get; set; }
-		public ICollection<Word> Texts { get; set; }
+		public ICollection<Word> Words { get; set; }
 	}
 }

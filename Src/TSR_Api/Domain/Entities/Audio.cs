@@ -7,7 +7,7 @@ namespace Domain.Entities
 	{
 		public string Slug { get; set; }
 		public string FileName { get; set; }
-		public Word Text { get; set; }
+		public Word Word { get; set; }
 
 
 	}
