@@ -20,6 +20,8 @@
     <Folder Include="Applications\Queries\GetApplicationsByStatus\" />
     <Folder Include="Applications\Queries\GetApplicationWithPagination\" />
     <Folder Include="Applications\Responses\" />
+    <Folder Include="Identity\" />
+    <Folder Include="MyProfile\" />
   </ItemGroup>
 
 </Project>
