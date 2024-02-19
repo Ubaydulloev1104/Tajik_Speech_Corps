@@ -22,6 +22,7 @@
     <Folder Include="Applications\Responses\" />
     <Folder Include="Identity\" />
     <Folder Include="MyProfile\" />
+    <Folder Include="WordCategore\" />
     <Folder Include="Word\" />
   </ItemGroup>
 
