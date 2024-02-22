@@ -15,7 +15,6 @@
   <ItemGroup>
     <Folder Include="Applications\Commands\CreateApplication\" />
     <Folder Include="Applications\Commands\UpdateApplication\" />
-    <Folder Include="Applications\Commands\UpdateApplicationStatus\" />
     <Folder Include="Applications\Queries\GetApplicationBySlug\" />
     <Folder Include="Applications\Queries\GetApplicationsByStatus\" />
     <Folder Include="Applications\Queries\GetApplicationWithPagination\" />
