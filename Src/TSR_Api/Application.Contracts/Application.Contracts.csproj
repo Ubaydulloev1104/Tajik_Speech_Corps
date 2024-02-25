@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Applications\Commands\CreateApplication\" />
     <Folder Include="Applications\Commands\UpdateApplication\" />
     <Folder Include="Applications\Queries\GetApplicationBySlug\" />
     <Folder Include="Applications\Queries\GetApplicationsByStatus\" />
