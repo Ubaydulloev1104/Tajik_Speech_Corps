@@ -19,7 +19,6 @@
     <Folder Include="Applications\Queries\GetApplicationWithPagination\" />
     <Folder Include="Applications\Responses\" />
     <Folder Include="Identity\" />
-    <Folder Include="MyProfile\Queries\" />
     <Folder Include="WordCategore\" />
     <Folder Include="Word\" />
   </ItemGroup>
