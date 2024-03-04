@@ -19,7 +19,7 @@ namespace Application.IntegrationTests.UserProfile
 			var response = await _client.GetAsync($"/api/Profile?userName=amir");
 
 
-			Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
+			Assert.That(HttpStatusCode.Forbidden==response.StatusCode);
 		}
 
 		[Test]
@@ -37,7 +37,7 @@ namespace Application.IntegrationTests.UserProfile
 			await AddReviewerAuthorizationAsync();
 			var response = await _client.GetAsync($"/api/Profile?userName=@Alex34");
 
-			Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+			Assert.That(HttpStatusCode.NotFound == response.StatusCode);
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace Application.IntegrationTests.Users.Command
 
 			// Assert
 			response.EnsureSuccessStatusCode();
-			Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+			Assert.That(HttpStatusCode.OK==response.StatusCode);
 		}
 
 		[Test]
@@ -45,10 +45,10 @@ namespace Application.IntegrationTests.Users.Command
 			var response = await _client.PutAsJsonAsync("/api/Auth/ChangePassword", command);
 
 			// Assert
-			Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+			Assert.That(HttpStatusCode.BadRequest==response.StatusCode);
 
 			var responseString = (await response.Content.ReadFromJsonAsync<ProblemDetails>()).Detail;
-			Assert.AreEqual("Incorrect old password", responseString);
+			Assert.That("Incorrect old password"==responseString);
 		}
 	}
 }

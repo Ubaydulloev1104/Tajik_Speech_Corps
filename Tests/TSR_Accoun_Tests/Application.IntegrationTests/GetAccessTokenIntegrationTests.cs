@@ -50,7 +50,7 @@ namespace Application.IntegrationTests
 
 			//Assert
 			response.EnsureSuccessStatusCode();
-			Assert.IsNotNull(response);
+			Assert.That(response,Is.Not.Null);
 		}
 
 		[Test]

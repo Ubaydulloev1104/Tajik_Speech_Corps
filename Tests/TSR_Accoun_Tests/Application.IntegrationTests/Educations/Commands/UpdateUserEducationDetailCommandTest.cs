@@ -80,8 +80,8 @@ namespace Application.IntegrationTests.Educations.Commands
 
 			var response = await _client.PutAsJsonAsync("/api/Profile/UpdateEducationDetail", command);
 
-			Assert.AreEqual(response.StatusCode, HttpStatusCode.BadRequest);
-			Assert.IsTrue((await response.Content.ReadFromJsonAsync<ProblemDetails>()).Detail.Contains("Education detail already exists"));
+			Assert.That(HttpStatusCode.BadRequest==response.StatusCode);
+			Assert.That((await response.Content.ReadFromJsonAsync<ProblemDetails>()).Detail.Contains("Education detail already exists"),Is.Not.False);
 		}
 	}
 }

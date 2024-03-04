@@ -33,7 +33,7 @@ namespace Application.IntegrationTests.Roles.Commands
 			await AddAuthorizationAsync();
 			var response = await _client.DeleteAsync($"/api/roles/test7");
 
-			Assert.IsTrue(response.StatusCode == HttpStatusCode.NotFound);
+			Assert.That(response.StatusCode == HttpStatusCode.NotFound);
 		}
 	}
 }
