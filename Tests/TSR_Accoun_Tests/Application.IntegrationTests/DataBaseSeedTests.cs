@@ -39,17 +39,17 @@ namespace Application.IntegrationTests
 			roleClaim.Should().NotBeNull();
 		}
 
-		#endregion
+        #endregion
 
-		#region MraJobsAdmin
+        #region TSRAdmin
 
-		private async Task<ApplicationUser> GetMraJobsAdmin() =>
-			await GetEntity<ApplicationUser>(s => s.UserName == "MraJobsAdmin");
+        private async Task<ApplicationUser> GetTSRAdmin() =>
+			await GetEntity<ApplicationUser>(s => s.UserName == "TSRAdmin");
 
 		[Test]
-		public async Task MraJobsAdminRole()
+		public async Task TSRAdminRole()
 		{
-			var superAdmin = await GetMraJobsAdmin();
+			var superAdmin = await GetTSRAdmin();
 			var superAdminRole = await GetEntity<ApplicationRole>(s =>
 				s.NormalizedName == ApplicationClaimValues.Administrator.ToUpper());
 			superAdminRole.Should().NotBeNull();
@@ -62,15 +62,15 @@ namespace Application.IntegrationTests
 		}
 
 		[Test]
-		public async Task MraJobsAdminUser()
+		public async Task TSRAdminUser()
 		{
-			(await GetMraJobsAdmin()).Should().NotBeNull();
+			(await GetTSRAdmin()).Should().NotBeNull();
 		}
 
 		[Test]
-		public async Task MraJobsAdminClaims()
+		public async Task TSRAdminClaims()
 		{
-			var superAdmin = await GetMraJobsAdmin();
+			var superAdmin = await GetTSRAdmin();
 
 			var roleClaim = await GetEntity<ApplicationUserClaim>(s =>
 				s.UserId == superAdmin.Id &&
