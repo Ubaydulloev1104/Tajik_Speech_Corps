@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TSR_Accoun\Src\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj" />
     <ProjectReference Include="..\TSR_Api\Application.Contracts\Application.Contracts.csproj" />
+    <ProjectReference Include="..\TSR_Accoun\Src\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
