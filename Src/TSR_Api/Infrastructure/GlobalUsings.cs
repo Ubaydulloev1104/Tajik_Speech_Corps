@@ -5,4 +5,3 @@ global using Microsoft.EntityFrameworkCore;
 global using Domain.Entities;
 global using System.Reflection;
 global using Application.Common.Security;
-global using Infrastructure.Identity.Services;

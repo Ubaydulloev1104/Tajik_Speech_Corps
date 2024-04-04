@@ -27,9 +27,4 @@
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

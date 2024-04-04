@@ -1,6 +1,6 @@
 ﻿namespace Domain.Common
 {
-	internal interface ISoftDelete
+    public interface ISoftDelete
 	{
 		bool IsDeleted { get; set; }
 	}

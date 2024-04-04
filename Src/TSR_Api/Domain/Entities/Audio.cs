@@ -3,8 +3,8 @@
 namespace Domain.Entities
 {
 	[Index(nameof(Slug))]
-	public class Audio
-	{
+	public class Audio : BaseAuditableEntity
+    {
         public Guid Id { get; set; } 
         public string Slug { get; set; }
         public string FileName { get; set; } 
