@@ -1,9 +1,8 @@
-﻿using Domain.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Entities
 {
-	[Index(nameof(Slug), IsUnique = true)]
+    [Index(nameof(Slug), IsUnique = true)]
 	public class WordCategory : BaseEntity
 	{
 		public string Name { get; set; }

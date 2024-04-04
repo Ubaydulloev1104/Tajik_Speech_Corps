@@ -5,19 +5,11 @@ namespace Domain.Enums
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public enum ApplicationStatus
 	{
-		Submitted,
-		TestCompleted,
-		Verified,
-		InterviewPassed,
-		Approved,
-		Hired,
-		Reserved,
-		Expired,
-		Refused,
-		TestFailed,
-		InterviewFailed,
-		Rejected
-	}
+        Approved,
+        Hired,
+        Rejected,
+        Expert
+    }
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public enum Gender
@@ -55,10 +47,4 @@ namespace Domain.Enums
 		Error = 5
 	}
 
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public enum WorkSchedule
-	{
-		FullTime = 1,
-		Flexible = 2
-	}
 }

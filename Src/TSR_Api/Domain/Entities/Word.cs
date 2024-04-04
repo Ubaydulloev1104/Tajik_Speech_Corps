@@ -1,5 +1,4 @@
-﻿using Domain.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Entities
 {
