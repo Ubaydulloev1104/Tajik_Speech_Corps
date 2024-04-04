@@ -5,10 +5,12 @@ namespace Domain.Enums
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public enum ApplicationStatus
 	{
+        Submitted,
+        Verified,
         Approved,
-        Hired,
-        Rejected,
-        Expert
+        Reserved,
+        Expired,
+        Refused
     }
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
