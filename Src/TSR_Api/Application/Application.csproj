@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Applications\Command\UpdateApplicationStatus\" />
-    <Folder Include="Features\Applications\Query\" />
+    <Folder Include="Features\Applications\Query\GetApplicationsByStatus\" />
+    <Folder Include="Features\Applications\Query\GetApplicationWithPagination\" />
   </ItemGroup>
 
 </Project>

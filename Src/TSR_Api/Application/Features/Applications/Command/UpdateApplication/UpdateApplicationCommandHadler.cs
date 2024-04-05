@@ -1,10 +1,6 @@
 ﻿using Application.Common.SlugGeneratorService;
+using Application.Contracts.Applications.Commands.UpdateApplication;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Applications.Command.UpdateApplication
 {

@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Application.Contracts.Applications.Commands.Delete
+﻿namespace Application.Contracts.Applications.Commands.Delete
 {
     public class DeleteApplicationCommand : IRequest<bool>
     {

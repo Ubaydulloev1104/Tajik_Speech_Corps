@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Contracts.Converter.Converter;
+using Application.Contracts.MyProfile.Responses;
+using Newtonsoft.Json;
 
 namespace Application.Contracts.MyProfile.Commands
 {
-	internal class UpdateMyProfileCommand
-	{
-	}
+    public class UpdateMyProfileCommand : IRequest<MyProfileResponse>
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Patronymic { get; set; }
+
+        [JsonConverter(typeof(DateTimeToUnixConverter))]
+        public DateTime DateOfBirth { get; set; }
+
+        public string Avatar { get; set; }
+        public Dtos.Enums.ApplicationStatusDto.Gender Gender { get; set; }
+    }
 }
