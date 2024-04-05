@@ -1,10 +1,9 @@
-﻿using Application.Common.Security;
-using MediatR.Pipeline;
+﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
 namespace Application.Common.Behaviours
 {
-	public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
+    public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 	{
 		private readonly ICurrentUserService _currentUserService;
 		private readonly ILogger _logger;

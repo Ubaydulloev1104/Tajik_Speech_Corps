@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Applications\Command\" />
+    <Folder Include="Features\Applications\Command\UpdateApplicationStatus\" />
     <Folder Include="Features\Applications\Query\" />
   </ItemGroup>
 

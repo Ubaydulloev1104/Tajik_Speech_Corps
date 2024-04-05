@@ -1,11 +1,8 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Security;
-using MediatR;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Application.Common.Behaviours
 {
-	public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 	where TRequest : IRequest<TResponse>
 	{
 		private readonly ICurrentUserService _currentUserService;
