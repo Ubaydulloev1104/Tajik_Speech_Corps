@@ -15,7 +15,6 @@
   <ItemGroup>
     <Folder Include="Applications\Commands\UpdateApplication\" />
     <Folder Include="Identity\" />
-    <Folder Include="Word\" />
   </ItemGroup>
 
 </Project>
