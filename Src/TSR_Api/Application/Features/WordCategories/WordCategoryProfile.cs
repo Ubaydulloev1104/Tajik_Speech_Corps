@@ -8,7 +8,6 @@ namespace Application.Features.WordCategories
     {
         public WordCategoryProfile()
         {
-
             CreateMap<CreateWordCategoryCommand, WordCategory>();
             CreateMap<UpdateWordCategoryCommand, WordCategory>();
             CreateMap<WordCategory, CategoryResponse>();

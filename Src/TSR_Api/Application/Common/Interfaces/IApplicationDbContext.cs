@@ -8,7 +8,7 @@ namespace Application.Common.Interfaces
         public DbSet<Domain.Entities.Application> Applications { get; }
         public DbSet<ApplicantSocialMedia> ApplicantSocialMedias { get; }
         public DbSet<ApplicationTimelineEvent> ApplicationTimelineEvents { get; }
-        public DbSet<Word> Words { get; }
+        public DbSet<Words> Words { get; }
         public DbSet<WordTimelineEvent> WordTimelineEvents { get; }
         public DbSet<WordCategory> Categories { get; }
         public DbSet<UserTimelineEvent> UserTimelineEvents { get; }

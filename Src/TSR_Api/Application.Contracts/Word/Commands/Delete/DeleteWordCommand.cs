@@ -5,4 +5,4 @@
         public string Slug { get; set; }
     }
 }
-}
+

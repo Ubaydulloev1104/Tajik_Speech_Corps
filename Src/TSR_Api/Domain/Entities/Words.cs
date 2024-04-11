@@ -3,7 +3,7 @@
 namespace Domain.Entities
 {
     [Index(nameof(Slug))]
-    public class Word : BaseAuditableEntity
+    public class Words : BaseAuditableEntity
     {
         public string Slug { get; set; }
 		public string Value { get; set; }
@@ -14,5 +14,6 @@ namespace Domain.Entities
 		public ICollection<WordTimelineEvent> History { get; set; }
 		public DateTime CreateDate { get; set; } 
 		public DateTime? UpdatedDate { get; set; }
+
 	}
 }

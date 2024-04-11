@@ -3,6 +3,6 @@
     public class WordTimelineEvent : TimelineEvent
 	{
 		public Guid WordId { get; set; }
-		public Word Words { get; set; }
+		public Words Words { get; set; }
 	}
 }

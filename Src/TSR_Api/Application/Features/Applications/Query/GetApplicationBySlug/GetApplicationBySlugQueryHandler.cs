@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.Contracts.Applications.Queries.GetApplicationBySlug;
+using Application.Contracts.Applications.Responses;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Applications.Query.GetApplicationBySlug
 {
@@ -15,7 +17,6 @@ namespace Application.Features.Applications.Query.GetApplicationBySlug
 
         public async Task<ApplicationDetailsDto> Handle(GetBySlugApplicationQuery request, CancellationToken cancellationToken)
         {
-            // var application = await _dbContext.Applications.FindAsync(new object[] { request.Id }, cancellationToken: cancellationToken);
             var application = await _dbContext.Applications
                   .Include(a => a.History)
                   .FirstOrDefaultAsync(a => a.Slug == request.Slug, cancellationToken);

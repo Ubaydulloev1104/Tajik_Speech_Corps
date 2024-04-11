@@ -26,7 +26,7 @@ namespace Infrastructure.Persistence
         public DbSet<Domain.Entities.Application> Applications { get; set; }
         public DbSet<ApplicationTimelineEvent> ApplicationTimelineEvents { get; set; }
         public DbSet<EducationDetail> EducationDetails { get; set; }
-        public DbSet<Word> Words { get; }
+        public DbSet<Words> Words { get; }
         public DbSet<WordTimelineEvent> WordTimelineEvents { get; }
         public DbSet<WordCategory> Categories { get; }
         public DbSet<Audio> Audios { get; set; }

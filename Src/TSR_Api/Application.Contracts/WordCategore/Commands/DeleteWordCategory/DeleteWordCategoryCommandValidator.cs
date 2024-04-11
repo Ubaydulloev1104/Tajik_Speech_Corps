@@ -4,7 +4,7 @@
     {
         public DeleteWordCategoryCommandValidator()
         {
-            RuleFor(x => x.Slug).NotEmpty(
+            RuleFor(x => x.Slug).NotEmpty();
         }
     }
 }

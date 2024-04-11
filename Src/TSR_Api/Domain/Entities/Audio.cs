@@ -10,7 +10,7 @@ namespace Domain.Entities
         public string FileName { get; set; } 
         public string FilePath { get; set; } 
         public string Format { get; set; } 
-        public Word Word { get; set; } 
+        public Words Word { get; set; } 
 
     }
 }

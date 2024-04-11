@@ -2,9 +2,9 @@
 
 namespace Infrastructure.Persistence.TableConfigurations
 {
-    public class WordConfiguration : IEntityTypeConfiguration<Word>
+    public class WordConfiguration : IEntityTypeConfiguration<Words>
     {
-        public void Configure(EntityTypeBuilder<Word> builder)
+        public void Configure(EntityTypeBuilder<Words> builder)
         {
             builder.HasQueryFilter(e => !e.IsDeleted);
             // Common properties

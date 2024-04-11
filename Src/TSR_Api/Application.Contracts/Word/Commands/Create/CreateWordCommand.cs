@@ -19,4 +19,3 @@ namespace Application.Contracts.Word.Commands.Create
         public WorkSchedule WorkSchedule { get; set; }
     }
 }
-}

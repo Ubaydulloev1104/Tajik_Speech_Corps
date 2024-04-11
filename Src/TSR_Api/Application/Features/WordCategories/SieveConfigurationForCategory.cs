@@ -6,7 +6,7 @@ namespace Application.Features.WordCategories
     {
         public void Configure(SievePropertyMapper mapper)
         {
-            mapper.Property<VacancyCategory>(p => p.Name)
+            mapper.Property<WordCategory>(p => p.Name)
                 .CanFilter()
                 .CanSort();
         }

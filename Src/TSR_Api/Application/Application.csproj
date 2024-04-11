@@ -22,10 +22,6 @@
   <ItemGroup>
     <Folder Include="Features\Applications\Query\GetApplicationsByStatus\" />
     <Folder Include="Features\Applications\Query\GetApplicationWithPagination\" />
-    <Folder Include="Features\Word\Commands\DeleteWord\" />
-    <Folder Include="Features\Word\Commands\UpdateWord\" />
-    <Folder Include="Features\Word\queries\GetWordBySlug\" />
-    <Folder Include="Features\Word\queries\GetWordWithPagination\" />
   </ItemGroup>
 
 </Project>
