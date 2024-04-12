@@ -19,9 +19,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Applications\Query\GetApplicationsByStatus\" />
-    <Folder Include="Features\Applications\Query\GetApplicationWithPagination\" />
-  </ItemGroup>
-
 </Project>
