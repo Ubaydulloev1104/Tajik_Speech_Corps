@@ -6,7 +6,7 @@ namespace Application.Features.WordAudio
     {
         public WordAudioProfile() {
         
-        CreateMap<WordAudioDto, Audio>();
+        CreateMap<WordResponseAudioDto, Audio>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Contracts.Dtos
 {
-    public class WordAudioDto
+    public class WordResponseAudioDto
     {
         public string Slug { get; set; }
         public string FileName { get; set; }

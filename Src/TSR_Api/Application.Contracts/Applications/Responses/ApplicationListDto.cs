@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Converter.Converter;
+using Application.Contracts.Dtos;
 using Application.Contracts.Dtos.Enums;
 using Application.Contracts.TimeLineDTO;
 using Newtonsoft.Json;
@@ -10,16 +11,13 @@ namespace Application.Contracts.Applications.Responses
         public Guid Id { get; set; }
         public Guid ApplicantId { get; set; }
         public string Username { get; set; }
-        public string CoverLetter { get; set; }
-        public Guid VacancyId { get; set; }
-        public string VacancyTitle { get; set; }
+        public Guid WordId { get; set; }
+        public string WordValoe { get; set; }
         public int StatusId { get; set; }
         public string StatusName { get; set; }
         public string Slug { get; set; }
         public DateTime CreatedAt { get; set; }
-        public IEnumerable<VacancyResponseDto> VacancyResponses { get; set; }
-        public IEnumerable<TaskResponseDto> TaskResponses { get; set; }
-        public string CV { get; set; }
+        public IEnumerable<WordResponseAudioDto> WordResponseAudioDto { get; set; }
     }
 
     public class ApplicationDetailsDto
@@ -27,8 +25,7 @@ namespace Application.Contracts.Applications.Responses
         public Guid Id { get; set; }
 
         public Guid ApplicantId { get; set; }
-        public string CoverLetter { get; set; }
-        public Guid VacancyId { get; set; }
+        public Guid WordId { get; set; }
         public int StatusId { get; set; }
 
         [JsonConverter(typeof(DateTimeToUnixConverter))]
@@ -43,9 +40,7 @@ namespace Application.Contracts.Applications.Responses
 
         public IEnumerable<TimeLineDetailsDto> History { get; set; }
         public string Slug { get; set; }
-        public string CV { get; set; }
-        public IEnumerable<VacancyResponseDto> VacancyResponses { get; set; }
-        public IEnumerable<TaskResponseDto> TaskResponses { get; set; }
+        public IEnumerable<WordResponseAudioDto> WordResponseAudioDto { get; set; }
     }
 
     public class ApplicationListStatus
