@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
+﻿using Application;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Infrastructure.Identity.Services
 {

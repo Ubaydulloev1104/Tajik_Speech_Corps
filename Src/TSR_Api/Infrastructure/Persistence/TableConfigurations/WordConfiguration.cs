@@ -20,8 +20,8 @@ namespace Infrastructure.Persistence.TableConfigurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(v => v.Applications)
-                .WithOne(a => a.Text)
-                .HasForeignKey(a => a.TextId)
+                .WithOne(a => a.Words)
+                .HasForeignKey(a => a.WordId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(v => v.History)
