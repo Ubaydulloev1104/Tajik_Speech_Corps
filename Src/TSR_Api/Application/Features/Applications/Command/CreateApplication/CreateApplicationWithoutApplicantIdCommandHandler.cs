@@ -54,4 +54,4 @@ namespace Application.Features.Applications.Command.CreateApplication
         }
     }
 }
-}
+

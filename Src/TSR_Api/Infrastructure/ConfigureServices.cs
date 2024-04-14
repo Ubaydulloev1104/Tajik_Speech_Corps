@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 using Infrastructure.Identity;
-using System.Security.Claims;
+using Application;
 
 namespace Infrastructure
 {
