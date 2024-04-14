@@ -47,8 +47,8 @@ namespace Application.Contracts.Applications.Responses
     {
         public Guid Id { get; set; }
         public Guid ApplicantId { get; set; }
-        public Guid VacancyId { get; set; }
-        public string VacancyTitle { get; set; }
+        public Guid WordId { get; set; }
+        public string WordValoe { get; set; }
         public ApplicationStatusDto.ApplicationStatus Status { get; set; }
     }
 }

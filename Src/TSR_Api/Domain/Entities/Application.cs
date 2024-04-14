@@ -8,8 +8,8 @@
 		public string ApplicantUsername { get; set; }
 		public Guid ApplicantId { get; set; }
 		public ICollection<ApplicationTimelineEvent> History { get; set; }
-		public Words Text { get; set; }
-		public Guid TextId { get; set; }
+		public Words Words { get; set; }
+		public Guid WordId { get; set; }
 		public IEnumerable<Audio> Audios { get; set; }
         public string commit { get; set; }
 

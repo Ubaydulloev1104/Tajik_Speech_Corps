@@ -24,19 +24,19 @@ namespace Application.Features.Applications.Command.UpdateApplication
         public async Task<Guid> Handle(UpdateApplicationCommand request, CancellationToken cancellationToken)
         {
             var application = await _context.Applications
-                .Include(a => a.Vacancy)
+                .Include(a => a.Words)
                 .FirstOrDefaultAsync(t => t.Slug == request.Slug, cancellationToken);
             _ = application ?? throw new NotFoundException(nameof(Application), request.Slug); ;
 
             _mapper.Map(request, application);
-            application.Slug = _slugService.GenerateSlug($"{_currentUserService.GetUserName()}-{application.Vacancy.Slug}");
+            application.Slug = _slugService.GenerateSlug($"{_currentUserService.GetUserName()}-{application.Words.Slug}");
 
             var timelineEvent = new ApplicationTimelineEvent
             {
                 ApplicationId = application.Id,
                 EventType = TimelineEventType.Updated,
                 Time = _dateTime.Now,
-                Note = "Application vacancy updated",
+                Note = "Application updated",
                 CreateBy = _currentUserService.GetUserId() ?? Guid.Empty
             };
             await _context.ApplicationTimelineEvents.AddAsync(timelineEvent);

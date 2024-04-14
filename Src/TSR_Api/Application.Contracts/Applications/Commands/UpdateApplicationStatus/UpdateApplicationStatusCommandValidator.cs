@@ -1,6 +1,6 @@
 ﻿namespace Application.Contracts.Applications.Commands.UpdateApplicationStatus
 {
-    public class UpdateApplicationStatusCommandValidator : AbstractValidator<UpdateApplicationStatus>
+    public class UpdateApplicationStatusCommandValidator : AbstractValidator<UpdateApplicationStatuss>
     {
         public UpdateApplicationStatusCommandValidator()
         {

@@ -26,7 +26,7 @@ namespace Application.Features.Applications.Query.GetApplicationWithPagination
         {
             var allApplications = _dbContext.Applications
                 .AsNoTracking()
-                .Include(a => a.Text)
+                .Include(a => a.Words)
                 .Include(a => a.Audios);
 
             var applications = _currentUser.GetRoles().Any(a => a == "Applicant")

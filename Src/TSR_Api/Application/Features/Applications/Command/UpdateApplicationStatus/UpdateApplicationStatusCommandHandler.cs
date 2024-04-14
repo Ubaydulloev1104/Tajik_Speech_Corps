@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.Contracts.Applications.Commands.UpdateApplicationStatus;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Applications.Command.UpdateApplicationStatus
 {
-    public class UpdateApplicationStatusCommandHandler : IRequestHandler<UpdateApplicationStatus, bool>
+    public class UpdateApplicationStatusCommandHandler : IRequestHandler<UpdateApplicationStatuss, bool>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -16,7 +17,7 @@ namespace Application.Features.Applications.Command.UpdateApplicationStatus
             _dateTime = dateTime;
             _currentUserService = currentUserService;
         }
-        public async Task<bool> Handle(UpdateApplicationStatus request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateApplicationStatuss request, CancellationToken cancellationToken)
         {
             var application = await _context.Applications.FirstOrDefaultAsync(t => t.Slug == request.Slug, cancellationToken);
             _ = application ?? throw new NotFoundException(nameof(Application), request.Slug); ;

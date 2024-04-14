@@ -11,9 +11,9 @@ namespace Infrastructure.Persistence.TableConfigurations
             builder.Property(a => a.Status).HasColumnType("int");
 
 
-            builder.HasOne(a => a.Text)
+            builder.HasOne(a => a.Words)
                 .WithMany(v => v.Applications)
-                .HasForeignKey(a => a.TextId)
+                .HasForeignKey(a => a.WordId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(a => a.History)
