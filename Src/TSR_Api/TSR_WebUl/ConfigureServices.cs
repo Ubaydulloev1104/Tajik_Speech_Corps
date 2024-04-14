@@ -1,10 +1,14 @@
-﻿using FluentValidation;
+﻿using Application.Contracts.Word.Commands.Create;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NSwag;
 using System.Text.Json.Serialization;
 using TSR_WebUl.Filters;
+using NSwag.Generation.Processors.Security;
+using System.Linq;
 
 namespace TSR_WebUl
 {
@@ -25,7 +29,7 @@ namespace TSR_WebUl
             services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
-            services.AddValidatorsFromAssembly(typeof(CreateInternshipVacancyCommand).Assembly);
+            services.AddValidatorsFromAssembly(typeof(CreateWordCommand).Assembly);
 
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddEndpointsApiExplorer();
@@ -35,7 +39,7 @@ namespace TSR_WebUl
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "MRA.Jobs API";
+                configure.Title = "TSR API";
                 configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
