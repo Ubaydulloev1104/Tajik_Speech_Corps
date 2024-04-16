@@ -16,6 +16,7 @@ namespace Infrastructure.Persistence.TableConfigurations
                 .HasForeignKey(a => a.WordId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
             builder.HasMany(a => a.History)
                 .WithOne(ate => ate.Application)
                 .HasForeignKey(ate => ate.ApplicationId)

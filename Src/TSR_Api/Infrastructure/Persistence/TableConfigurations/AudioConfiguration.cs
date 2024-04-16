@@ -7,10 +7,8 @@ namespace Infrastructure.Persistence.TableConfigurations
         public void Configure(EntityTypeBuilder<Audio> builder)
         {
             builder.HasQueryFilter(e => !e.IsDeleted);
-           
             builder.Property(v => v.FileName).HasColumnType("nvarchar(256)").IsRequired();
-            builder.Property(t => t.Word).HasColumnType("nvarchar(256)");
-            
+     
         }
     }
 }
