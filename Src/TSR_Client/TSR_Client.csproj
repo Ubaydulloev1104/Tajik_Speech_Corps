@@ -36,7 +36,6 @@
     <Folder Include="Components\Client\" />
     <Folder Include="Components\Dialogs\" />
     <Folder Include="Components\Word\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
