@@ -30,4 +30,13 @@
     <ProjectReference Include="..\TSR_Accoun\Src\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Admin\" />
+    <Folder Include="Components\Auth\" />
+    <Folder Include="Components\Client\" />
+    <Folder Include="Components\Dialogs\" />
+    <Folder Include="Components\Word\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
