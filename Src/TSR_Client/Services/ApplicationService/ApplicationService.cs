@@ -54,24 +54,7 @@ namespace TSR_Client.Services.ApplicationService
         {
             try
             {
-                byte[] fileBytes;
-                string fileName;
-                if (!application.Cv.IsUploadCvMode)
-                {
-                    var responseCv = await _identityHttpClient.GetAsync("Profile/GenerateCV");
-                    fileBytes = await responseCv.Content.ReadAsByteArrayAsync();
-                    fileName = $"_{DateTime.Now.ToString("ddMMyyyy_HHmmss")}_cv.pdf";
-                }
-                else
-                {
-                    fileBytes = await GetFileBytesAsync(file);
-                    fileName = file.Name;
-                }
-
-                //set cv
-                application.Cv.CvBytes = fileBytes;
-                application.Cv.FileName = fileName;
-                //set cv
+             
                 var response = await _httpClient.PostAsJsonAsync("/api/applications", application);
                 switch (response.StatusCode)
                 {
@@ -93,19 +76,6 @@ namespace TSR_Client.Services.ApplicationService
                 _snackbar.Add("Server is not responding, please try later", Severity.Error);
                 Console.WriteLine(e.Message);
             }
-        }
-
-        private async Task<byte[]> GetFileBytesAsync(IBrowserFile file)
-        {
-            if (file.Size <= int.Parse(_configuration["CvSettings:MaxFileSize"]!) * 1024 * 1024)
-            {
-                var ms = new MemoryStream();
-                await file.OpenReadStream().CopyToAsync(ms);
-                var res = ms.ToArray();
-                return res;
-            }
-
-            return null;
         }
 
         public async Task<PagedList<ApplicationListDto>> GetAllApplications()

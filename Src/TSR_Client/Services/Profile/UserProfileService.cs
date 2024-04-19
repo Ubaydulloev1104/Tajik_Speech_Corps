@@ -50,13 +50,13 @@ namespace TSR_Client.Services.Profile
         public async Task<UserProfileResponse> Get(string userName = null)
         {
             var result = await _identityHttpClient
-              .GetJsonAsync<UserProfileResponse>($"Profile{(userName != null ? "?userName=" + Uri.EscapeDataString(userName) : "")}");
+              .GetFromJsonAsync<UserProfileResponse>($"Profile{(userName != null ? "?userName=" + Uri.EscapeDataString(userName) : "")}");
             return result;
         }
 
         public async Task<List<UserEducationResponse>> GetEducationsByUser()
         {
-            var result = await _identityHttpClient.GetJsonAsync<List<UserEducationResponse>>("Profile/GetEducationsByUser");
+            var result = await _identityHttpClient.GetFromJsonAsync<List<UserEducationResponse>>("Profile/GetEducationsByUser");
             return result;
         }
 
@@ -95,7 +95,7 @@ namespace TSR_Client.Services.Profile
 
         public async Task<List<UserEducationResponse>> GetAllEducations()
         {
-            var result = await _identityHttpClient.GetJsonAsync<List<UserEducationResponse>>("Profile/GetAllEducations");
+            var result = await _identityHttpClient.GetFromJsonAsync<List<UserEducationResponse>>("Profile/GetAllEducations");
             return result;
         }
 
