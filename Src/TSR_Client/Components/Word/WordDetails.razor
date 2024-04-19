@@ -1,0 +1,155 @@
+﻿@using Application.Contracts.WordClient
+@using Blazored.LocalStorage;
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Net
+@using Blazorise.Extensions
+@using TSR_Client.CustomMethods
+@inject AuthenticationStateProvider provider
+@inject IApplicationService ApplicationService
+
+@if (wordDetails is null || vacancy == null)
+{
+	if (showLoader)
+	{
+		<div class="loader"></div>
+	}
+}
+else
+{
+	<MudContainer Style="margin-top:25px;">
+		<MudGrid>
+			<MudItem xs="12" lg="9" sm="6" md="8">
+				<MudCard>
+					<MudCardHeader>
+						<CardHeaderContent>
+							<MudText Typo="Typo.h5">
+								<b>@wordDetails.Value</b>
+							</MudText>
+							<MudText Typo="Typo.body2" Style="color:gray">
+								Posted @CustomConverter.GetDisplayPostedDate(wordDetails.CreateDate)
+							</MudText>
+						</CardHeaderContent>
+					</MudCardHeader>
+					<MudCardContent>
+						<MudDivider />
+
+						<MudText>@((MarkupString)wordDetails.Description)</MudText>
+
+
+						<MudDivider Style="padding:10px;" />
+						<MudGrid Style="padding:10px 10px;color:gray;">
+						</MudGrid>
+
+
+					</MudCardContent>
+				</MudCard>
+
+
+			</MudItem>
+
+
+			<MudItem xs="12" lg="3" sm="6" md="4" Class="fixed-bottom-sm">
+				
+					<MudCard>
+						<MudCardContent>
+							<MudText>Unfortunately, the deadline has already expired</MudText>
+							<MudButton Color="Color.Primary" Variant="Variant.Filled" FullWidth="true" Disabled="true">Apply Now</MudButton>
+						</MudCardContent>
+					</MudCard>
+				}
+				else
+				{
+					<CascadingAuthenticationState>
+						<AuthorizeView>
+							<Authorized>
+								<MudCard>
+									<MudCardHeader>
+										<CardHeaderContent>
+											<MudText>Are you ready to take your career to the next level with <b> Silk Road Professionals</b>?</MudText>
+
+										</CardHeaderContent>
+									</MudCardHeader>
+									<MudCardContent>
+										<MudText Typo="Typo.body2">Write a cover letter, answer few questions and send your application!</MudText>
+
+									</MudCardContent>
+									<MudCardActions Style="flex-direction: column">
+
+										@if (applied)
+										{
+											<a class="btn btn-primary w-100" style="margin-bottom: 10px" href="@cvUrl"><MudIcon Icon="@Icons.Material.Filled.Download"></MudIcon>Download CV</a>
+											<a href="#" class="btn btn-secondary w-100 disabled">Applied</a>
+										}
+										else
+										{
+											<a href="/@vacancy/apply/@Slug" class="btn btn-primary w-100" style="background:#129fd7; border: none">
+												<b>Apply Now</b>
+											</a>
+										}
+
+									</MudCardActions>
+								</MudCard>
+							</Authorized>
+							<NotAuthorized>
+								<MudCard>
+									<MudCardHeader>
+										<MudText>
+											Explore <b>Silk Road Professionals</b> opportunities
+										</MudText>
+									</MudCardHeader>
+									<MudCardActions>
+										<a href="sign-up" class="btn btn-primary" style="width:100%; background-color:#129fd7; border: none ">
+											<b>Sign Up</b>
+										</a>
+									</MudCardActions>
+									<MudText Typo="Typo.body2" Style="padding:0px 10px 10px 10px">
+										Already have an account?
+										<a href="/sign-in?returnUrl=@vacancy|@Slug" style="color:#129fd7">
+											<b>Sign In</b>
+										</a>
+									</MudText>
+								</MudCard>
+							</NotAuthorized>
+						</AuthorizeView>
+					</CascadingAuthenticationState>
+				}
+			</MudItem>
+		</MudGrid>
+	</MudContainer>
+}
+
+@code {
+	private bool showLoader = false;
+
+	[Parameter]
+	public string Slug { get; set; }
+
+	private string cvUrl;
+
+	[Parameter]
+	public WordDetailsResponse wordDetails { get; set; }
+
+	[Parameter]
+	public string vacancy { get; set; }
+
+	public bool applied { get; set; }
+
+	protected override async void OnAfterRender(bool firstRender)
+	{
+		try
+		{
+			if (firstRender)
+			{
+				cvUrl = await ApplicationService.GetCvLinkAsync(Slug);
+				applied = !cvUrl.IsNullOrEmpty();
+				await Task.Delay(1000);
+				showLoader = true;
+				StateHasChanged();
+			}
+		}
+		catch (Exception)
+		{
+		}
+	}
+
+}

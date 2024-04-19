@@ -31,11 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Admin\" />
-    <Folder Include="Components\Auth\" />
-    <Folder Include="Components\Client\" />
-    <Folder Include="Components\Dialogs\" />
-    <Folder Include="Components\Word\" />
+    <Folder Include="Pages\Applicant\" />
+    <Folder Include="Pages\Applications\" />
+    <Folder Include="Pages\Auth\" />
   </ItemGroup>
 
 </Project>
