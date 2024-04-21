@@ -1,0 +1,52 @@
+﻿@using TSR_Client.Identity
+@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<div class="container" style="padding-top:25px;">
+    <div class="row">
+        <div class="col-md-2">
+            <MudPaper Elevation="0">
+                <MudNavMenu Bordered="true">
+                    <MudNavLink Match="NavLinkMatch.All" Href="/dashboard" Disabled="true" hidden="true">Dashboard</MudNavLink>
+                    <MudNavLink Match="NavLinkMatch.All" Href="dashboard/categories">Category</MudNavLink>
+                    <MudNavLink Match="NavLinkMatch.All" Href="/dashboard/applications">Applications</MudNavLink>
+                    <MudNavLink Match="NavLinkMatch.All" Href="/dashboard/word">Word</MudNavLink>
+                 
+                    <CascadingAuthenticationState>
+                        <AuthorizeView Roles="@ApplicationClaimValues.Administrator">
+                            <MudNavLink Match="NavLinkMatch.All" Href="/userManager">Users manager</MudNavLink>
+                        </AuthorizeView>
+                    </CascadingAuthenticationState>
+                    <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@LogOut">Log out</MudNavLink>
+                </MudNavMenu>
+            </MudPaper>
+        </div>
+        <div class="col-md-10" style="margin: 0 auto;">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Inject]
+    private NavigationManager _navigationManager { get; set; }
+
+    [Inject]
+    private ILocalStorageService _localStorageService { get; set; }
+
+    [Inject]
+    private AuthenticationStateProvider _authStateProvider { get; set; }
+
+
+    private async Task LogOut()
+    {
+        await _localStorageService.RemoveItemAsync("authToken");
+        await _authStateProvider.GetAuthenticationStateAsync();
+        _navigationManager.NavigateTo("/");
+    }
+}

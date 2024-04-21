@@ -33,7 +33,6 @@
   <ItemGroup>
     <Folder Include="Pages\Applicant\" />
     <Folder Include="Pages\Applications\" />
-    <Folder Include="Pages\Auth\" />
   </ItemGroup>
 
 </Project>
