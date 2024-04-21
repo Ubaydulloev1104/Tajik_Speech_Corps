@@ -7,7 +7,7 @@
 @inject AuthenticationStateProvider provider
 @inject IApplicationService ApplicationService
 
-@if (wordDetails is null || vacancy == null)
+@if (wordDetails is null || words == null)
 {
 	if (showLoader)
 	{
@@ -82,7 +82,7 @@ else
 										}
 										else
 										{
-											<a href="/@vacancy/apply/@Slug" class="btn btn-primary w-100" style="background:#129fd7; border: none">
+											<a href="/@words/apply/@Slug" class="btn btn-primary w-100" style="background:#129fd7; border: none">
 												<b>Apply Now</b>
 											</a>
 										}
@@ -104,7 +104,7 @@ else
 									</MudCardActions>
 									<MudText Typo="Typo.body2" Style="padding:0px 10px 10px 10px">
 										Already have an account?
-										<a href="/sign-in?returnUrl=@vacancy|@Slug" style="color:#129fd7">
+										<a href="/sign-in?returnUrl=@words|@Slug" style="color:#129fd7">
 											<b>Sign In</b>
 										</a>
 									</MudText>
@@ -130,7 +130,7 @@ else
 	public WordDetailsResponse wordDetails { get; set; }
 
 	[Parameter]
-	public string vacancy { get; set; }
+	public string words { get; set; }
 
 	public bool applied { get; set; }
 

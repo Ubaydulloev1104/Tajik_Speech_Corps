@@ -12,7 +12,7 @@ namespace TSR_Client.Services.ApplicationService
     public interface IApplicationService
     {
         Task<List<ApplicationListStatus>> GetApplicationsByStatus(ApplicationStatus status);
-        Task CreateApplication(CreateApplicationCommand application, IBrowserFile cv);
+        Task CreateApplication(CreateApplicationCommand application);
         Task<PagedList<ApplicationListDto>> GetAllApplications();
         Task<bool> UpdateStatus(UpdateApplicationStatuss updateApplicationStatus);
         Task<ApplicationDetailsDto> GetApplicationDetails(string applicationSlug);

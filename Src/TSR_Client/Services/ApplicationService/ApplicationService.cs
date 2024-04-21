@@ -50,7 +50,7 @@ namespace TSR_Client.Services.ApplicationService
         }
 
 
-        public async Task CreateApplication(CreateApplicationCommand application, IBrowserFile file)
+        public async Task CreateApplication(CreateApplicationCommand application)
         {
             try
             {
