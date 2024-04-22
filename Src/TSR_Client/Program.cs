@@ -19,6 +19,11 @@ using System.Net.Http;
 using TSR_Client.Services.WordService;
 using TSR_Client.Identity;
 using Blazorise.Icons.FontAwesome;
+using AltairCA.Blazor.WebAssembly.Cookie.Framework;
+using TSR_Client.Services;
+using TSR_Client.Services.ContentService;
+using TSR_Client.Services.ConverterService;
+using TSR_Client.Services.UserPreferences;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -32,7 +37,7 @@ builder.Services
 
 
 builder.Services.AddMudServices();
-builder.Services.AddMatBlazor();
+builder.Services.AddAltairCACookieService(options => { options.DefaultExpire = TimeSpan.Zero; });
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
@@ -50,11 +55,11 @@ builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore(s =>
 {
     s.AddPolicy(ApplicationPolicies.Applicant, ac => ac
-        .RequireRole(ApplicationClaimValues.Applicant, ApplicationClaimValues.Reviewer,
-            ApplicationClaimValues.Administrator, ApplicationClaimValues.SuperAdmin)
-        .RequireClaim(ClaimTypes.Application, ApplicationClaimValues.ApplicationName,
-            ApplicationClaimValues.AllApplications)
-        .RequireClaim(ClaimTypes.Id).RequireClaim(ClaimTypes.Email).RequireClaim(ClaimTypes.Username));
+      .RequireRole(ApplicationClaimValues.Applicant, ApplicationClaimValues.Reviewer,
+          ApplicationClaimValues.Administrator, ApplicationClaimValues.SuperAdmin)
+      .RequireClaim(ClaimTypes.Application, ApplicationClaimValues.ApplicationName,
+          ApplicationClaimValues.AllApplications)
+      .RequireClaim(ClaimTypes.Id).RequireClaim(ClaimTypes.Email).RequireClaim(ClaimTypes.Username));
 
     s.AddPolicy(ApplicationPolicies.Reviewer, ac => ac
         .RequireRole(ApplicationClaimValues.Reviewer, ApplicationClaimValues.Administrator,
@@ -75,5 +80,13 @@ builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>
 builder.Services.AddScoped<IApplicationService, ApplicationService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
+builder.Services.AddScoped<LayoutService>();
 builder.Services.AddFeatureManagement(builder.Configuration.GetSection("FeatureFlags"));
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped<IContentService, ContentService>();
+builder.Services.AddLocalization();
+builder.Services.AddScoped<IContentService, ContentService>();
+builder.Services.AddScoped<IDateTimeConvertToStringService, DateTimeConverterToStringService>();
+builder.Services.AddScoped<IUserPreferencesService, UserPreferencesService>();
+builder.Services.AddBlazoredLocalStorage();
 await builder.Build().RunAsync();
