@@ -6,6 +6,7 @@ using TSR_Client.Services.ContentService;
 using TSR_Client.Enums;
 using TSR_Client.Services.UserPreferences;
 using TSR_Client.wwwroot.resources;
+using Blazorise.Extensions;
 
 namespace TSR_Client.Services
 {
