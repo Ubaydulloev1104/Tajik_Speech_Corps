@@ -28,17 +28,11 @@
     <data name="Header:Home" xml:space="preserve">
         <value>Главная</value>
     </data>
-    <data name="Header:Internships" xml:space="preserve">
-        <value>Стажировки</value>
+  <data name="Header:Home" xml:space="preserve">
+        <value>Home</value>
     </data>
-    <data name="Header:Jobs" xml:space="preserve">
-        <value>Вакансии</value>
-    </data>
-    <data name="Header:Trainings" xml:space="preserve">
-        <value>Трейнинги</value>
-    </data>
-    <data name="Header:Team" xml:space="preserve">
-        <value>Команда</value>
+  <data name="Header:Words" xml:space="preserve">
+        <value>Слова</value>
     </data>
     <!-- header -->
 
@@ -480,7 +474,7 @@
     <value> Нас</value>
 </data>
     <data name="Home:AboutTitle" xml:space="preserve">
-    <value>Профессионалы Шелкового пути</value>
+    <value>Распознавание таджикской речи</value>
 </data>
     <data name="Home:AboutContent" xml:space="preserve">
     <value> Профессионалы Шелкового пути (SRP) - это компания, занимающаяся разработкой программного обеспечения полного цикла, основанная в 2014 году. Мы юридически зарегистрированы в штате Вирджиния, США и в Дехмое, Таджикистан.</value>

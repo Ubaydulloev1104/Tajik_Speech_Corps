@@ -1,11 +1,9 @@
-﻿@using TSR_Client.Components.Client
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject LayoutService LayoutService
 
-<MudThemeProvider @ref="@_mudThemeProvider" Theme="@LayoutService.CurrentTheme" IsDarkMode="@LayoutService.IsDarkMode" IsDarkModeChanged="LayoutService.SetDarkMode"/>
-<Header/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+<MudThemeProvider @ref="@_mudThemeProvider" Theme="@LayoutService.CurrentTheme" IsDarkMode="@LayoutService.IsDarkMode" IsDarkModeChanged="LayoutService.SetDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
 <MudMainContent>
     <main id="main" style="min-height: 100vh">
         <MudContainer MaxWidth="MaxWidth.ExtraLarge">
@@ -13,15 +11,6 @@
         </MudContainer>
     </main>
 </MudMainContent>
-
-<MudText Style="text-align: center; padding-top: 3%">
-    © 2023 Silk Road Professionals
-</MudText>
-
-<MudScrollToTop>
-    <MudFab StartIcon="@Icons.Material.Filled.KeyboardArrowUp" Color="Color.Primary"/>
-</MudScrollToTop>
-
 
 @code
 {
@@ -62,6 +51,4 @@
             StateHasChanged();
         }
     }
-
-
 }

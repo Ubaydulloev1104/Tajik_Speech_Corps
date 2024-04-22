@@ -1,121 +1,147 @@
-﻿@inject AuthenticationStateProvider authProvider
-@inject ILocalStorageService localStorage
-@inject NavigationManager navigationManager
-@using Microsoft.AspNetCore.Components.Authorization
+﻿@using AltairCA.Blazor.WebAssembly.Cookie
+@using Blazorise
+@using TSR_Client.Services
+@using TSR_Client.Enums
+@using TSR_Client.wwwroot.resources
+@using TSR_Client.Services.Profile
+@using TSR_Client.Components.Buttons
+@using Anchor = MudBlazor.Anchor
+@using Breakpoint = MudBlazor.Breakpoint
+@using Color = MudBlazor.Color
+@using DividerType = MudBlazor.DividerType
+@using Size = MudBlazor.Size
+@inject NavigationManager NavigationManager
+@inject LayoutService LayoutService
+@inject IUserProfileService UserProfileService
+<MudToolBar Class="toolbar-fixed-blur">
+    <MudHidden Breakpoint="Breakpoint.MdAndUp">
+        <MudIconButton Icon="@Icons.Material.Filled.Notes" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer"/>
+    </MudHidden>
+    <MudHidden Breakpoint="Breakpoint.Xs">
+        <MudItem Style="padding-right:5px;">
+            <MudImage src="images/icon.png" Style="width: 50px" />
+        </MudItem>
+        <MudItem Style="padding-left:0; margin-right: 40px;">
+            <MudText Style="font-size: 21.5px;">
+                <b>Tajik Speech </b>
+            </MudText>
+            <MudText Style="margin-top: -10px;">
+                <small>
+                    <b>Recognition</b>
+                </small>
+            </MudText>
+        </MudItem>
+    </MudHidden>
+    <MudHidden Breakpoint="Breakpoint.SmAndUp">
+        <MudItem Style="padding-right:5px;">
+            <MudImage src="images/icon.png" Style="width: 30px" />
+        </MudItem>
+        <MudItem Style="padding-left:0; margin-right: 40px;">
+            <MudText Style="font-size: 21.5px;">
+                <b>TSR</b>
+            </MudText>
+        </MudItem>
+    </MudHidden>
 
+    <MudHidden Breakpoint="Breakpoint.SmAndDown">
+        <MudButton Href="/" Color="Color.Inherit" Variant="Variant.Text" Class="@GetActiveClass(DocPages.Home)">
+            <MudText>
+                <b>@ContentService["Header:Home"]</b>
+            </MudText>
+        </MudButton>
+        <MudButton Href="/word" Color="Color.Inherit" Variant="Variant.Text" Class="@GetActiveClass(DocPages.Word)">
+            <MudText>
+                <b>@ContentService["Header:Words"]</b>
+            </MudText>
+        </MudButton>
+        <MudButton Href="/contact" Color="Color.Inherit" Variant="Variant.Text" Class="@GetActiveClass(DocPages.Contact)">
+            <MudText>
+                <b>Contact</b>
+            </MudText>
+        </MudButton>
+    </MudHidden>
+    <MudSpacer/>
+    <MudHidden Breakpoint="Breakpoint.Xs">
+        <MudDivider Vertical="true" DividerType="DividerType.Middle" FlexItem="true" Class="mx-4 my-4"/>
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            
+        </MudHidden>
+        <ToolBarSettingsButtons/>
+    </MudHidden>
 
-<style>
-	@@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+    <UserButton/>
+</MudToolBar>
 
-	.logo-text {
-		font-family: 'Poppins', sans-serif;
-	}
+<MudDrawer @bind-Open="@_open" Anchor="Anchor.Start" Elevation="0" Variant="@DrawerVariant.Persistent" Style="position:fixed;height: 100%"
+           ClipMode="DrawerClipMode.Docked">
+    <MudToolBar Dense="true" Class="docs-gray-bg">
+        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer"/>
+        <MudSpacer/>
+     <ToolBarSettingsButtons/>
+    </MudToolBar>
 
-	.navbar-nav .nav-link {
-		color: white;
-		margin-right: 10px;
-		text-align: center;
-	}
+    <MudNavMenu Rounded="true" Dense="true" Color="Color.Primary" Class="pa-2">
+        <MudNavLink Match="NavLinkMatch.All" Href="/">@ContentService["Header:Home"]</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/jobs">@ContentService["Header:Words"]</MudNavLink>
+        <MudNavLink Match="NavLinkMatch.All" Href="/contact">Contact</MudNavLink>
 
-	h3 {
-		font-weight: bold;
-	}
-
-	#navbarSupportedContent {
-		text-align: center;
-	}
-
-	.navbar-toggler,
-	.navbar-toggler:focus,
-	.navbar-toggler:active,
-	.navbar-toggler-icon:focus {
-		outline: none;
-		box-shadow: none;
-		border: none;
-	}
-
-	ul {
-		margin: 0 auto;
-		display: flex;
-		align-content: space-around;
-	}
-
-	.active {
-		color: #129fd7;
-	}
-
-
-	#user_icon .mud-svg-icon {
-		color: white;
-	}
-
-</style>
-
-
-<nav class="navbar bg-dark navbar-expand-lg">
-	<div class="container-fluid">
-		<a class="navbar-brand">
-			<img src="images/srp_icon.png" width="70" />
-		</a>
-		<div style="text-align: center">
-			<h3 class="text-white logo-text">SILK ROAD</h3>
-			<h4 style="font-size: 18px" class="logo-text text-white">PROFESSIONALS</h4>
-		</div>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="100" viewBox="0 0 50 50" fill="white">
-				<path d="M 0 9 L 0 11 L 50 11 L 50 9 Z M 0 24 L 0 26 L 50 26 L 50 24 Z M 0 39 L 0 41 L 50 41 L 50 39 Z"></path>
-			</svg>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
-				</li>
-				<li class="nav-item">
-					<NavLink class="nav-link" href="/internships">Internships</NavLink>
-				</li>
-				<li class="nav-item">
-					<NavLink class="nav-link" href="/jobs">Jobs</NavLink>
-				</li>
-				<li class="nav-item">
-					<NavLink class="nav-link" href="/trainings">Trainings</NavLink>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="https://www.silkroadprofessionals.com/team/team/">Team</a>
-				</li>
-			</ul>
-
-			<CascadingAuthenticationState>
-				<AuthorizeView>
-					<Authorized>
-						<MudMenu Icon="@Icons.Material.Filled.Person" id="user_icon">
-							<MudMenuItem Href="/profile">Profile</MudMenuItem>
-							<MudMenuItem Href="/applications">Applications</MudMenuItem>
-							<MudMenuItem OnClick="Logout">Logout</MudMenuItem>
-						</MudMenu>
-					</Authorized>
-					<NotAuthorized>
-						<MudMenu Icon="@Icons.Material.Filled.Person" id="user_icon">
-							<MudMenuItem Href="/sign-in">Sign In</MudMenuItem>
-							<MudMenuItem Href="/sign-up">Sign Up</MudMenuItem>
-						</MudMenu>
-					</NotAuthorized>
-				</AuthorizeView>
-			</CascadingAuthenticationState>
-		</div>
-	</div>
-</nav>
-
-
+    </MudNavMenu>
+</MudDrawer>
 
 
 @code {
 
-	private async Task Logout()
-	{
-		await localStorage.RemoveItemAsync("authToken");
-		await authProvider.GetAuthenticationStateAsync();
-		navigationManager.NavigateTo("/");
-	}
+    bool _open = false;
+
+    void ToggleDrawer()
+    {
+        _open = !_open;
+    }
+
+    private DocPages currentPage;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            try
+            {
+                LayoutService.User = await UserProfileService.Get();
+            }
+            catch (Exception e)
+            {
+            }
+            StateHasChanged();
+        }
+    }
+
+
+    protected override void OnInitialized()
+    {
+        currentPage = LayoutService.GetDocsBasePage(NavigationManager.Uri);
+
+        StateHasChanged();
+        NavigationManager.LocationChanged += HandleLocationChanged;
+        base.OnInitialized();
+    }
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        currentPage = LayoutService.GetDocsBasePage(NavigationManager.Uri);
+        StateHasChanged();
+    }
+
+    private string GetActiveClass(DocPages page)
+    {
+        return page == currentPage ? "mud-chip-text mud-chip-color-primary mx-1 px-3" : "mx-1 px-3";
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= HandleLocationChanged;
+    }
 
 }

@@ -38,9 +38,10 @@ namespace TSR_Client.Services.ApplicationService
             _navigationManager = navigationManager;
             _configuration = configuration;
         }
+        private const string ApplicationsEndPoint = "applications";
         public async Task<List<ApplicationListStatus>> GetApplicationsByStatus(ApplicationStatus status)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"api/applications/{status}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{ApplicationsEndPoint}/{status}");
 
             List<ApplicationListStatus> result = await response.Content.ReadFromJsonAsync<List<ApplicationListStatus>>();
             return result;
@@ -52,7 +53,7 @@ namespace TSR_Client.Services.ApplicationService
             try
             {
              
-                var response = await _httpClient.PostAsJsonAsync("/api/applications", application);
+                var response = await _httpClient.PostAsJsonAsync(ApplicationsEndPoint, application);
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.OK:
@@ -78,7 +79,7 @@ namespace TSR_Client.Services.ApplicationService
         public async Task<PagedList<ApplicationListDto>> GetAllApplications()
         {
             await _authenticationState.GetAuthenticationStateAsync();
-            HttpResponseMessage response = await _httpClient.GetAsync("/api/applications/");
+            HttpResponseMessage response = await _httpClient.GetAsync(ApplicationsEndPoint);
             PagedList<ApplicationListDto>
                 result = await response.Content.ReadFromJsonAsync<PagedList<ApplicationListDto>>();
             return result;
@@ -88,7 +89,7 @@ namespace TSR_Client.Services.ApplicationService
         {
             await _authenticationState.GetAuthenticationStateAsync();
             HttpResponseMessage response =
-                await _httpClient.PutAsJsonAsync($"/api/applications/{updateApplicationStatus.Slug}/update-status",
+                await _httpClient.PutAsJsonAsync($"{ApplicationsEndPoint}/{updateApplicationStatus.Slug}/update-status",
                     updateApplicationStatus);
             bool result = await response.Content.ReadFromJsonAsync<bool>();
             return result;
@@ -97,7 +98,7 @@ namespace TSR_Client.Services.ApplicationService
         public async Task<ApplicationDetailsDto> GetApplicationDetails(string applicationSlug)
         {
             await _authenticationState.GetAuthenticationStateAsync();
-            HttpResponseMessage response = await _httpClient.GetAsync($"/api/applications/{applicationSlug}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{ApplicationsEndPoint}/{applicationSlug}");
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var application = await response.Content.ReadFromJsonAsync<ApplicationDetailsDto>();

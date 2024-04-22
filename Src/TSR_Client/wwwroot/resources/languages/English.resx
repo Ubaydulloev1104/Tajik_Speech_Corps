@@ -29,18 +29,10 @@
   <data name="Header:Home" xml:space="preserve">
         <value>Home</value>
     </data>
-  <data name="Header:Internships" xml:space="preserve">
-        <value>Internships</value>
+  <data name="Header:Words" xml:space="preserve">
+        <value>Words</value>
     </data>
-  <data name="Header:Jobs" xml:space="preserve">
-        <value>Jobs</value>
-    </data>
-  <data name="Header:Trainings" xml:space="preserve">
-        <value>Trainings</value>
-    </data>
-  <data name="Header:Team" xml:space="preserve">
-        <value>Team</value>
-    </data>
+ 
   <!-- header -->
 
   <!-- UserButton -->
@@ -535,7 +527,7 @@
         <value> Us</value>
     </data>
   <data name="Home:AboutTitle" xml:space="preserve">
-        <value>Silk Road Professionals</value>
+        <value>Tajik Speech Recognition</value>
     </data>
   <data name="Home:AboutContent" xml:space="preserve">
         <value> Silk Road Professionals (SRP) is a full-cycle software development company founded in 2014. We are legally registered in Virginia, USA and in Dehmoy, Tajikistan.</value>

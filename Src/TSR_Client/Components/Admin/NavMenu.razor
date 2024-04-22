@@ -1,5 +1,4 @@
-﻿@inject IWordService s
-@inject ICategoryService CService
+﻿@inject ICategoryService CService
 @inject HttpClient _http;
 
 <style>
@@ -93,8 +92,8 @@
 </style>
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        @* <div class="image"> <img src="images/SRP_icon.png" class="img" /></div> *@
-        <a class="navbar-brand" href="">MRA Jobs</a>
+        @* <div class="image"> <i\mg src="images/SRP_icon.png" class="img" /></div> *@
+        <a class="navbar-brand" href="">TSR</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -132,19 +131,8 @@
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/jobs">
-                <span class="oi oi-briefcase" aria-hidden="true"></span>Vacancy
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/internship">
-                <span class="oi oi-briefcase" aria-hidden="true"></span>internship
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="dashboard/trainings">
-                <span class="oi oi-briefcase" aria-hidden="true"></span>trainings
+            <NavLink class="nav-link" href="dashboard/word">
+                <span class="oi oi-briefcase" aria-hidden="true"></span>Word
             </NavLink>
         </div>
 

@@ -7,14 +7,14 @@ using TSR_Client.wwwroot.resources.languages;
 
 namespace TSR_Client.Services.ContentService
 {
-    public class ContentService : IContentService
+    public class  ContentService : IContentService
     {
         private readonly IStringLocalizer<English> _english;
         private readonly IStringLocalizer<Russian> _russian;
         private readonly IStringLocalizer<Tajik> _tajik;
         private readonly ILocalStorageService _localStorageService;
         private static CultureInfo _applicationCulture = CultureInfo.CurrentCulture;
-        public ContentService(
+        public  ContentService(
             IStringLocalizer<English> english,
             IStringLocalizer<Russian> russian,
             IStringLocalizer<Tajik> tajik,

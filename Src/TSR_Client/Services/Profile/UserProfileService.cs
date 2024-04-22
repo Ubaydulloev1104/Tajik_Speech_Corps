@@ -78,12 +78,6 @@ namespace TSR_Client.Services.Profile
             return respose;
         }
 
-        public async Task<HttpResponseMessage> DeleteExperienceAsync(Guid id)
-        {
-            var respose = await _identityHttpClient.DeleteAsync($"Profile/DeleteExperienceDetail/{id}");
-            return respose;
-        }
-
  
 
         public async Task<bool> SendConfirmationCode(string phoneNumber)
