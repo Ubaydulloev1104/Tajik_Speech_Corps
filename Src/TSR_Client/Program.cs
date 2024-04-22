@@ -18,6 +18,7 @@ using System;
 using System.Net.Http;
 using TSR_Client.Services.WordService;
 using TSR_Client.Identity;
+using Blazorise.Icons.FontAwesome;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 
