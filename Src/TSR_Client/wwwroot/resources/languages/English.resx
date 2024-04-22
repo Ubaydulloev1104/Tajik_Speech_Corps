@@ -471,40 +471,8 @@
   <data name="Home:Hero_Title_2" xml:space="preserve">
         <value>  To help you!</value>
     </data>
-  <data name="Home:Hero_Content" xml:space="preserve">
-        <value>We Developer Softwate and Provide Outsourse Programming support.</value>
-    </data>
-  
-  <data name="Home:What" xml:space="preserve">
-        <value>What</value>
-    </data>
-  <data name="Home:WeDo" xml:space="preserve">
-        <value> We Do</value>
-    </data>
-  <data name="Home:WebServiceTitle" xml:space="preserve">
-        <value>Web Development</value>
-    </data>
-  <data name="Home:WebServiceDescription" xml:space="preserve">
-        <value>We develop websites and enterprise web applications.</value>
-    </data>
-  <data name="Home:MobileServiceTitle" xml:space="preserve">
-        <value>Mobile Development</value>
-    </data>
-  <data name="Home:MobileServiceDescription" xml:space="preserve">
-        <value>We build a native and cross platform mobile applications.</value>
-    </data>
-  <data name="Home:DesktopServiceTitle" xml:space="preserve">
-        <value>Desktop Applications</value>
-    </data>
-  <data name="Home:DesktopServiceDescription" xml:space="preserve">
-        <value> We build applications for an OS of your need.</value>
-    </data>
-  <data name="Home:CloudServiceTitle" xml:space="preserve">
-        <value>Cloud Native Development</value>
-    </data>
-  <data name="Home:CloudServiceDescription" xml:space="preserve">
-        <value> We build and run scalable applications with cloud computing.</value>
-    </data
+ 
+ 
 
   <data name="Home:About" xml:space="preserve">
         <value>About</value>
@@ -525,8 +493,6 @@
   <data name="Home:MissionContent" xml:space="preserve">
         <value>The development of software modules for voice data in the Tajik language is aimed at creating systems capable of recognizing and synthesizing speech in the Tajik language. These modules include various components, such as speech recognition algorithms, speech synthesizers, sentiment analyzers and others, capable of working in the Tajik language. The main goal is to make voice interaction technologies accessible to the Tajik language, which will help improve communication, enhance learning and provide access to information in the native language.</value>
     </data>
-
-
   <data name="Home:Contact" xml:space="preserve">
         <value>Contact</value>
     </data>
@@ -536,8 +502,6 @@
   <data name="Home:Address_p1" xml:space="preserve">
         <value>Sugd.. ,</value>
     </data>
-
-
   <data name="Home:Email">
     <value>Email Us</value>
   </data>
@@ -545,15 +509,7 @@
     <value>ubaydulloev.1104@gmail.com</value>
   </data>
 
-  <data name="Home:BuildAmazing" xml:space="preserve">
-     <value>Build Amazing</value>
- </data>
-  <data name="Home:Apps" xml:space="preserve">
-     <value>Apps</value>
- </data>
-  <data name="Home:BuildAmazing_Content." xml:space="preserve">
-     <value> Always on the lookout for the hi-tech advancements. Build not only a product that can sell well, but a platform through which to deliver it.</value>
- </data>
+ 
   <!--Home-->
 
 

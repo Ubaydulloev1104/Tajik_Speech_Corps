@@ -427,9 +427,7 @@
     <data name="Home:AboutTitle" xml:space="preserve">
     <value>Шинохти забони тоҷикӣ</value>
 </data>
-    <data name="Home:AboutContent" xml:space="preserve">
-    <value> Дар ҷаҳони муосир технологияҳои рақамӣ, овозӣ торафт бештар талаб карда мешаванд, алахусус бо рушди зеҳни сунъӣ ва омӯзиши мошинӣ. Аммо, вақте сухан дар бораи забонҳои минтақавӣ, аз қабили тоҷикӣ меравад, мушкилоти махсус ба миен меояд. Таҳияи модулҳои барномавӣ барои эҷоди манбаи маълумоти овозӣ бо забони тоҷикӣ қадами муҳим дар баланд бардоштани дастрасии технология ва ҷорӣ намудани навовариҳо дар Тоҷикистон мегардад.</value>
-</data>
+   
 
     <data name="Home:MissionTitle" xml:space="preserve">
     <value>Моҳияти асосии самт</value>
@@ -456,15 +454,6 @@
     </data>
 
 
- <data name="Home:BuildAmazing" xml:space="preserve">
-    <value>Сохтаи шгаванд</value>
-</data>
-<data name="Home:Apps" xml:space="preserve">
-    <value>Барномаҳо</value>
-</data>
-<data name="Home:BuildAmazing_Content." xml:space="preserve">
-    <value>Ҳамеша дар ҷустуҷӯи пешрафтҳои технологии боланд. Танҳо маҳсулотеро сохтан, ки хуб фурӯхт мешавад, балки платформаро, ки тавассути он метавон онро тақсим кард.</value>
-</data>
 
     <!--Home-->
 
