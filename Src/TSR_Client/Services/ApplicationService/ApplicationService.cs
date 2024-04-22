@@ -6,17 +6,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Application.Contracts.Applications.Responses;
 using System.Net;
-using System.Net.Http.Json;
 using System.Collections.Generic;
 using static Application.Contracts.Dtos.Enums.ApplicationStatusDto;
 using Application.Contracts.Applications.Commands.CreateApplication;
-using Microsoft.AspNetCore.Components.Forms;
 using Application.Contracts.Common;
 using Application.Contracts.Applications.Commands.UpdateApplicationStatus;
 using System.Linq;
 using TSR_Client.Identity;
 using System;
-using System.IO;
 
 namespace TSR_Client.Services.ApplicationService
 {
