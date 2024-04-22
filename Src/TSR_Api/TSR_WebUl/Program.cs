@@ -1,32 +1,42 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Application;
-using Infrastructure;
 using Newtonsoft.Json;
 using Sieve.Models;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using Infrastructure;
 using TSR_WebUl;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddWebUiServices(builder.Configuration);
 
-builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("Sieve"));
+builder.Services.Configure<SieveOptions>(builder.Configuration.GetSection("TSR-Sieve"));
+
+
 
 WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
+    app.UseSwagger(options =>
+    {
+        options.SerializeAsV2 = true;
+    });
 }
 else
 {
@@ -35,8 +45,8 @@ else
 
 using (var scope = app.Services.CreateScope())
 {
-    var initialiser = scope.ServiceProvider.GetRequiredService<DbMigration>();
-    await initialiser.InitialiseAsync();
+    var initializer = scope.ServiceProvider.GetRequiredService<DbMigration>();
+    await initializer.InitialiseAsync();
 }
 
 app.UseHealthChecks("/status", new HealthCheckOptions
@@ -61,13 +71,6 @@ app.UseHealthChecks("/status", new HealthCheckOptions
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("CORS_POLICY");
-app.UseSwaggerUi(settings =>
-{
-    settings.Path = "/api";
-    settings.DocumentPath = "/api/specification.json";
-    settings.EnableTryItOut = true;
-    settings.PersistAuthorization = true;
-});
 
 app.UseRouting();
 app.UseAuthentication();

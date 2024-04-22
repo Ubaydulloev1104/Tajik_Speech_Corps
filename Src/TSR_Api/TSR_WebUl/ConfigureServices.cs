@@ -4,12 +4,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NSwag;
+using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using TSR_WebUl.Filters;
-using NSwag.Generation.Processors.Security;
-using System.Linq;
-
 namespace TSR_WebUl
 {
     public static class ConfigureServices
@@ -37,25 +34,21 @@ namespace TSR_WebUl
             services.Configure<ApiBehaviorOptions>(options =>
                 options.SuppressModelStateInvalidFilter = true);
 
-            services.AddOpenApiDocument(configure =>
+            services.AddSwaggerGen(options =>
             {
-                configure.Title = "TSR API";
-                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Type = OpenApiSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
-                    In = OpenApiSecurityApiKeyLocation.Header,
-                    Description = "Type into the textbox: Bearer {your JWT token}."
+                    Version = "v1",
+                    Title = "TSRApi",
+                    Description = "TSRApi"
                 });
-
-                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(BadRequestResponseFilter));
             });
-            var corsAllowedHosts = configuration.GetSection("CORS").Get<string[]>();
+            var corsAllowedHosts = configuration.GetSection("TSR-CORS").Get<string[]>();
             services.AddCors(options =>
             {
                 options.AddPolicy("CORS_POLICY", policyConfig =>
