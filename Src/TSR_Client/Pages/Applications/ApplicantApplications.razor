@@ -1,0 +1,107 @@
+﻿@page "/dashboard/applications"
+@using Application.Contracts.Dtos
+@using TSR_Client.Components
+@using TSR_Client.Identity
+@inject IApplicationService applicationService
+<CascadingAuthenticationState>
+    <AuthorizeView Policy="@ApplicationPolicies.Reviewer" Context="contextAuth">
+        <Authorized>
+            <MudText Typo="Typo.h4">
+                <b>Applications</b>
+            </MudText>
+
+            @if (serverError)
+            {
+                <ServerErrorComponent/>
+            }
+            else
+            {
+                @if (applications == null)
+                {
+                    <div style="text-align: center;">
+                        <MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true"/>
+                    </div>
+                }
+                else
+                {
+                    <MudTable Items="@applications.Items" Class="text-center rounded-lg mud-elevation-4">
+                        <HeaderContent>
+                            <MudTh>Applicant username</MudTh>
+                            <MudTh>WordValoe</MudTh>
+                            <MudTh>Applied at</MudTh>
+                            <MudTh>Status name</MudTh>
+                            <MudTh>Action</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Username">@context.Username</MudTd>
+                             <MudTd DataLabel="Word">@context.WordValoe</MudTd>
+                            <MudTd DataLabel="Applied at">@context.CreatedAt.ToString("D")</MudTd>
+                            <MudTd DataLabel="StatusName">@context.StatusName</MudTd>
+                            <MudTd DataLabel="Name">
+                                <MudButton Variant="Variant.Filled" OnClick="@((e) => OpenDialog(maxWidth, context.WordResponseAudioDto, context.Slug, context.StatusName))">More</MudButton>
+                            </MudTd>
+                        </RowTemplate>
+                        <PagerContent>
+                            <MudTablePager/>
+                        </PagerContent>
+                    </MudTable>
+                }
+            }
+        </Authorized>
+        <NotAuthorized>
+            <NotFound/>
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
+
+@code {
+    private bool serverError;
+    private PagedList<ApplicationListDto> applications;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+
+    private async Task LoadData()
+    {
+        try
+        {
+            var response = await applicationService.GetAllApplications();
+            if (response is not null)
+            {
+                applications = response;
+            }
+        }
+        catch (Exception)
+        {
+            serverError = true;
+            StateHasChanged();
+        }
+    }
+
+    DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+    private async void OpenDialog(DialogOptions options, IEnumerable<WordResponseAudioDto> WordResponses, string slug, string statusName)
+    {
+        var dialog = Dialog.Show<MyDialog>("Applicant response", new DialogParameters
+        {
+            { "VacancyResponses", WordResponses },
+            { "Slug", slug },
+            { "StatusName", statusName },
+            { "isApplicant", false }
+        }, options);
+        var result = await dialog.Result;
+
+        // you can check if the modal was cancelled
+        var isCancelled = result.Canceled;
+
+        if (isCancelled)
+        {
+            await LoadData();
+            StateHasChanged();
+        }
+    }
+
+}

@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Applicant\" />
-    <Folder Include="Pages\Applications\" />
     <Folder Include="wwwroot\css\images\" />
   </ItemGroup>
   <ItemGroup>
