@@ -22,7 +22,7 @@ namespace TSR_Client.wwwroot.resources.languages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class English {
+    public class English {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
