@@ -22,14 +22,14 @@ namespace TSR_Client.wwwroot.resources.languages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Tajik {
+    internal class Tajik {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Tajik() {
+        internal Tajik() {
         }
         
         /// <summary>
@@ -61,7 +61,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Асосӣ.
+        ///   Ищет локализованную строку, похожую на Home.
         /// </summary>
         internal static string Header_Home {
             get {
@@ -70,38 +70,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Таҷрибаомӯзӣ.
+        ///   Ищет локализованную строку, похожую на Калима.
         /// </summary>
-        internal static string Header_Internships {
+        internal static string Header_Words {
             get {
-                return ResourceManager.GetString("Header:Internships", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Ҷойҳои корӣ.
-        /// </summary>
-        internal static string Header_Jobs {
-            get {
-                return ResourceManager.GetString("Header:Jobs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Тим.
-        /// </summary>
-        internal static string Header_Team {
-            get {
-                return ResourceManager.GetString("Header:Team", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Тренингҳо.
-        /// </summary>
-        internal static string Header_Trainings {
-            get {
-                return ResourceManager.GetString("Header:Trainings", resourceCulture);
+                return ResourceManager.GetString("Header:Words", resourceCulture);
             }
         }
         
@@ -115,16 +88,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мутахассисони Роҳи Абрешим (SRP) - ин ширкати тавсияи нармафзори давраи пурра аст, ки дар соли 2014 тасис ёфтааст. Мо дар Вирджиния, ИМА ва Дехмой, Тоҷикистон қонунӣ сабт шудаанд..
-        /// </summary>
-        internal static string Home_AboutContent {
-            get {
-                return ResourceManager.GetString("Home:AboutContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мутахассисони Роҳи Абрешим.
+        ///   Ищет локализованную строку, похожую на Шинохти забони тоҷикӣ.
         /// </summary>
         internal static string Home_AboutTitle {
             get {
@@ -142,110 +106,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Суғд, ноҳияи Ҷаббор Расулов, .
+        ///   Ищет локализованную строку, похожую на Суғд,,, .
         /// </summary>
         internal static string Home_Address_p1 {
             get {
                 return ResourceManager.GetString("Home:Address_p1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Деҳмой, кӯчаи Сомонӣ 80.
-        /// </summary>
-        internal static string Home_Address_p2 {
-            get {
-                return ResourceManager.GetString("Home:Address_p2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Фасеҳ.
-        /// </summary>
-        internal static string Home_Agile {
-            get {
-                return ResourceManager.GetString("Home:Agile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Афзалияти мо қонеъ гардонидани ниёзҳои муштарӣ тавассути интиқоли барвақт ва пайвастаи нармафзори арзишманд мебошад..
-        /// </summary>
-        internal static string Home_AgileDetails {
-            get {
-                return ResourceManager.GetString("Home:AgileDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Барномаҳо.
-        /// </summary>
-        internal static string Home_Apps {
-            get {
-                return ResourceManager.GetString("Home:Apps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сохтаи шгаванд.
-        /// </summary>
-        internal static string Home_BuildAmazing {
-            get {
-                return ResourceManager.GetString("Home:BuildAmazing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Ҳамеша дар ҷустуҷӯи пешрафтҳои технологии боланд. Танҳо маҳсулотеро сохтан, ки хуб фурӯхт мешавад, балки платформаро, ки тавассути он метавон онро тақсим кард..
-        /// </summary>
-        internal static string Home_BuildAmazing_Content_ {
-            get {
-                return ResourceManager.GetString("Home:BuildAmazing_Content.", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мизоҷ.
-        /// </summary>
-        internal static string Home_Client {
-            get {
-                return ResourceManager.GetString("Home:Client", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мо бо истифода аз роёниши абрӣ барномаҳои миқёспазир эҷод ва иҷро мекунем..
-        /// </summary>
-        internal static string Home_CloudServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:CloudServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Рушди абрӣ.
-        /// </summary>
-        internal static string Home_CloudServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:CloudServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сифати код.
-        /// </summary>
-        internal static string Home_CodeQuality {
-            get {
-                return ResourceManager.GetString("Home:CodeQuality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мо тамоми кори аз дастамон меомадаро мекунем, то рамзи тавсифӣ, нигоҳдорӣ, камхарҷ ва озмоишшаванда нависем..
-        /// </summary>
-        internal static string Home_CodeQualityDetails {
-            get {
-                return ResourceManager.GetString("Home:CodeQualityDetails", resourceCulture);
             }
         }
         
@@ -259,60 +124,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Омӯзиши пайваста.
-        /// </summary>
-        internal static string Home_ContinualLearning {
-            get {
-                return ResourceManager.GetString("Home:ContinualLearning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мо мекӯшем, ки малака ва дониши худро навсозӣ кунем, то ба талаботи мизоҷони худ қонеъ гардонем..
-        /// </summary>
-        internal static string Home_ContinualLearningDetails {
-            get {
-                return ResourceManager.GetString("Home:ContinualLearningDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Тарроҳӣ.
-        /// </summary>
-        internal static string Home_Design {
-            get {
-                return ResourceManager.GetString("Home:Design", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мо барои OS интихобкардаи шумо замимаҳо эҷод мекунем..
-        /// </summary>
-        internal static string Home_DesktopServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:DesktopServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Иловаҳои дасткорӣ.
-        /// </summary>
-        internal static string Home_DesktopServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:DesktopServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Рушд.
-        /// </summary>
-        internal static string Home_Development {
-            get {
-                return ResourceManager.GetString("Home:Development", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Ба мо нависед.
         /// </summary>
         internal static string Home_Email {
@@ -322,29 +133,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на info@silkroadprofessionals.com.
+        ///   Ищет локализованную строку, похожую на ubaydulloev.1104@gmail.com.
         /// </summary>
         internal static string Home_EmailLink {
             get {
                 return ResourceManager.GetString("Home:EmailLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Боварӣ ба Худо.
-        /// </summary>
-        internal static string Home_GlorifyGod {
-            get {
-                return ResourceManager.GetString("Home:GlorifyGod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мо мехоҳем, ки ҳар коре, ки мо мекунем, Худоро ҷалол диҳад..
-        /// </summary>
-        internal static string Home_GlorifyGodDetails {
-            get {
-                return ResourceManager.GetString("Home:GlorifyGodDetails", resourceCulture);
             }
         }
         
@@ -376,43 +169,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Чӣ тавр.
-        /// </summary>
-        internal static string Home_How {
-            get {
-                return ResourceManager.GetString("Home:How", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Назорати дохилӣ.
-        /// </summary>
-        internal static string Home_IntrinsicControl {
-            get {
-                return ResourceManager.GetString("Home:IntrinsicControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мо барномасозони худро ташвиқ мекунем, ки барои такмил додани малакаи худ ва истеҳсоли кори босифат худдорӣ кунанд..
-        /// </summary>
-        internal static string Home_IntrinsicControlDetails {
-            get {
-                return ResourceManager.GetString("Home:IntrinsicControlDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Шинос шавед.
-        /// </summary>
-        internal static string Home_Meet {
-            get {
-                return ResourceManager.GetString("Home:Meet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Ба ҷамъияти маҳаллии мутахассисони IT-и дараи истиъдод дастгирӣ кардан, ки ба шарикони мо хидматҳои барҷастаи IT пешниҳод кунанд.
+        ///   Ищет локализованную строку, похожую на Таҳияи модулҳои барномавӣ барои маълумоти овозӣ бо забони тоҷикӣ ба сохтани системаҳое равона шудаанд, ки қобилияти шинохтан ва синтез кардани нутқро бо забони тоҷикӣ доранд. Ин модулҳо ҷузъҳои гуногунро дар бар мегиранд, аз қабили алгоритмҳои шинохти нутқ, синтезаторҳои нутқ, таҳлилгарони оҳанг ва дигарон, ки қодиранд бо забони тоҷикӣ кор кунанд.Ҳадафи асосии дастрас кардани технологияҳои муоширати овозӣ ба забони тоҷикӣ баланд бардоштани самаранокии таълим, беҳтар кардани муошират ва дастрасӣ ба иттилоот  [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Home_MissionContent {
             get {
@@ -421,83 +178,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на МАҚСАДИ МО.
+        ///   Ищет локализованную строку, похожую на Моҳияти асосии самт.
         /// </summary>
         internal static string Home_MissionTitle {
             get {
                 return ResourceManager.GetString("Home:MissionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мо иловаҳои мобилӣ ва кросс-платформа эҷод мекунем..
-        /// </summary>
-        internal static string Home_MobileServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:MobileServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Рушди мобилӣ.
-        /// </summary>
-        internal static string Home_MobileServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:MobileServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Тими мо.
-        /// </summary>
-        internal static string Home_OurTeam {
-            get {
-                return ResourceManager.GetString("Home:OurTeam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Ва баррасиҳои шарикон.
-        /// </summary>
-        internal static string Home_Partner {
-            get {
-                return ResourceManager.GetString("Home:Partner", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Барномарезӣ.
-        /// </summary>
-        internal static string Home_Planning {
-            get {
-                return ResourceManager.GetString("Home:Planning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Принсипҳои асосӣ.
-        /// </summary>
-        internal static string Home_Principles {
-            get {
-                return ResourceManager.GetString("Home:Principles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Маҳсулнокӣ.
-        /// </summary>
-        internal static string Home_Productivity {
-            get {
-                return ResourceManager.GetString("Home:Productivity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мо мекӯшем, ки асбобҳо ва муҳити атрофро фароҳам орем, ки барномасозони мо бояд то ҳадди имкон самаранок бошанд..
-        /// </summary>
-        internal static string Home_ProductivityDetails {
-            get {
-                return ResourceManager.GetString("Home:ProductivityDetails", resourceCulture);
             }
         }
         
@@ -507,114 +192,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         internal static string Home_Us {
             get {
                 return ResourceManager.GetString("Home:Us", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Дидани Тим.
-        /// </summary>
-        internal static string Home_ViewTeam {
-            get {
-                return ResourceManager.GetString("Home:ViewTeam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Шарикони тиҷоратии моро тавассути пешниҳоди хидматҳои барҷастаи аутсорсинги IT ва аутстаффинг ба сатҳҳои нави муваффақият расонидан.
-        /// </summary>
-        internal static string Home_VisionContent {
-            get {
-                return ResourceManager.GetString("Home:VisionContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на ДИДБИНИИ МО.
-        /// </summary>
-        internal static string Home_VisionTitle {
-            get {
-                return ResourceManager.GetString("Home:VisionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мо веб-сайтҳо ва иловаҳои веб-корпоратсияро тавсия мекунем..
-        /// </summary>
-        internal static string Home_WebServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:WebServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Рушди веб.
-        /// </summary>
-        internal static string Home_WebServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:WebServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  чӣ мекунем.
-        /// </summary>
-        internal static string Home_WeDo {
-            get {
-                return ResourceManager.GetString("Home:WeDo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мо кор мекунем.
-        /// </summary>
-        internal static string Home_WeWork {
-            get {
-                return ResourceManager.GetString("Home:WeWork", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мо.
-        /// </summary>
-        internal static string Home_What {
-            get {
-                return ResourceManager.GetString("Home:What", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Соатҳои корӣ.
-        /// </summary>
-        internal static string Home_WorkingHours {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Душанбе: аз 12:00 то 21:00.
-        /// </summary>
-        internal static string Home_WorkingHours1 {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сушанбе - Ҷумъа: аз 8:00 то 17:30.
-        /// </summary>
-        internal static string Home_WorkingHours2 {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Шанбе - Якшанбе: истироҳат.
-        /// </summary>
-        internal static string Home_WorkingHours3 {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours3", resourceCulture);
             }
         }
         
@@ -1538,51 +1115,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Муддати бақайдгирӣ.
-        /// </summary>
-        internal static string VacancyApplication_Deadline {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Deadline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Давомият.
-        /// </summary>
-        internal static string VacancyApplication_Duration {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Duration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Санаи тамоми.
-        /// </summary>
-        internal static string VacancyApplication_End_Date {
-            get {
-                return ResourceManager.GetString("VacancyApplication:End Date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Суҳбат.
-        /// </summary>
-        internal static string VacancyApplication_Fees {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Fees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на моҳ(ҳо).
-        /// </summary>
-        internal static string VacancyApplication_month_s_ {
-            get {
-                return ResourceManager.GetString("VacancyApplication:month(s)", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Опубликовано.
         /// </summary>
         internal static string VacancyApplication_Posted {
@@ -1610,15 +1142,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Талаботи солҳои таҷриба.
-        /// </summary>
-        internal static string VacancyApplication_Required_year_of_experience {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Required year of experience", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Резюмеи худро бор кунед.
         /// </summary>
         internal static string VacancyApplication_Upload_your_CV {
@@ -1628,20 +1151,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Тафсилоти вазифа.
+        ///   Ищет локализованную строку, похожую на Тафсилоти калима.
         /// </summary>
         internal static string VacancyApplication_Vacancy_Details {
             get {
                 return ResourceManager.GetString("VacancyApplication:Vacancy Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на сол(ҳо).
-        /// </summary>
-        internal static string VacancyApplication_year_s_ {
-            get {
-                return ResourceManager.GetString("VacancyApplication:year(s)", resourceCulture);
             }
         }
         
@@ -1664,101 +1178,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Оё шумо тайёрӣ доред, карьераро ба дараёи зирзамини оянда гиред бо.
-        /// </summary>
-        internal static string VacancyDetails_Are_you_ready_to_take_your_career_to_the_next_level_with {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Are you ready to take your career to the next level with", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Муддати бақайдгирӣ.
-        /// </summary>
-        internal static string VacancyDetails_Deadline {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Deadline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на CV-ро зеркашӣ кунед.
-        /// </summary>
-        internal static string VacancyDetails_Download_CV {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Download CV", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Давомият.
-        /// </summary>
-        internal static string VacancyDetails_Duration {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Duration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Тамомшавии муддат.
-        /// </summary>
-        internal static string VacancyDetails_End_Date {
-            get {
-                return ResourceManager.GetString("VacancyDetails:End Date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Таҳлили.
-        /// </summary>
-        internal static string VacancyDetails_Explore {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Explore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Хизмати пулидан.
-        /// </summary>
-        internal static string VacancyDetails_Fees {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Fees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на моҳ(ҳо).
-        /// </summary>
-        internal static string VacancyDetails_month_s_ {
-            get {
-                return ResourceManager.GetString("VacancyDetails:month(s)", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на имкониятҳо.
-        /// </summary>
-        internal static string VacancyDetails_opportunities {
-            get {
-                return ResourceManager.GetString("VacancyDetails:opportunities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Опубликовано.
         /// </summary>
         internal static string VacancyDetails_Posted {
             get {
                 return ResourceManager.GetString("VacancyDetails:Posted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Талаботи солҳои тажриба.
-        /// </summary>
-        internal static string VacancyDetails_Required_year_of_experience {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Required year of experience", resourceCulture);
             }
         }
         
@@ -1777,34 +1201,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         internal static string VacancyDetails_Sign_Up {
             get {
                 return ResourceManager.GetString("VacancyDetails:Sign Up", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мутасиршудагӣ, муддат аллакай гузашт.
-        /// </summary>
-        internal static string VacancyDetails_Unfortunately__the_deadline_has_already_expired {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Unfortunately, the deadline has already expired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Нависед суроғаи муваффақ, якчанд савол ҷавоб диҳед ва сабти зарафшониро рўй бедиҳед!.
-        /// </summary>
-        internal static string VacancyDetails_Write_a_cover_letter__answer_few_questions_and_send_your_application_ {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Write a cover letter, answer few questions and send your applicati" +
-                        "on!", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на сол(ҳо).
-        /// </summary>
-        internal static string VacancyDetails_year_s_ {
-            get {
-                return ResourceManager.GetString("VacancyDetails:year(s)", resourceCulture);
             }
         }
     }

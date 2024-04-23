@@ -4,7 +4,6 @@
     {
         Home,
         Word,
-        Team,
         Contact,
         Profile,
         Applications

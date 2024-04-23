@@ -1,155 +1,123 @@
 ﻿@using Application.Contracts.WordClient
-@using Blazored.LocalStorage;
 @using Microsoft.AspNetCore.Components.Authorization;
 @using System.Net
 @using Blazorise.Extensions
-@using TSR_Client.CustomMethods
-@inject AuthenticationStateProvider provider
+@using TSR_Client.Services.ConverterService
+@inject AuthenticationStateProvider Provider
 @inject IApplicationService ApplicationService
-
+@inject IDateTimeConvertToStringService DateTimeConvert
 @if (wordDetails is null || words == null)
 {
-	if (showLoader)
-	{
-		<div class="loader"></div>
-	}
+    if (_showLoader)
+    {
+        <div style="text-align: center;">
+            <MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true" />
+        </div>
+    }
 }
 else
 {
-	<MudContainer Style="margin-top:25px;">
-		<MudGrid>
-			<MudItem xs="12" lg="9" sm="6" md="8">
-				<MudCard>
-					<MudCardHeader>
-						<CardHeaderContent>
-							<MudText Typo="Typo.h5">
-								<b>@wordDetails.Value</b>
-							</MudText>
-							<MudText Typo="Typo.body2" Style="color:gray">
-								Posted @CustomConverter.GetDisplayPostedDate(wordDetails.CreateDate)
-							</MudText>
-						</CardHeaderContent>
-					</MudCardHeader>
-					<MudCardContent>
-						<MudDivider />
+    <MudContainer>
+        <MudGrid>
+            <MudItem xs="12" lg="9" sm="6" md="8">
+                <MudCard Class="rounded-lg mud-elevation-4">
+                    <MudCardHeader>
 
-						<MudText>@((MarkupString)wordDetails.Description)</MudText>
+                        <CardHeaderContent>
+                            <div class="d-flex flex-grow-1">
+                                <div class="flex-none d-flex py-lg-3">
+                                    <MudLink Href="@("/" + words)">
+                                        <MudIcon Icon="@Icons.Material.Filled.ArrowBackIosNew" Size="Size.Large"></MudIcon>
+                                    </MudLink>
+                                </div>
+                                <div class="">
+                                    <MudText Typo="Typo.h5" Style="padding-top: 3px;">
+                                        <b>@wordDetails.Value</b>
+                                    </MudText>
+                                    <MudText Typo="Typo.body2" Style="color:rgb(128,128,128)">
+                                        <b> @ContentService["VacancyDetails:Posted"] @DateTimeConvert.GetDisplayPostedDate(wordDetails.CreateDate)</b>
+                                    </MudText>
+                                </div>
+                            </div>
 
-
-						<MudDivider Style="padding:10px;" />
-						<MudGrid Style="padding:10px 10px;color:gray;">
-						</MudGrid>
-
-
-					</MudCardContent>
-				</MudCard>
-
-
-			</MudItem>
+                        </CardHeaderContent>
+                    </MudCardHeader>
+                </MudCard>
 
 
-			<MudItem xs="12" lg="3" sm="6" md="4" Class="fixed-bottom-sm">
-				
-					<MudCard>
-						<MudCardContent>
-							<MudText>Unfortunately, the deadline has already expired</MudText>
-							<MudButton Color="Color.Primary" Variant="Variant.Filled" FullWidth="true" Disabled="true">Apply Now</MudButton>
-						</MudCardContent>
-					</MudCard>
-				}
-				else
-				{
-					<CascadingAuthenticationState>
-						<AuthorizeView>
-							<Authorized>
-								<MudCard>
-									<MudCardHeader>
-										<CardHeaderContent>
-											<MudText>Are you ready to take your career to the next level with <b> Silk Road Professionals</b>?</MudText>
-
-										</CardHeaderContent>
-									</MudCardHeader>
-									<MudCardContent>
-										<MudText Typo="Typo.body2">Write a cover letter, answer few questions and send your application!</MudText>
-
-									</MudCardContent>
-									<MudCardActions Style="flex-direction: column">
-
-										@if (applied)
-										{
-											<a class="btn btn-primary w-100" style="margin-bottom: 10px" href="@cvUrl"><MudIcon Icon="@Icons.Material.Filled.Download"></MudIcon>Download CV</a>
-											<a href="#" class="btn btn-secondary w-100 disabled">Applied</a>
-										}
-										else
-										{
-											<a href="/@words/apply/@Slug" class="btn btn-primary w-100" style="background:#129fd7; border: none">
-												<b>Apply Now</b>
-											</a>
-										}
-
-									</MudCardActions>
-								</MudCard>
-							</Authorized>
-							<NotAuthorized>
-								<MudCard>
-									<MudCardHeader>
-										<MudText>
-											Explore <b>Silk Road Professionals</b> opportunities
-										</MudText>
-									</MudCardHeader>
-									<MudCardActions>
-										<a href="sign-up" class="btn btn-primary" style="width:100%; background-color:#129fd7; border: none ">
-											<b>Sign Up</b>
-										</a>
-									</MudCardActions>
-									<MudText Typo="Typo.body2" Style="padding:0px 10px 10px 10px">
-										Already have an account?
-										<a href="/sign-in?returnUrl=@words|@Slug" style="color:#129fd7">
-											<b>Sign In</b>
-										</a>
-									</MudText>
-								</MudCard>
-							</NotAuthorized>
-						</AuthorizeView>
-					</CascadingAuthenticationState>
-				}
-			</MudItem>
-		</MudGrid>
-	</MudContainer>
+            </MudItem>
+            <MudItem xs="12" lg="3" sm="6" md="4">
+                    <CascadingAuthenticationState>
+                        <AuthorizeView>
+                            <Authorized>
+                                <MudCard Class="rounded-lg mud-elevation-4"> 
+                                        <MudCardActions Style="flex-direction: column">
+                                            <MudButton Variant="Variant.Filled" href=@($"/{words}/apply/{Slug}") Color="Color.Primary" FullWidth="true">
+                                                <MudText>
+                                                    <b>@ContentService["VacancyDetails:Apply Now"]</b>
+                                                </MudText>
+                                            </MudButton>
+                                    </MudCardActions>
+                                </MudCard>
+                            </Authorized>
+                            <NotAuthorized>
+                                <MudCard Class="rounded-lg mud-elevation-4">
+                                    <MudCardActions>
+                                        <MudButton Variant="Variant.Filled" href="sign-up" Color="Color.Primary" FullWidth="true">
+                                            <MudText>
+                                                <b>@ContentService["VacancyDetails:Sign Up"]</b>
+                                            </MudText>
+                                        </MudButton>
+                                    </MudCardActions>
+                                    <MudText Typo="Typo.body2" Style="padding:0 10px 10px 10px">
+                                        @ContentService["VacancyDetails:Already have an account?"]
+                                        <MudLink Typo="Typo.body2" href=@($"/sign-in?returnUrl={words}|{Slug}") Color="Color.Primary">
+                                            <b>@ContentService["VacancyDetails:Sign In"]</b>
+                                        </MudLink>
+                                    </MudText>
+                                </MudCard>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                    </CascadingAuthenticationState>
+                
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
 }
 
 @code {
-	private bool showLoader = false;
+    private bool _showLoader = false;
 
-	[Parameter]
-	public string Slug { get; set; }
+    [Parameter]
+    public string Slug { get; set; }
 
-	private string cvUrl;
+    
+    [Parameter]
+    public WordDetailsResponse wordDetails { get; set; }
 
-	[Parameter]
-	public WordDetailsResponse wordDetails { get; set; }
+    [Parameter]
+    public string words { get; set; }
+   
 
-	[Parameter]
-	public string words { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
 
-	public bool applied { get; set; }
-
-	protected override async void OnAfterRender(bool firstRender)
-	{
-		try
-		{
-			if (firstRender)
-			{
-				cvUrl = await ApplicationService.GetCvLinkAsync(Slug);
-				applied = !cvUrl.IsNullOrEmpty();
-				await Task.Delay(1000);
-				showLoader = true;
-				StateHasChanged();
-			}
-		}
-		catch (Exception)
-		{
-		}
-	}
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                await Task.Delay(1000);
+                _showLoader = true;
+                StateHasChanged();
+            }
+        }
+        catch (Exception)
+        {
+        }
+    }
 
 }

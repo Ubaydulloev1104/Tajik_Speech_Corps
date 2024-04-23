@@ -22,14 +22,14 @@ namespace TSR_Client.wwwroot.resources.languages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Russian {
+    internal class Russian {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Russian() {
+        internal Russian() {
         }
         
         /// <summary>
@@ -61,7 +61,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Главная.
+        ///   Ищет локализованную строку, похожую на Home.
         /// </summary>
         internal static string Header_Home {
             get {
@@ -70,38 +70,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Стажировки.
+        ///   Ищет локализованную строку, похожую на Слова.
         /// </summary>
-        internal static string Header_Internships {
+        internal static string Header_Words {
             get {
-                return ResourceManager.GetString("Header:Internships", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Вакансии.
-        /// </summary>
-        internal static string Header_Jobs {
-            get {
-                return ResourceManager.GetString("Header:Jobs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Команда.
-        /// </summary>
-        internal static string Header_Team {
-            get {
-                return ResourceManager.GetString("Header:Team", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Трейнинги.
-        /// </summary>
-        internal static string Header_Trainings {
-            get {
-                return ResourceManager.GetString("Header:Trainings", resourceCulture);
+                return ResourceManager.GetString("Header:Words", resourceCulture);
             }
         }
         
@@ -115,7 +88,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на  Профессионалы Шелкового пути (SRP) - это компания, занимающаяся разработкой программного обеспечения полного цикла, основанная в 2014 году. Мы юридически зарегистрированы в штате Вирджиния, США и в Дехмое, Таджикистан..
+        ///   Ищет локализованную строку, похожую на В современном мире цифровых технологий, голосовые технологии становятся все более востребованными, особенно с развитием искусственного интеллекта и машинного обучения. Однако, когда речь заходит о региональных языках, таких как таджикский, возникают особые вызовы. Разработка программных модулей для создания источника голосовых данных на таджикском языке становится важным шагом в повышении доступности технологий и внедрении инноваций в Таджикистане..
         /// </summary>
         internal static string Home_AboutContent {
             get {
@@ -124,7 +97,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Профессионалы Шелкового пути.
+        ///   Ищет локализованную строку, похожую на Распознавание таджикской речи.
         /// </summary>
         internal static string Home_AboutTitle {
             get {
@@ -142,110 +115,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Сугд, район Джаббор Расулов,.
+        ///   Ищет локализованную строку, похожую на Сугд...
         /// </summary>
         internal static string Home_Address_p1 {
             get {
                 return ResourceManager.GetString("Home:Address_p1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Дехмой, улица Сомони 80.
-        /// </summary>
-        internal static string Home_Address_p2 {
-            get {
-                return ResourceManager.GetString("Home:Address_p2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Гибкость.
-        /// </summary>
-        internal static string Home_Agile {
-            get {
-                return ResourceManager.GetString("Home:Agile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Наш приоритет - удовлетворить потребности клиента за счет ранней и непрерывной поставки ценного программного обеспечения..
-        /// </summary>
-        internal static string Home_AgileDetails {
-            get {
-                return ResourceManager.GetString("Home:AgileDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Приложения.
-        /// </summary>
-        internal static string Home_Apps {
-            get {
-                return ResourceManager.GetString("Home:Apps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Создавайте удивительное.
-        /// </summary>
-        internal static string Home_BuildAmazing {
-            get {
-                return ResourceManager.GetString("Home:BuildAmazing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Всегда в поисках передовых технологий. Создавайте не только продукт, который хорошо продается, но и платформу для его доставки..
-        /// </summary>
-        internal static string Home_BuildAmazing_Content_ {
-            get {
-                return ResourceManager.GetString("Home:BuildAmazing_Content.", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Клиент.
-        /// </summary>
-        internal static string Home_Client {
-            get {
-                return ResourceManager.GetString("Home:Client", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мы создаем и запускаем масштабируемые приложения с использованием облачных вычислений..
-        /// </summary>
-        internal static string Home_CloudServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:CloudServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Разработка облачных приложений.
-        /// </summary>
-        internal static string Home_CloudServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:CloudServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Качество кода.
-        /// </summary>
-        internal static string Home_CodeQuality {
-            get {
-                return ResourceManager.GetString("Home:CodeQuality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мы делаем все возможное, чтобы написать описательный, поддерживаемый, экономичный, тестируемый код..
-        /// </summary>
-        internal static string Home_CodeQualityDetails {
-            get {
-                return ResourceManager.GetString("Home:CodeQualityDetails", resourceCulture);
             }
         }
         
@@ -259,60 +133,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Постоянное обучение.
-        /// </summary>
-        internal static string Home_ContinualLearning {
-            get {
-                return ResourceManager.GetString("Home:ContinualLearning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мы стремимся поддерживать наши навыки и знания на современном уровне, чтобы мы могли удовлетворить требования наших клиентов..
-        /// </summary>
-        internal static string Home_ContinualLearningDetails {
-            get {
-                return ResourceManager.GetString("Home:ContinualLearningDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Дизайн.
-        /// </summary>
-        internal static string Home_Design {
-            get {
-                return ResourceManager.GetString("Home:Design", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мы создаем приложения для ОС по вашему выбору..
-        /// </summary>
-        internal static string Home_DesktopServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:DesktopServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Настольные приложения.
-        /// </summary>
-        internal static string Home_DesktopServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:DesktopServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Разработка.
-        /// </summary>
-        internal static string Home_Development {
-            get {
-                return ResourceManager.GetString("Home:Development", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Напишите нам.
         /// </summary>
         internal static string Home_Email {
@@ -322,38 +142,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на info@silkroadprofessionals.com.
+        ///   Ищет локализованную строку, похожую на ubaydulloev.1104@gmail.com.
         /// </summary>
         internal static string Home_EmailLink {
             get {
                 return ResourceManager.GetString("Home:EmailLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Прославить Бога.
-        /// </summary>
-        internal static string Home_GlorifyGod {
-            get {
-                return ResourceManager.GetString("Home:GlorifyGod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мы хотим, чтобы все, что мы делаем, славило Бога..
-        /// </summary>
-        internal static string Home_GlorifyGodDetails {
-            get {
-                return ResourceManager.GetString("Home:GlorifyGodDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мы разрабатываем программное обеспечение и предоставляем поддержку программирования в аутсорсинге..
-        /// </summary>
-        internal static string Home_Hero_Content {
-            get {
-                return ResourceManager.GetString("Home:Hero_Content", resourceCulture);
             }
         }
         
@@ -376,43 +169,7 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Как.
-        /// </summary>
-        internal static string Home_How {
-            get {
-                return ResourceManager.GetString("Home:How", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Внутренний контроль.
-        /// </summary>
-        internal static string Home_IntrinsicControl {
-            get {
-                return ResourceManager.GetString("Home:IntrinsicControl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мы поощряем наших программистов быть самомотивированными в улучшении своих навыков и производстве качественной работы..
-        /// </summary>
-        internal static string Home_IntrinsicControlDetails {
-            get {
-                return ResourceManager.GetString("Home:IntrinsicControlDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Встречайте.
-        /// </summary>
-        internal static string Home_Meet {
-            get {
-                return ResourceManager.GetString("Home:Meet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Привлечь команду местных талантливых IT-специалистов и дать им возможность оказывать выдающиеся IT-услуги нашим партнерам.
+        ///   Ищет локализованную строку, похожую на Разработка программных модулей для голосовых данных на таджикском языке направлена на создание систем, способных распознавать и синтезировать речь на таджикском языке. Эти модули включают в себя различные компоненты, такие как алгоритмы распознавания речи, синтезаторы речи, анализаторы тональности и другие, способные работать на таджикском языке. Основная цель заключается в том, чтобы сделать технологии голосового взаимодействия доступными для таджикского языка, что поможет улучшить коммуникацию, повысить э [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Home_MissionContent {
             get {
@@ -421,83 +178,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на НАША МИССИЯ.
+        ///   Ищет локализованную строку, похожую на Основная суть направления.
         /// </summary>
         internal static string Home_MissionTitle {
             get {
                 return ResourceManager.GetString("Home:MissionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мы создаем нативные и кросс-платформенные мобильные приложения..
-        /// </summary>
-        internal static string Home_MobileServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:MobileServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мобильная разработка.
-        /// </summary>
-        internal static string Home_MobileServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:MobileServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Наша команда.
-        /// </summary>
-        internal static string Home_OurTeam {
-            get {
-                return ResourceManager.GetString("Home:OurTeam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на И отзывы партнеров.
-        /// </summary>
-        internal static string Home_Partner {
-            get {
-                return ResourceManager.GetString("Home:Partner", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Планирование.
-        /// </summary>
-        internal static string Home_Planning {
-            get {
-                return ResourceManager.GetString("Home:Planning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Основные принципы.
-        /// </summary>
-        internal static string Home_Principles {
-            get {
-                return ResourceManager.GetString("Home:Principles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Продуктивность.
-        /// </summary>
-        internal static string Home_Productivity {
-            get {
-                return ResourceManager.GetString("Home:Productivity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мы стремимся предоставить инструменты и среду, которые наши программисты нуждаются для достижения максимальной продуктивности..
-        /// </summary>
-        internal static string Home_ProductivityDetails {
-            get {
-                return ResourceManager.GetString("Home:ProductivityDetails", resourceCulture);
             }
         }
         
@@ -507,114 +192,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         internal static string Home_Us {
             get {
                 return ResourceManager.GetString("Home:Us", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Посмотреть команду.
-        /// </summary>
-        internal static string Home_ViewTeam {
-            get {
-                return ResourceManager.GetString("Home:ViewTeam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Поднять наших бизнес-партнеров на новый уровень успеха, предоставляя замечательные услуги по аутсорсингу и аутстаффингу в области IT.
-        /// </summary>
-        internal static string Home_VisionContent {
-            get {
-                return ResourceManager.GetString("Home:VisionContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на НАШЕ ВИДЕНИЕ.
-        /// </summary>
-        internal static string Home_VisionTitle {
-            get {
-                return ResourceManager.GetString("Home:VisionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Мы разрабатываем веб-сайты и корпоративные веб-приложения..
-        /// </summary>
-        internal static string Home_WebServiceDescription {
-            get {
-                return ResourceManager.GetString("Home:WebServiceDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Разработка веб-сайтов.
-        /// </summary>
-        internal static string Home_WebServiceTitle {
-            get {
-                return ResourceManager.GetString("Home:WebServiceTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мы делаем.
-        /// </summary>
-        internal static string Home_WeDo {
-            get {
-                return ResourceManager.GetString("Home:WeDo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Мы работаем.
-        /// </summary>
-        internal static string Home_WeWork {
-            get {
-                return ResourceManager.GetString("Home:WeWork", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Что.
-        /// </summary>
-        internal static string Home_What {
-            get {
-                return ResourceManager.GetString("Home:What", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Часы работы.
-        /// </summary>
-        internal static string Home_WorkingHours {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Пн: с 12:00 до 21:00.
-        /// </summary>
-        internal static string Home_WorkingHours1 {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Вт - Пт: с 8:00 до 17:30.
-        /// </summary>
-        internal static string Home_WorkingHours2 {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сб - Вс: закрыто.
-        /// </summary>
-        internal static string Home_WorkingHours3 {
-            get {
-                return ResourceManager.GetString("Home:WorkingHours3", resourceCulture);
             }
         }
         
@@ -1538,51 +1115,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Срок.
-        /// </summary>
-        internal static string VacancyApplication_Deadline {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Deadline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Продолжительность.
-        /// </summary>
-        internal static string VacancyApplication_Duration {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Duration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Дата завершения.
-        /// </summary>
-        internal static string VacancyApplication_End_Date {
-            get {
-                return ResourceManager.GetString("VacancyApplication:End Date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сборы.
-        /// </summary>
-        internal static string VacancyApplication_Fees {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Fees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на месяц(ев).
-        /// </summary>
-        internal static string VacancyApplication_month_s_ {
-            get {
-                return ResourceManager.GetString("VacancyApplication:month(s)", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Опубликовано.
         /// </summary>
         internal static string VacancyApplication_Posted {
@@ -1610,15 +1142,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Требуемый опыт работы в годах.
-        /// </summary>
-        internal static string VacancyApplication_Required_year_of_experience {
-            get {
-                return ResourceManager.GetString("VacancyApplication:Required year of experience", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Загрузить свое резюме.
         /// </summary>
         internal static string VacancyApplication_Upload_your_CV {
@@ -1628,20 +1151,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Детали вакансии.
+        ///   Ищет локализованную строку, похожую на Детали Слова.
         /// </summary>
         internal static string VacancyApplication_Vacancy_Details {
             get {
                 return ResourceManager.GetString("VacancyApplication:Vacancy Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на год(ы).
-        /// </summary>
-        internal static string VacancyApplication_year_s_ {
-            get {
-                return ResourceManager.GetString("VacancyApplication:year(s)", resourceCulture);
             }
         }
         
@@ -1664,101 +1178,11 @@ namespace TSR_Client.wwwroot.resources.languages {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Готовы взять свою карьеру на следующий уровень с.
-        /// </summary>
-        internal static string VacancyDetails_Are_you_ready_to_take_your_career_to_the_next_level_with {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Are you ready to take your career to the next level with", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Срок.
-        /// </summary>
-        internal static string VacancyDetails_Deadline {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Deadline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Скачать резюме.
-        /// </summary>
-        internal static string VacancyDetails_Download_CV {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Download CV", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Продолжительность.
-        /// </summary>
-        internal static string VacancyDetails_Duration {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Duration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Дата завершения.
-        /// </summary>
-        internal static string VacancyDetails_End_Date {
-            get {
-                return ResourceManager.GetString("VacancyDetails:End Date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Исследовать.
-        /// </summary>
-        internal static string VacancyDetails_Explore {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Explore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Сборы.
-        /// </summary>
-        internal static string VacancyDetails_Fees {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Fees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на месяц(ев).
-        /// </summary>
-        internal static string VacancyDetails_month_s_ {
-            get {
-                return ResourceManager.GetString("VacancyDetails:month(s)", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на возможности.
-        /// </summary>
-        internal static string VacancyDetails_opportunities {
-            get {
-                return ResourceManager.GetString("VacancyDetails:opportunities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Опубликовано.
         /// </summary>
         internal static string VacancyDetails_Posted {
             get {
                 return ResourceManager.GetString("VacancyDetails:Posted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Требуемый опыт работы в годах.
-        /// </summary>
-        internal static string VacancyDetails_Required_year_of_experience {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Required year of experience", resourceCulture);
             }
         }
         
@@ -1777,34 +1201,6 @@ namespace TSR_Client.wwwroot.resources.languages {
         internal static string VacancyDetails_Sign_Up {
             get {
                 return ResourceManager.GetString("VacancyDetails:Sign Up", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на К сожалению, срок подачи заявок уже истек.
-        /// </summary>
-        internal static string VacancyDetails_Unfortunately__the_deadline_has_already_expired {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Unfortunately, the deadline has already expired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Напишите сопроводительное письмо, ответьте на несколько вопросов и отправьте свою заявку!.
-        /// </summary>
-        internal static string VacancyDetails_Write_a_cover_letter__answer_few_questions_and_send_your_application_ {
-            get {
-                return ResourceManager.GetString("VacancyDetails:Write a cover letter, answer few questions and send your applicati" +
-                        "on!", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на год(ы).
-        /// </summary>
-        internal static string VacancyDetails_year_s_ {
-            get {
-                return ResourceManager.GetString("VacancyDetails:year(s)", resourceCulture);
             }
         }
     }

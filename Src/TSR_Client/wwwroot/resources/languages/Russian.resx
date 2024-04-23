@@ -362,28 +362,7 @@
     <value>Опубликовано</value>
 </data>
     <data name="VacancyApplication:Vacancy Details" xml:space="preserve">
-    <value>Детали вакансии</value>
-</data>
-    <data name="VacancyApplication:month(s)" xml:space="preserve">
-    <value>месяц(ев)</value>
-</data>
-    <data name="VacancyApplication:Duration" xml:space="preserve">
-    <value>Продолжительность</value>
-</data>
-    <data name="VacancyApplication:Deadline" xml:space="preserve">
-    <value>Срок</value>
-</data>
-    <data name="VacancyApplication:year(s)" xml:space="preserve">
-    <value>год(ы)</value>
-</data>
-    <data name="VacancyApplication:Required year of experience" xml:space="preserve">
-    <value>Требуемый опыт работы в годах</value>
-</data>
-    <data name="VacancyApplication:Fees" xml:space="preserve">
-    <value>Сборы</value>
-</data>
-    <data name="VacancyApplication:End Date" xml:space="preserve">
-    <value>Дата завершения</value>
+    <value>Детали Слова</value>
 </data>
     <data name="VacancyApplication:Additional Details" xml:space="preserve">
     <value>Дополнительные детали</value>
@@ -467,48 +446,12 @@
     <data name="VacancyDetails:Posted">
         <value>Опубликовано</value>
     </data>
-    <data name="VacancyDetails:month(s)">
-        <value>месяц(ев)</value>
-    </data>
-    <data name="VacancyDetails:Duration">
-        <value>Продолжительность</value>
-    </data>
-    <data name="VacancyDetails:Deadline">
-        <value>Срок</value>
-    </data>
-    <data name="VacancyDetails:year(s)">
-        <value>год(ы)</value>
-    </data>
-    <data name="VacancyDetails:Required year of experience">
-        <value>Требуемый опыт работы в годах</value>
-    </data>
-    <data name="VacancyDetails:Fees">
-        <value>Сборы</value>
-    </data>
-    <data name="VacancyDetails:End Date">
-        <value>Дата завершения</value>
-    </data>
-    <data name="VacancyDetails:Unfortunately, the deadline has already expired">
-        <value>К сожалению, срок подачи заявок уже истек</value>
-    </data>
+
+
     <data name="VacancyDetails:Apply Now">
         <value>Подать заявку сейчас</value>
     </data>
-    <data name="VacancyDetails:Are you ready to take your career to the next level with">
-        <value>Готовы взять свою карьеру на следующий уровень с</value>
-    </data>
-    <data name="VacancyDetails:Write a cover letter, answer few questions and send your application!">
-        <value>Напишите сопроводительное письмо, ответьте на несколько вопросов и отправьте свою заявку!</value>
-    </data>
-    <data name="VacancyDetails:Download CV">
-        <value>Скачать резюме</value>
-    </data>
-    <data name="VacancyDetails:Explore">
-        <value>Исследовать</value>
-    </data>
-    <data name="VacancyDetails:opportunities">
-        <value>возможности</value>
-    </data>
+   
     <data name="VacancyDetails:Sign Up">
         <value>Зарегистрироваться</value>
     </data>

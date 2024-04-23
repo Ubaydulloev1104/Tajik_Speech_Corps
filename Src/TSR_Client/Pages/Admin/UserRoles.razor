@@ -1,5 +1,5 @@
 ﻿@page "/UserRoles/{Username}"
-<h2>@Username</h2>
+<MudText Typo="Typo.h4"><b>@Username</b></MudText>
 
 <MudGrid>
 	<MudItem lg="6" sm="12" xs="12" md="6">
@@ -25,7 +25,7 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th style="width:25px;">  </th>
+									<th style="width:25px;"> </th>
 									<th></th>
 								</tr>
 							</thead>
@@ -94,49 +94,57 @@
 				<MudCard>
 					<MudCardHeader>
 						<CardHeaderContent>
-							<MudText Typo="Typo.h5"><b>Roles</b></MudText>
+							<MudText Typo="Typo.h5">
+								<b>Roles</b>
+							</MudText>
 						</CardHeaderContent>
 					</MudCardHeader>
 					<MudCardContent>
-										<MatAccordion>
-						<MatExpansionPanel @bind-Expanded="_isOpened">
-						<MatExpansionPanelSummary>
-						<MatExpansionPanelHeader>Add role</MatExpansionPanelHeader>
-						</MatExpansionPanelSummary>
-						<MatExpansionPanelDetails>
-						<MatTextField Label="Role" @bind-Value="NewRoleName"></MatTextField>
-						<MatButton OnClick="@OnAddClick" Style="color:#2094CC" Icon="edit" Label="Add"></MatButton>
-						</MatExpansionPanelDetails>
-						</MatExpansionPanel>
-						</MatAccordion>
+						<MudStack Row="true">
+							<MudTextField Label="Role" Variant="Variant.Outlined" @bind-Value="NewRoleName" />
+							<MudFab Size="Size.Medium" StartIcon="@Icons.Material.Filled.Add" OnClick="@OnAddClick" />
+						</MudStack>
+						<br />
 						<MudTable Items="@Roles" Dense="true" Hover="true" Breakpoint="@Breakpoint.None">
-
 							<RowTemplate>
 								<MudTd Style="width:100%">@context.RoleName</MudTd>
-								<MudTd Style="width:auto">
-									<MudIconButton @onclick="() => OnDeleteClick(context.Slug)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error"></MudIconButton>
-								</MudTd>
-							</RowTemplate>
-						</MudTable>
-					</MudCardContent>
-					<MudCardActions>
-						@* <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button"
-								   StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary">
-							<MudText> Add Role</MudText>
-						</MudButton> *@
-					</MudCardActions>
-				</MudCard>
+									<MudTd Style="width:auto">
+										<MudIconButton @onclick="() => OnDeleteClick(context.Slug)" Icon="@Icons.Material.Filled.Delete" Color="Color.Error"></MudIconButton>
+									</MudTd>
+								</RowTemplate>
+							</MudTable>
+						</MudCardContent>
+					</MudCard>
 
+				</MudItem>
+			</MudGrid>
+		</MudItem>
+		<MudItem lg="6" sm="12" xs="12" md="6">
+			<MudGrid>
+				<MudItem lg="12" xs="12">
+					<MudCard>
+						<MudCardHeader>
+							<CardHeaderContent>
+								<MudText Typo="Typo.h5">
+									<b>Skills</b>
+								</MudText>
+							</CardHeaderContent>
+						</MudCardHeader>
+						<MudCardContent>
+							@foreach (var skill in userSkills.Skills)
+						{
+							<MudChip>@skill</MudChip>
+						}
+					</MudCardContent>
+				</MudCard>
 			</MudItem>
-		</MudGrid>
-	</MudItem>
-	<MudItem lg="6" sm="12" xs="12" md="6">
-		<MudGrid>
 			<MudItem lg="12" xs="12">
 				<MudCard>
 					<MudCardHeader>
 						<CardHeaderContent>
-							<MudText Typo="Typo.h5"><b>History</b></MudText>
+							<MudText Typo="Typo.h5">
+								<b>History</b>
+							</MudText>
 						</CardHeaderContent>
 					</MudCardHeader>
 					<MudCardContent>
@@ -150,8 +158,10 @@
 								</ItemDot>
 								<ItemContent>
 									<MudPaper Elevation="0" Class="mt-n1">
-										<MudText Color="Color.Dark" Typo="Typo.h6">Apply to Word</MudText>
-										<MudText Typo="Typo.body2" GutterBottom="true"><b>10/03/2023 08:45AM</b></MudText>
+										<MudText Color="Color.Dark" Typo="Typo.h6">Apply to JobVacancy</MudText>
+										<MudText Typo="Typo.body2" GutterBottom="true">
+											<b>10/03/2023 08:45AM</b>
+										</MudText>
 										<MudText Typo="Typo.body2">A repository pops up on Github named MudBlazor.</MudText>
 										<MudText Typo="Typo.body2">The development has already started and the most common components can be found already.</MudText>
 									</MudPaper>
@@ -167,7 +177,9 @@
 								<ItemContent>
 									<MudPaper Elevation="0" Class="mt-n1">
 										<MudText Color="Color.Primary" Typo="Typo.h6">Passed the Test</MudText>
-										<MudText Typo="Typo.body2" GutterBottom="true"><b>10/10/2023 10:00AM</b></MudText>
+										<MudText Typo="Typo.body2" GutterBottom="true">
+											<b>10/10/2023 10:00AM</b>
+										</MudText>
 									</MudPaper>
 								</ItemContent>
 							</MudTimelineItem>
@@ -181,7 +193,9 @@
 								<ItemContent>
 									<MudPaper Elevation="0" Class="mt-n1">
 										<MudText Color="Color.Success" Typo="Typo.h6">Intern</MudText>
-										<MudText Typo="Typo.body2" GutterBottom="true"><b>10/30/2023 03:30PM</b></MudText>
+										<MudText Typo="Typo.body2" GutterBottom="true">
+											<b>10/30/2023 03:30PM</b>
+										</MudText>
 
 										<MudText Typo="Typo.body2">MudBlazor gets its first minor with version 1.1.0.</MudText>
 										<MudText Typo="Typo.body2">TimerPicker, AutoComplete and Charts join the library as well as T versions of our inputs and selects.</MudText>
@@ -195,7 +209,6 @@
 			</MudItem>
 
 		</MudGrid>
-
 
 
 	</MudItem>

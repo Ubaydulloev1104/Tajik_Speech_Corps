@@ -358,28 +358,7 @@
     <value>Опубликовано</value>
 </data>
     <data name="VacancyApplication:Vacancy Details" xml:space="preserve">
-    <value>Тафсилоти вазифа</value>
-</data>
-    <data name="VacancyApplication:month(s)" xml:space="preserve">
-    <value>моҳ(ҳо)</value>
-</data>
-    <data name="VacancyApplication:Duration" xml:space="preserve">
-    <value>Давомият</value>
-</data>
-    <data name="VacancyApplication:Deadline" xml:space="preserve">
-    <value>Муддати бақайдгирӣ</value>
-</data>
-    <data name="VacancyApplication:year(s)" xml:space="preserve">
-    <value>сол(ҳо)</value>
-</data>
-    <data name="VacancyApplication:Required year of experience" xml:space="preserve">
-    <value>Талаботи солҳои таҷриба</value>
-</data>
-    <data name="VacancyApplication:Fees" xml:space="preserve">
-    <value>Суҳбат</value>
-</data>
-    <data name="VacancyApplication:End Date" xml:space="preserve">
-    <value>Санаи тамоми</value>
+    <value>Тафсилоти калима</value>
 </data>
     <data name="VacancyApplication:Additional Details" xml:space="preserve">
     <value>Тафсилоти иловагӣ</value>
@@ -461,48 +440,11 @@
     <data name="VacancyDetails:Posted">
         <value>Опубликовано</value>
     </data>
-    <data name="VacancyDetails:month(s)">
-        <value>моҳ(ҳо)</value>
-    </data>
-    <data name="VacancyDetails:Duration">
-        <value>Давомият</value>
-    </data>
-    <data name="VacancyDetails:Deadline">
-        <value>Муддати бақайдгирӣ</value>
-    </data>
-    <data name="VacancyDetails:year(s)">
-        <value>сол(ҳо)</value>
-    </data>
-    <data name="VacancyDetails:Required year of experience">
-        <value>Талаботи солҳои тажриба</value>
-    </data>
-    <data name="VacancyDetails:Fees">
-        <value>Хизмати пулидан</value>
-    </data>
-    <data name="VacancyDetails:End Date">
-        <value>Тамомшавии муддат</value>
-    </data>
-    <data name="VacancyDetails:Unfortunately, the deadline has already expired">
-        <value>Мутасиршудагӣ, муддат аллакай гузашт</value>
-    </data>
+   
     <data name="VacancyDetails:Apply Now">
         <value>Ҳозир интихоб кунед</value>
     </data>
-    <data name="VacancyDetails:Are you ready to take your career to the next level with">
-        <value>Оё шумо тайёрӣ доред, карьераро ба дараёи зирзамини оянда гиред бо</value>
-    </data>
-    <data name="VacancyDetails:Write a cover letter, answer few questions and send your application!">
-        <value>Нависед суроғаи муваффақ, якчанд савол ҷавоб диҳед ва сабти зарафшониро рўй бедиҳед!</value>
-    </data>
-    <data name="VacancyDetails:Download CV">
-        <value>CV-ро зеркашӣ кунед</value>
-    </data>
-    <data name="VacancyDetails:Explore">
-        <value>Таҳлили</value>
-    </data>
-    <data name="VacancyDetails:opportunities">
-        <value>имкониятҳо</value>
-    </data>
+   
     <data name="VacancyDetails:Sign Up">
         <value>Бақайдгирӣ кунед</value>
     </data>
