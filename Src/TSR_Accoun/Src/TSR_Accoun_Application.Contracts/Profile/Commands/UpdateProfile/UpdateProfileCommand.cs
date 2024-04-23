@@ -2,7 +2,7 @@
 
 namespace TSR_Accoun_Application.Contracts.Profile.Commands.UpdateProfile
 {
-	public class UpdateProfileCommand : IRequest<bool>
+    public class UpdateProfileCommand : IRequest<bool>
 	{
 		public string Email { get; set; }
 		public string FirstName { get; set; }

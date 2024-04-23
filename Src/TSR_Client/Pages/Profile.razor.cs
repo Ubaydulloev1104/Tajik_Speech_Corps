@@ -13,6 +13,7 @@ using TSR_Accoun_Application.Contracts.Educations.Command.Update;
 using TSR_Accoun_Application.Contracts.Educations.Responsess;
 using TSR_Accoun_Application.Contracts.Profile.Commands.UpdateProfile;
 using TSR_Accoun_Application.Contracts.Profile.Responses;
+using TSR_Accoun_Application.Contracts.Profile;
 using TSR_Client.Components.Dialogs;
 using TSR_Client.Identity;
 using TSR_Client.Services.Auth;
@@ -97,8 +98,14 @@ namespace TSR_Client.Pages
 
 			StateHasChanged();
 		}
-
-		private void ServerNotResponding()
+		private async Task Verify()
+		{ 
+		}
+         private async Task SendEmailConfirms()
+        {
+          
+        }
+        private void ServerNotResponding()
 		{
 			Snackbar.Add("Server is not responding, please try later", MudBlazor.Severity.Error);
 		}

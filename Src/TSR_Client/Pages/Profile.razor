@@ -1,5 +1,7 @@
 ﻿@page "/profile"
 @using TSR_Client.Pages.Auth
+@using TSR_Accoun_Application.Contracts.Profile;
+@using TSR_Accoun_Application.Contracts.Educations.Responsess ;
 
 @inject IContentService ContentService
 @inject ISnackbar Snackbar
@@ -44,8 +46,6 @@ else
 
                         <MudNavLink Class="@((_active == 0) ? "active" : "")" OnClick="() => ActiveNavLink(0)">@ContentService["Profile:PersonalInformation"]</MudNavLink>
                         <MudNavLink Class="@((_active == 1) ? "active" : "")" OnClick="() => ActiveNavLink(1)">@ContentService["Profile:Educations"] </MudNavLink>
-                        <MudNavLink Class="@((_active == 2) ? "active" : "")" OnClick="() => ActiveNavLink(2)">@ContentService["Profile:Experience"] </MudNavLink>
-                        <MudNavLink Class="@((_active == 3) ? "active" : "")" OnClick="() => ActiveNavLink(3)">@ContentService["Profile:Skills"]</MudNavLink>
                         <MudNavLink Class="@((_active == 4) ? "active" : "")" OnClick="() => ActiveNavLink(4)">@ContentService["ResetPassword:Changepassword"]</MudNavLink>
                     </MudNavMenu>
                 </MudHidden>
@@ -54,8 +54,6 @@ else
                         <MudNavMenu>
                             <MudNavLink Class="@((_active == 0) ? "active" : "")" OnClick="() => ActiveNavLink(0)">@ContentService["Profile:PersonalInformation"]</MudNavLink>
                             <MudNavLink Class="@((_active == 1) ? "active" : "")" OnClick="() => ActiveNavLink(1)">@ContentService["Profile:Educations"] </MudNavLink>
-                            <MudNavLink Class="@((_active == 2) ? "active" : "")" OnClick="() => ActiveNavLink(2)">@ContentService["Profile:Experience"] </MudNavLink>
-                            <MudNavLink Class="@((_active == 3) ? "active" : "")" OnClick="() => ActiveNavLink(3)">@ContentService["Profile:Skills"]</MudNavLink>
                             <MudNavLink Class="@((_active == 4) ? "active" : "")" OnClick="() => ActiveNavLink(4)">@ContentService["ResetPassword:Changepassword"]</MudNavLink>
                         </MudNavMenu>
                     </MudExpansionPanel>
