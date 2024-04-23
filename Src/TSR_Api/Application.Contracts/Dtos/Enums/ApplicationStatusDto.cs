@@ -8,7 +8,6 @@ namespace Application.Contracts.Dtos.Enums
         public enum ApplicationStatus
         {
             Submitted,
-            TestCompleted,
             Verified,
             InterviewPassed,
             Approved,
@@ -16,7 +15,6 @@ namespace Application.Contracts.Dtos.Enums
             Reserved,
             Expired,
             Refused,
-            TestFailed,
             InterviewFailed,
             Rejected
         }
@@ -57,20 +55,7 @@ namespace Application.Contracts.Dtos.Enums
             Error = 5
         }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public enum TrainingFormat
-        {
-            Online,
-            Offline,
-            OnlineAndOffline
-        }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public enum WorkSchedule
-        {
-            FullTime = 1,
-            Flexible = 2
-        }
     }
 
 }

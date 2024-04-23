@@ -12,8 +12,7 @@ namespace Application.Contracts.Word.Commands.Update
 
         [JsonConverter(typeof(DateTimeToUnixConverter))]
         public DateTime? UpdatedDate { get; set; }
-        public int RequiredYearOfExperience { get; set; }
-        public Dtos.Enums.ApplicationStatusDto.WorkSchedule WorkSchedule { get; set; }
+       
        
     }
 }

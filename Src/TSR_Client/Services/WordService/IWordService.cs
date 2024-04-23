@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System;
 using Application.Contracts.Word.Responses;
 using Application.Contracts.Word.Commands.Create;
+using System.Net.Http;
 
 namespace TSR_Client.Services.WordService
 {
@@ -24,7 +25,7 @@ namespace TSR_Client.Services.WordService
         Task<List<CategoryResponse>> GetAllCategory();
 
         Task<List<WordListDto>> GetWordByValue(string Value);
-        Task OnSaveCreateClick();
+		Task<HttpResponseMessage> OnSaveCreateClick();
         Task OnDelete(string slug);
         Task<List<WordListDto>> GetWords();
         Task UpdateWords(string slug);

@@ -180,12 +180,7 @@
    <data name="Profile:Educations" xml:space="preserve">
         <value>Educations</value>
     </data>
-  <data name="Profile:Experience" xml:space="preserve">
-        <value>Experience</value>
-    </data>
-  <data name="Profile:Skills" xml:space="preserve">
-        <value>Skills</value>
-    </data>
+
   <data name="Profile:FirstName" xml:space="preserve">
         <value>First Name</value>
     </data>
@@ -240,9 +235,7 @@
   <data name="Profile:Present" xml:space="preserve">
         <value>Present</value>
     </data>  
-  <data name="Profile:AddNewEducation" xml:space="preserve">
-        <value>Add New Education</value>
-    </data> 
+ 
   <data name="Profile:NewEducation" xml:space="preserve">
         <value>New Education</value>
     </data>

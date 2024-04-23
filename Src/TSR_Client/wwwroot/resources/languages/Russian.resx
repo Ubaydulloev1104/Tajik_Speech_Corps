@@ -179,12 +179,6 @@
   <data name="Profile:Educations" xml:space="preserve">
        <value>Образование</value>
    </data>
-  <data name="Profile:Experience" xml:space="preserve">
-       <value>Опыт работы</value>
-   </data>
-  <data name="Profile:Skills" xml:space="preserve">
-       <value>Навыки</value>
-   </data>
   <data name="Profile:FirstName" xml:space="preserve">
        <value>Имя</value>
    </data>
@@ -239,9 +233,7 @@
   <data name="Profile:Present" xml:space="preserve">
        <value>Настоящее время</value>
    </data>
-  <data name="Profile:AddNewEducation" xml:space="preserve">
-       <value>Добавить новое образование</value>
-   </data>
+ 
   <data name="Profile:NewEducation" xml:space="preserve">
        <value>Новое образование</value>
    </data>

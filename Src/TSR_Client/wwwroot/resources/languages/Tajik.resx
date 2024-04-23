@@ -175,12 +175,7 @@
   <data name="Profile:Educations" xml:space="preserve">
        <value>Таълим</value>
    </data>
-  <data name="Profile:Experience" xml:space="preserve">
-       <value>Таҷриба</value>
-   </data>
-  <data name="Profile:Skills" xml:space="preserve">
-       <value>Маҳоратҳо</value>
-   </data>
+
   <data name="Profile:FirstName" xml:space="preserve">
        <value>Ном</value>
    </data>
@@ -235,9 +230,7 @@
   <data name="Profile:Present" xml:space="preserve">
        <value>Ҳозир</value>
    </data>
-  <data name="Profile:AddNewEducation" xml:space="preserve">
-       <value>Таълими нав илова кунед</value>
-   </data>
+  
   <data name="Profile:NewEducation" xml:space="preserve">
        <value>Таълими нав</value>
    </data>

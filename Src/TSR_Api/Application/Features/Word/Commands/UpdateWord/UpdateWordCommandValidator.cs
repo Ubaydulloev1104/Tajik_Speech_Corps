@@ -11,8 +11,6 @@ namespace Application.Features.Word.Commands.UpdateWord
             RuleFor(x => x.Description).NotEmpty();
             RuleFor(x => x.UpdatedDate).NotEmpty();
             RuleFor(x => x.CategoryId).NotEmpty();
-            RuleFor(x => x.RequiredYearOfExperience).GreaterThanOrEqualTo(0);
-            RuleFor(x => x.WorkSchedule).IsInEnum();
         }
     }
 }

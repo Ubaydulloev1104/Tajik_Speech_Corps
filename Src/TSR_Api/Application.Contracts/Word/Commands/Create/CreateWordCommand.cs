@@ -15,7 +15,5 @@ namespace Application.Contracts.Word.Commands.Create
         public DateTime CreateDate { get; set; }
         [JsonConverter(typeof(DateTimeToUnixConverter))]
         public DateTime? UpdatedDate { get; set; }
-        public int RequiredYearOfExperience { get; set; }
-        public WorkSchedule WorkSchedule { get; set; }
     }
 }

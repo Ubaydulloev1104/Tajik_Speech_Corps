@@ -1,4 +1,5 @@
 ﻿using Blazorise.Extensions;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Newtonsoft.Json;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using TSR_Accoun_Application.Contracts.Educations.Command.Create;
 using TSR_Accoun_Application.Contracts.Educations.Command.Update;
@@ -15,12 +15,14 @@ using TSR_Accoun_Application.Contracts.Profile.Commands.UpdateProfile;
 using TSR_Accoun_Application.Contracts.Profile.Responses;
 using TSR_Client.Components.Dialogs;
 using TSR_Client.Identity;
-using TSR_Client.Services.Profile;
+using TSR_Client.Services.Auth;
 
 namespace TSR_Client.Pages
 {
 	public partial class Profile
 	{
+		[Inject] private IAuthService AuthService { get; set; }
+
 		private bool _processing;
 		private bool _tryButton;
 		private bool _codeSent;
@@ -42,6 +44,12 @@ namespace TSR_Client.Pages
 
 		private UserProfileResponse _profile;
 		private readonly UpdateProfileCommand _updateProfileCommand = new UpdateProfileCommand();
+
+		private async Task SendCode()
+		{
+			bool response = await UserProfileService.SendConfirmationCode(_profile.PhoneNumber);
+			if (response) _codeSent = true;
+		}
 
 		protected override async void OnInitialized()
 		{
@@ -140,12 +148,13 @@ namespace TSR_Client.Pages
 				Type itemType = item.GetType();
 				var idProperty = itemType.GetProperty("Id");
 				var result = new HttpResponseMessage();
-				if (idProperty != null || itemType.Name == "String")
+				if (idProperty != null)
 				{
 					try
 					{
 						if (itemType.Name == "String")
 						{
+
 						}
 						else
 						{
@@ -244,7 +253,8 @@ namespace TSR_Client.Pages
 			educationUpdate = new UpdateEducationDetailCommand()
 			{
 				EndDate = educationResponse.EndDate.HasValue ? educationResponse.EndDate.Value : default(DateTime),
-				StartDate = educationResponse.StartDate.HasValue ? educationResponse.StartDate.Value : default(DateTime),
+				StartDate =
+					educationResponse.StartDate.HasValue ? educationResponse.StartDate.Value : default(DateTime),
 				University = educationResponse.University,
 				Speciality = educationResponse.Speciality,
 				Id = educationResponse.Id,
@@ -323,6 +333,7 @@ namespace TSR_Client.Pages
 		}
 
 		#endregion
+
 
 	}
 }

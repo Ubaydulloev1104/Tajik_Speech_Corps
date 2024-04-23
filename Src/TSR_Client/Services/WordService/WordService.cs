@@ -22,9 +22,7 @@ namespace TSR_Client.Services.WordService
             {
                 Value="",
                 Description = "",
-                WorkSchedule = new() { },
                 CategoryId = Guid.NewGuid(),
-                RequiredYearOfExperience = 0,
                 CreateDate = DateTime.Now,
                 UpdatedDate = DateTime.Now,
             };
@@ -122,10 +120,10 @@ namespace TSR_Client.Services.WordService
             await _http.DeleteAsync($"words/{slug}");
         }
 
-        public async Task OnSaveCreateClick()
+        public async Task<HttpResponseMessage> OnSaveCreateClick()
         {
-            await _http.PostAsJsonAsync("words", creatingNewWord);
-        }
+			return await _http.PostAsJsonAsync("words", creatingNewWord);
+		}
 
         public async Task UpdateWords(string slug)
         {
@@ -135,9 +133,7 @@ namespace TSR_Client.Services.WordService
                 Value=creatingNewWord.Value,
                 UpdatedDate = DateTime.Now,
                 Description = creatingNewWord.Description,
-                WorkSchedule = creatingNewWord.WorkSchedule,
-                CategoryId = creatingNewWord.CategoryId,
-                RequiredYearOfExperience = creatingNewWord.RequiredYearOfExperience,   
+                CategoryId = creatingNewWord.CategoryId, 
             };
             await _http.PutAsJsonAsync($"words/{slug}", update);
         }
