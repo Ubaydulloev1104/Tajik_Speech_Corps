@@ -7,17 +7,13 @@ namespace Application.Contracts.Dtos.Enums
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ApplicationStatus
         {
-            Submitted,
-            Verified,
-            InterviewPassed,
-            Approved,
-            Hired,
-            Reserved,
-            Expired,
-            Refused,
-            InterviewFailed,
-            Rejected
-        }
+			Submitted,
+			Verified,
+			Approved,
+			Expired,
+			Refused,
+			Rejected
+		}
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum Gender
