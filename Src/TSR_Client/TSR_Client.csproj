@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Applicant\" />
     <Folder Include="wwwroot\css\images\" />
   </ItemGroup>
   <ItemGroup>
