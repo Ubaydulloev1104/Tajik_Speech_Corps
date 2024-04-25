@@ -10,7 +10,7 @@
 }
 else
 {
-    <WordDetails Slug="@Slug" wordDetails="@_details" ="words" />
+    <WordDetails Slug="@Slug" wordDetails="@_details" words="words" />
 }
 
 @code {
@@ -34,6 +34,7 @@ else
                     Value = response.Value,
                     Description = response.Description,
                     CreateDate = response.CreateDate
+                    
                 };
             }
         }
