@@ -331,11 +331,11 @@
     </data>
     <!-- VacanciesList -->
 
-    <!-- Jobs -->
-    <data name="Jobs:Jobs" xml:space="preserve">
-        <value>Вакансии на работу</value>
+    <!-- Words -->
+    <data name="Words:Words" xml:space="preserve">
+        <value>Слова</value>
     </data>
-    <!-- Jobs -->
+    <!-- Words -->
 
     <!-- Internships -->
     <data name="Internships:Internships" xml:space="preserve">

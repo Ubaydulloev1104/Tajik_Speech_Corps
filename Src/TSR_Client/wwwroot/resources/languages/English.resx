@@ -382,11 +382,11 @@
 
   <!-- VacanciesList -->
 
-  <!-- Jobs -->
-  <data name="Jobs:Jobs" xml:space="preserve">
-        <value>Jobs</value>
-    </data>
-  <!-- Jobs -->
+  <!-- Words -->
+  <data name="Words:Words" xml:space="preserve">
+       <value>Words</value>
+   </data>
+  <!-- Words -->
 
   <!-- Internships -->
   <data name="Internships:Internships" xml:space="preserve">

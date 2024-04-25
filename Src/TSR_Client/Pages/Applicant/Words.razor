@@ -1,9 +1,9 @@
-﻿@page "/vacancy"
+﻿@page "/word"
+@using Application.Contracts.Word.Responses
 @using TSR_Client.Components.Client
 @inject IWordService WordService
 @implements IDisposable
-
-<!-- Vacancy page -->
+<!-- Words page -->
 <div class="container">
     <!-- Search -->
     <div class="w-100">
@@ -13,12 +13,12 @@
                        class="form-control border-0"
                        placeholder="Search"
                        aria-label="Search"
-                       @bind-value="@Title"
+                       @bind-value="@Value"
                        aria-describedby="">
                 <div class="input-group-append">
                     <button
                         class="btn btn-outline-primary"
-                        @onclick="() => BtnSearch(Title)"
+                        @onclick="() => BtnSearch(Value)"
                         type="button">
                         Search
                     </button>
@@ -32,20 +32,19 @@
             <Category></Category>
         </div>
         <div class="vacancy">
-            @if (_vacancies is null)
+            @if (_Words is null)
             {
                 <div></div>
             }
             else
             {
                 <div>
-                    @foreach (var vacancy in VacancyService.Vacanceies)
+                    @foreach (var vacancy in WordService.Words)
                     {
                         <a href="">
                             <div class="card-vacancy w-100 bg-white shadow-lg rounded mb-4">
                                 <div class="d-flex flex-column p-3">
-                                    <h2 class="mb-2 text-black">@vacancy.Title</h2>
-                                    <p class="mb-2 text-black">@vacancy.ShortDescription</p>
+                                    <h2 class="mb-2 text-black">@vacancy.Value</h2>
                                 </div>
                             </div>
                         </a>
@@ -59,24 +58,24 @@
 
 @code {
 
-    private List<WordListDto> _vacancies;
-    public string Title;
+    private List<WordListDto> _Words;
+    public string Value;
 
     protected override async Task OnInitializedAsync()
     {
-        _vacancies = await VacancyService.GetAllVacancy();
+        _Words = await WordService.GetAllWords();
     }
 
 
-    void BtnSearch(string text)
+    void BtnSearch(string Value)
     {
-        VacancyService.GetVacancyByTitle(text);
-        VacancyService.OnChange += StateHasChanged;
+        WordService.GetWordByValue(Value);
+        WordService.OnChange += StateHasChanged;
     }
 
     public void Dispose()
     {
-        VacancyService.OnChange -= StateHasChanged;
+        WordService.OnChange -= StateHasChanged;
     }
 
 }

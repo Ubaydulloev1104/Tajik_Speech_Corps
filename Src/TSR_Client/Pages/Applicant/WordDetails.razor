@@ -1,0 +1,47 @@
+﻿@page "/words/{Slug}"
+@using Application.Contracts.WordClient
+
+@inject IWordService wordService
+
+
+@if (_serverError)
+{
+    <ServerErrorComponent/>
+}
+else
+{
+    <WordDetails Slug="@Slug" wordDetails="@_details" ="words" />
+}
+
+@code {
+    private bool _serverError;
+
+    [Parameter]
+    public string Slug { get; set; }
+
+    private WordDetailsResponse _details;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        try
+        {
+            var response = await wordService.GetBySlug(Slug);
+            if (response is not null)
+            {
+                _details = new WordDetailsResponse
+                {
+                    Value = response.Value,
+                    Description = response.Description,
+                    CreateDate = response.CreateDate
+                };
+            }
+        }
+        catch (Exception)
+        {
+            _serverError = true;
+            StateHasChanged();
+        }
+    }
+
+}

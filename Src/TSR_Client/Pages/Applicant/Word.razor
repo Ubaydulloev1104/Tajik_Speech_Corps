@@ -1,0 +1,58 @@
+﻿@page "/words"
+@using Application.Contracts.WordClient
+@using TSR_Client.Components.Word
+@inject ICategoryService categoryService
+@inject IWordService wordService
+
+
+<MudText Typo="Typo.h4" Style="margin:50px; text-align: center; font-weight: 900;">@ContentService["Jobs:Jobs"]</MudText>
+@if (serverError)
+{
+	<ServerErrorComponent />
+}
+else
+{
+	<WordsList FilteredWords="filteredWords" Words="words" Route="jobs" WordsCategories="wordCategories" />
+}
+
+@code {
+    private bool serverError;
+    private List<string> wordCategories;
+    private List<WordClientResponse> words;
+	private List<WordClientResponse> filteredWords;
+
+	protected override async Task OnInitializedAsync()
+	{
+await base.OnInitializedAsync();
+		try
+		{
+			var result = await categoryService.GetWordCategoriesSinceCheckDate();
+			var allJobs = await wordService.GetWords();
+			if (result is not null && allJobs is not null)
+			{
+				wordCategories = result.Select(r => r.Category.Name).ToList();
+				words = allJobs.Select(r => new WordClientResponse
+					{
+						Category = r.Category,
+						Value = r.Value,
+						Slug = r.Slug,
+						CreateDate = r.CreateDate,
+						UpdatedDate = r.UpdatedDate
+					}).ToList(); ;
+				filteredWords = allJobs.Select(r => new WordClientResponse
+					{
+						Category = r.Category,
+						Value = r.Value,
+						Slug = r.Slug,
+						CreateDate = r.CreateDate,
+						UpdatedDate = r.UpdatedDate
+					}).ToList(); ;
+			}
+		}
+		catch (Exception)
+		{
+			serverError = true;
+			StateHasChanged();
+		}
+	}
+}

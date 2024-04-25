@@ -327,11 +327,11 @@
 </data>
     <!-- VacanciesList -->
 
-    <!-- Jobs -->
-    <data name="Jobs:Jobs" xml:space="preserve">
-        <value>Ҷойҳои холии корӣ</value>
+  <!-- Words -->
+  <data name="Words:Words" xml:space="preserve">
+        <value>Калима</value>
     </data>
-    <!-- Jobs -->
+  <!-- Words -->
 
     <!-- Internships -->
     <data name="Internships:Internships" xml:space="preserve">
