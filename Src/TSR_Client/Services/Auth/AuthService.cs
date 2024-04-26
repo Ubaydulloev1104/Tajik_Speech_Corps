@@ -6,11 +6,11 @@ using System.Net.Http;
 using TSR_Accoun_Application.Contracts.User.Commands.ChangePassword;
 using TSR_Accoun_Application.Contracts.User.Commands.LoginUser;
 using TSR_Accoun_Application.Contracts.User.Commands.RegisterUser;
-using System.Net.Http.Json;
 using System.Net;
 using System;
 using TSR_Accoun_Application.Contracts.User.Responses;
 using TSR_Client.Identity;
+using TSR_Accoun_Application.Contracts.User.Queries.CheckUserDetails;
 
 namespace TSR_Client.Services.Auth
 {
@@ -115,6 +115,12 @@ namespace TSR_Client.Services.Auth
                 return "An error occurred";
             }
         }
+        public async Task<HttpResponseMessage> CheckUserDetails(CheckUserDetailsQuery query)
+        {
+            var result = await _identityHttpClient.GetAsync($"User/CheckUserDetails/{query.UserName}/{query.PhoneNumber}/{query.Email}");
+            return result;
+        }
+
     }
 
 }

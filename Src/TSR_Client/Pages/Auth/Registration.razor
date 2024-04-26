@@ -1,139 +1,140 @@
 ﻿@page "/sign-up"
-
 @using System.Globalization;
 @using TSR_Accoun_Application.Contracts.User.Commands.RegisterUser
+@using TSR_Accoun_Application.Contracts.User.Queries.CheckUserDetails
+@using TSR_Accoun_Application.Contracts.User.Responses
+@using TSR_Client.Components.Auth
+@using TSR_Client.Components.Buttons
 @using TSR_Client.Services.Auth
-@using TSR_Client.Services.Profile
-
 @inject ISnackbar Snackbar
 @inject IUserProfileService UserProfileService
 @inject IAuthService AuthService
+@inject IContentService ContentService
 
-<div class="container">
-    <div class="row">
-        <div Class="d-flex align-center justify-center mud-width-full py-8">
-            <div class="col-md-6 mb-3">
-                @if (_step == 0)
-                {
-                    <MudCard>
-                        <MudCardHeader>
-                            <CardHeaderContent>
+<MudGrid Justify="Justify.Center" Class="align-items-center">
+    <MudItem xs="12" sm="8" md="6" lg="4">
+        @if (_step == 0)
+        {
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderActions>
+                        <ToolBarSettingsButtons/>
+                    </CardHeaderActions>
+                    <CardHeaderContent>
+                        <div class="d-flex flex-grow-1">
+                            <div class="flex-none d-flex justify-content-center">
+                                <a href="">
+                                    <MudImage Src="./images/SRP_icon.png" Height="45"/><br/>
+                                </a>
+                            </div>
+                            <div class="flex-initial d-flex py-1">
                                 <MudText Typo="Typo.h4">
-                                    <b>Sign Up</b>
+                                    <b>@ContentService["SignUp:LabelSignUp"]</b>
                                 </MudText>
-                                <small>Do you have an account? Go to <a href="sign-in">Sign In</a></small>
-                            </CardHeaderContent>
-                        </MudCardHeader>
-                        <MudCardContent>
-                            <EditForm Model="@_registerUser" OnInvalidSubmit="SendCode" style="margin-top: 10%;margin-bottom: 0">
-                                <FluentValidationValidator @ref="_fluentValidationValidator"/>
-                                <MudTextField Label="First name" HelperText="Enter your first name"
-                                              @bind-Value="_registerUser.FirstName" For="@(() => _registerUser.FirstName)" InputType="InputType.Text"
-                                              OnBlur="@(_ => _registerUser.FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_registerUser.FirstName))"/>
+                            </div>
+                        </div>
+                        <MudText >
+                            @ContentService["SignUp:LabelHaveAccount"]<MudLink Href="sign-in"> @ContentService["SignUp:LinkSignIn"]</MudLink>
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <EditForm Model="@_registerUser" OnInvalidSubmit="SendCode">
+                        <FluentValidationValidator @ref="_fluentValidationValidator"/>
+                        <MudTextField Label="@ContentService["SignUp:FirstName"]" HelperText="@ContentService["SignUp:FirstName_HelperText"]"
+                                      @bind-Value="_registerUser.FirstName" For="@(() => _registerUser.FirstName)" InputType="InputType.Text"
+                                      OnBlur="@(_ => _registerUser.FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_registerUser.FirstName))"/>
 
-                                <MudTextField Label="Last name" HelperText="Enter your last name"
-                                              @bind-Value="_registerUser.LastName" For="@(() => _registerUser.LastName)" InputType="InputType.Text"
-                                              OnBlur="@(_ => _registerUser.LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_registerUser.LastName))"/>
-                                <MudTextField Label="Email" Class="mt-3"
-                                              @bind-Value="_registerUser.Email" For="@(() => _registerUser.Email)" InputType="InputType.Email"/>
+                        <MudTextField Label="@ContentService["SignUp:LastName"]" HelperText="@ContentService["SignUp:LastName_HelperText"]"
+                                      @bind-Value="_registerUser.LastName" For="@(() => _registerUser.LastName)" InputType="InputType.Text"
+                                      OnBlur="@(_ => _registerUser.LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_registerUser.LastName))"/>
+                        <MudTextField Label="@ContentService["SignUp:Email"]" Class="mt-3"
+                                      @bind-Value="_registerUser.Email" For="@(() => _registerUser.Email)" InputType="InputType.Email"
+                                      OnBlur="CheckUserName"/>
 
-                                <MudTextField Label="Phone" HelperText="Enter your phone number" Class="mt-3"
-                                              @bind-Value="_registerUser.PhoneNumber" For="@(() => _registerUser.PhoneNumber)" InputType="InputType.Telephone"/>
+                        <MudTextField Label="@ContentService["SignUp:Phone"]" HelperText="@ContentService["SignUp:Phone_HelperText"]" Class="mt-3"
+                                      @bind-Value="_registerUser.PhoneNumber" For="@(() => _registerUser.PhoneNumber)" InputType="InputType.Telephone"
+                                      OnBlur="CheckUserName"/>
 
-                                <MudTextField Label="Username"
-                                              @bind-Value="_registerUser.Username" For="@(() => _registerUser.Username)"
-                                              OnBlur="CheckUserName"/>
-                                @if (_processing2)
-                                {
-                                    <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7"/>
-                                }
-                                @if (_isAvailable == 1)
-                                {
-                                    <MudText Typo="Typo.body2" Color="Color.Success">
-                                        <MudIcon Icon="@Icons.Material.Filled.Check"></MudIcon>
-                                        UserName: <b>@_registerUser.Username</b> is available
-                                    </MudText>
-                                }
-                                @if (_isAvailable == 0)
-                                {
-                                    <MudText Typo="Typo.body2" Color="Color.Error">
-                                        UserName: <b>@_registerUser.Username</b> is not available
-                                    </MudText>
-                                }
-                                <MudTextField Label="Password" HelperText="Password" Class="mt-3" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" InputType="@PasswordInput" Adornment="Adornment.End"
-                                              @bind-Value="_registerUser.Password" For="@(() => _registerUser.Password)"/>
+                        <MudTextField Label="@ContentService["SignUp:UserName"]"
+                                      @bind-Value="_registerUser.Username" For="@(() => _registerUser.Username)"
+                                      OnBlur="CheckUserName"/>
 
-                            </EditForm>
-                        </MudCardContent>
-                        <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="SendCode" Color="Color.Primary" Class="ml-auto">
-                                @if (_processing)
-                                {
-                                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
-                                    <MudText Class="ms-2">Processing</MudText>
-                                }
-                                else
-                                {
-                                    <MudText>Next</MudText>
-                                }
-                            </MudButton>
-                        </MudCardActions>
-                        <ExternalLoginCard Title="Continue With"/>
-                    </MudCard>
-                }
-				@if (_step == 1)
-				{
-					<MudCard>
-                        <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="Back"></MudIconButton>
-						<MudCardHeader>
-							<CardHeaderContent>
-								<MudText>
-									We have sent a confirmation code to this number: <b>@_registerUser.PhoneNumber</b>.
-									Please confirm your identity
-								</MudText>
-							</CardHeaderContent>
-						</MudCardHeader>
-						<MudCardContent>
-							<MudTextField Label="Code" @bind-Value="_code" Variant="@Variant.Filled" Clearable />
-								<br />
-								<br />
-								<MudCardActions>
-									<MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="ConfirmCode">
-										@if (_processing)
-									{
-										<MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-										<MudText Class="ms-2">Processing</MudText>
-									}
-									else
-									{
-										<MudText>Apply</MudText>
-									}
-								</MudButton>
-								<MudButton Variant="Variant.Text" Color="Color.Info" FullWidth="true" OnClick="SendCode" Disabled="@_isResendDisabled">
-									@if (_processing)
-									{
-										<MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-										<MudText Class="ms-2">Processing</MudText>
-									}
-									else
-									{
-										<MudText>Resend code</MudText>
-									}
-								</MudButton>
+                        <MudTextField Label="@ContentService["SignUp:Password"]" HelperText="@ContentService["SignUp:Password_HelperText"]" Class="mt-3" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" InputType="@PasswordInput" Adornment="Adornment.End"
+                                      @bind-Value="_registerUser.Password" For="@(() => _registerUser.Password)"/>
 
-							</MudCardActions>
-							<div>
-								<MudText Typo="Typo.body2" Color="Color.Default">@_timeLeft seconds left to resend the code.</MudText>
-							</div>
-						</MudCardContent>
+                        <MudTextField Label="@ContentService["SignUp:ConfirmPassword"]" HelperText="@ContentService["SignUp:ConfirmPassword_HelperText"]" Class="mt-3" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" AdornmentAriaLabel="Show Password" InputType="@PasswordInput" Adornment="Adornment.End"
+                                      @bind-Value="_registerUser.ConfirmPassword" For="@(() => _registerUser.ConfirmPassword)"/>
 
+                    </EditForm>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" OnClick="SendCode" Color="Color.Primary"
+                               Class="ml-auto" FullWidth="true">
+                        @if (_processing)
+                        {
+                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                            <MudText Class="ms-2">Processing</MudText>
+                        }
+                        else
+                        {
+                            <MudText>@ContentService["SignUp:ButtonNext"]</MudText>
+                        }
+                    </MudButton>
+                </MudCardActions>
+                <ExternalLoginCard Title="@ContentService["SignUp:ExternalLoginCard"]"/>
+            </MudCard>
+        }
+        @if (_step == 1)
+        {
+            <MudCard>
+                <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" OnClick="Back"></MudIconButton>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText>
+                            <MudText>
+                                @((MarkupString)ContentService["signUp:messageText"].Replace("$phone$", $"<strong>{_registerUser.PhoneNumber}</strong>"))
+                            </MudText>
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="@ContentService["SignUp:Code"]" @bind-Value="_code" Clearable/>
+                    <br/>
+                    <br/>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="ConfirmCode">
+                            @if (_processing)
+                            {
+                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                                <MudText Class="ms-2">Processing</MudText>
+                            }
+                            else
+                            {
+                                <MudText>@ContentService["SignUp:Apply"]</MudText>
+                            }
+                        </MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Info" FullWidth="true" OnClick="SendCode" Disabled="@_isResendDisabled">
+                            @if (_processing)
+                            {
+                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                                <MudText Class="ms-2">Processing</MudText>
+                            }
+                            else
+                            {
+                                <MudText>@ContentService["SignUp:ResendCode"]</MudText>
+                            }
+                        </MudButton>
 
-					</MudCard>
-				}
-			</div>
-		</div>
-	</div>
-</div>
+                    </MudCardActions>
+                    <div>
+                        <MudText Color="Color.Default">@_timeLeft @ContentService["SignUp:Secconds"]</MudText>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        }
+    </MudItem>
+</MudGrid>
 
 @code {
     private readonly RegisterUserCommand _registerUser = new();
@@ -168,17 +169,40 @@
         }
     }
 
-	private bool _isResendDisabled = true;
-	private int _timeLeft = 60;
-	private int? _code;
+    private bool _isResendDisabled = true;
+    private int _timeLeft = 60;
+    private int? _code;
 
     private int _isAvailable = -1;
 
 
-	private async Task SendCode()
-	{
-		_processing = true;
-		StateHasChanged();
+    private async Task SendCode()
+    {
+        _processing = true;
+        StateHasChanged();
+        await CheckUserName();
+        var check = true;
+        if (_userDetailsResponse.IsEmailTaken)
+        {
+            Snackbar.Add("Email is not available", Severity.Error);
+            check = false;
+        }
+        if (_userDetailsResponse.IsUserNameTaken)
+        {
+            Snackbar.Add("User Name is not available", Severity.Error);
+            check = false;
+        }
+        if (_userDetailsResponse.IsUserNameTaken)
+        {
+            Snackbar.Add("Phone Number is not available", Severity.Error);
+            check = false;
+        }
+        if (!check)
+        {
+            _processing = false;
+            return;
+        }
+
 
         if (!(await _fluentValidationValidator!.ValidateAsync()) || _isAvailable == 0)
         {
@@ -230,7 +254,6 @@
         StateHasChanged();
         try
         {
-            
                 _processing = false;
                 var error = await AuthService.RegisterUserAsync(_registerUser);
                 Snackbar.Add(error, Severity.Error);
@@ -247,16 +270,23 @@
         }
     }
 
+    private UserDetailsResponse _userDetailsResponse = new();
+
     private async Task CheckUserName()
     {
         StateHasChanged();
         try
         {
-            var result = await AuthService.CheckUserName(_registerUser.Username);
+            var query = new CheckUserDetailsQuery()
+            {
+                UserName = _registerUser.Username,
+                PhoneNumber = _registerUser.PhoneNumber,
+                Email = _registerUser.Email
+            };
+            var result = await AuthService.CheckUserDetails(query);
             if (result.IsSuccessStatusCode)
             {
-                if (await result.Content.ReadFromJsonAsync<bool>()) _isAvailable = 0;
-                else _isAvailable = 1;
+                _userDetailsResponse = await result.Content.ReadFromJsonAsync<UserDetailsResponse>();
             }
         }
         catch (Exception)
