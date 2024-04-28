@@ -1,18 +1,18 @@
-﻿@page "/words"
+﻿@page "/word"
 @using Application.Contracts.WordClient
 @using TSR_Client.Components.Word
 @inject ICategoryService categoryService
 @inject IWordService wordService
 
 
-<MudText Typo="Typo.h4" Style="margin:50px; text-align: center; font-weight: 900;">@ContentService["Jobs:Jobs"]</MudText>
+<MudText Typo="Typo.h4" Style="margin:50px; text-align: center; font-weight: 900;">@ContentService["Words:Words"]</MudText>
 @if (serverError)
 {
 	<ServerErrorComponent />
 }
 else
 {
-	<WordsList FilteredWords="filteredWords" Words="words" Route="jobs" WordsCategories="wordCategories" />
+	<WordsList FilteredWords="filteredWords" Words="words" Route="word" WordsCategories="wordCategories" />
 }
 
 @code {
