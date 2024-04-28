@@ -302,13 +302,9 @@
   <data name="Profile:SelectLanguage" xml:space="preserve">
      <value>Select Language</value>
  </data>
-
-  
   <!--profile-->
   
-  
- 
-  
+
   <!-- dashboard Applications -->
   <data name="Dashboard:Appilcations:Applications" xml:space="preserve">
         <value>Applications</value>
@@ -352,7 +348,6 @@
 
   <!-- dashboard Applications -->
 
-
   <!-- VacanciesList -->
 
   <data name="VacanciesList:All" xml:space="preserve">
@@ -387,19 +382,6 @@
        <value>Words</value>
    </data>
   <!-- Words -->
-
-  <!-- Internships -->
-  <data name="Internships:Internships" xml:space="preserve">
-        <value>Internships</value>
-    </data>
-  <!-- Internships -->
-
-  <!-- Trainings -->
-  <data name="Trainings:Trainings" xml:space="preserve">
-        <value>Trainings</value>
-    </data>
-  <!-- Trainings -->
-
 
   <!-- VacancyApplication -->
   <data name="VacancyApplication:Posted" xml:space="preserve">
@@ -443,9 +425,6 @@
   <data name="Home:Hero_Title_2" xml:space="preserve">
         <value>  To help you!</value>
     </data>
- 
- 
-
   <data name="Home:About" xml:space="preserve">
         <value>About</value>
     </data>
