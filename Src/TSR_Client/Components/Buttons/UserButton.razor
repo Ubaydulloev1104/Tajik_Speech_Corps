@@ -73,8 +73,6 @@
             StateHasChanged();
         }
     }
-
-
     private async Task Logout()
     {
         await CookieUtil.RemoveAsync("authToken");
