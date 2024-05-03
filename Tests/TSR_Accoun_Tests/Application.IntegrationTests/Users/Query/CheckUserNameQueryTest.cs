@@ -1,32 +1,36 @@
-﻿////using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
+using TSR_Accoun_Application.Contracts.User.Queries.CheckUserDetails;
+using TSR_Accoun_Application.Contracts.User.Responses;
 
-////namespace Application.IntegrationTests.Users.Query
-////{
-////	public class CheckUserNameQueryTest : BaseTest
-////	{
+namespace Application.IntegrationTests.Users.Query
+{
+    public class CheckUserNameQueryTest : BaseTest
+    {
+        [TestCase("test@example.com", "+992111111111", "@Azamjon123", false)]
+        [TestCase("test2123@example.com", "+992522222222", "@Bob456", true)]
+        [TestCase("test31@example.com", "+992333333333", "@Charlie789", true)]
+        [TestCase("test1@example.com", "+992123456789", "@Alex33", false)]
+        [TestCase("reviewer@example.com", "+992223456789", "@Reviewer", false)]
+        public async Task CheckUserDetailsQuery_UserDataAvailability(string email, string phoneNumber, string userName, bool expectedResult)
+        {
+            var query = new CheckUserDetailsQuery()
+            {
+                Email = email,
+                PhoneNumber = phoneNumber,
+                UserName = userName,
+            };
+            var response = await _client.GetAsync($"/api/User/CheckUserDetails/{query.UserName}/{query.PhoneNumber}/{query.Email}");
 
-////		[Test]
-////		public async Task UserName_IsAvailable()
-////		{
-////			var userName = "AlanWalker";
-////			var response = await _client.GetAsync($"/api/User/CheckUserName/{userName}");
+            response.EnsureSuccessStatusCode();
 
-////			var isAvailable = !(await response.Content.ReadFromJsonAsync<bool>());
+            var result = await response.Content.ReadFromJsonAsync<UserDetailsResponse>();
 
-////			Assert.IsTrue(isAvailable);
-////		}
+            bool isDataAvailable = !result.IsEmailTaken && !result.IsPhoneNumberTaken && !result.IsUserNameTaken;
+            Assert.That(isDataAvailable, Is.EqualTo(expectedResult), "Data availability result is not as expected. " +
+                $" IsUserNameTaken: {result.IsUserNameTaken}" +
+                $" IsPhoneNumberTaken: {result.IsPhoneNumberTaken}" +
+                $" IsEmailTaken: {result.IsEmailTaken}");
+        }
 
-////		[Test]
-////		public async Task UserName_IsNotAvailable()
-////		{
-////			var userName = "@Alex33";
-////			var response = await _client.GetAsync($"/api/User/CheckUserName/{userName}");
-
-////			var isAvailable = !(await response.Content.ReadFromJsonAsync<bool>());
-
-////			Assert.IsFalse(isAvailable);
-////		}
-
-////	}
-
-////}
+    }
+}

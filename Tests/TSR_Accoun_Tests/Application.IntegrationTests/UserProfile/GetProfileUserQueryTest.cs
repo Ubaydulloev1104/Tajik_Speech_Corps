@@ -26,7 +26,7 @@ namespace Application.IntegrationTests.UserProfile
 		public async Task GetProfileByUserName_ShouldReturnProfileByUserName_Success()
 		{
 			await AddReviewerAuthorizationAsync();
-			var response = await _client.GetAsync($"/api/Profile?userName=@Alex33");
+			var response = await _client.GetAsync($"/api/Profile?userName=@Azamjon123");
 
 			response.EnsureSuccessStatusCode();
 		}

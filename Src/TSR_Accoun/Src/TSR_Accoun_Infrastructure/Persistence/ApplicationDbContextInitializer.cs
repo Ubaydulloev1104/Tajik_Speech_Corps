@@ -33,13 +33,13 @@ namespace TSR_Accoun_Infrastructure.Persistence
 		private async Task CreateApplicationAdmin(string applicationName, string adminPassword)
 		{
 			//create user
-			var mraJobsAdminUser =
+			var TSRAdminUser =
 				await _userManager.Users.SingleOrDefaultAsync(u =>
 					u.NormalizedUserName == $"{applicationName}ADMIN".ToUpper());
 
-			if (mraJobsAdminUser == null)
+			if (TSRAdminUser == null)
 			{
-				mraJobsAdminUser = new ApplicationUser
+				TSRAdminUser = new ApplicationUser
 				{
 					Id = Guid.NewGuid(),
 					UserName = $"{applicationName}Admin",
@@ -47,17 +47,17 @@ namespace TSR_Accoun_Infrastructure.Persistence
 					Email = $"{applicationName.ToLower()}ubaydulloev1104@gmail.com",
 				};
 
-				var createMraJobsAdminResult = await _userManager.CreateAsync(mraJobsAdminUser, adminPassword);
-				ThrowExceptionFromIdentityResult(createMraJobsAdminResult);
+				var createTSRAdminResult = await _userManager.CreateAsync(TSRAdminUser, adminPassword);
+				ThrowExceptionFromIdentityResult(createTSRAdminResult);
 			}
 			//create user
 
 			//create userRole
 			var userRole = new ApplicationUserRole
 			{
-				UserId = mraJobsAdminUser.Id,
+				UserId = TSRAdminUser.Id,
 				RoleId = _applicationRole.Id,
-				Slug = $"{mraJobsAdminUser.UserName}-role"
+				Slug = $"{TSRAdminUser.UserName}-role"
 			};
 
 			if (!await _context.UserRoles.AnyAsync(s => s.RoleId == userRole.RoleId && s.UserId == userRole.UserId))
@@ -69,15 +69,15 @@ namespace TSR_Accoun_Infrastructure.Persistence
 
 			//create role claim
 			if (!await _context.UserClaims.AnyAsync(s =>
-					s.UserId == mraJobsAdminUser.Id &&
+					s.UserId == TSRAdminUser.Id &&
 					s.ClaimType == TSR_Accoun_Application.ClaimTypes.Role))
 			{
 				var userRoleClaim = new ApplicationUserClaim
 				{
-					UserId = mraJobsAdminUser.Id,
+					UserId = TSRAdminUser.Id,
 					ClaimType = TSR_Accoun_Application.ClaimTypes.Role,
 					ClaimValue = ApplicationClaimValues.Administrator,
-					Slug = $"{mraJobsAdminUser.UserName}-role"
+					Slug = $"{TSRAdminUser.UserName}-role"
 				};
 				await _context.UserClaims.AddAsync(userRoleClaim);
 			}
@@ -85,15 +85,15 @@ namespace TSR_Accoun_Infrastructure.Persistence
 
 			//create email claim
 			if (!await _context.UserClaims.AnyAsync(s =>
-					s.UserId == mraJobsAdminUser.Id &&
+					s.UserId == TSRAdminUser.Id &&
 					s.ClaimType == TSR_Accoun_Application.ClaimTypes.Role))
 			{
 				var userRoleClaim = new ApplicationUserClaim
 				{
-					UserId = mraJobsAdminUser.Id,
+					UserId = TSRAdminUser.Id,
 					ClaimType = TSR_Accoun_Application.ClaimTypes.Email,
-					ClaimValue = mraJobsAdminUser.Email,
-					Slug = $"{mraJobsAdminUser.UserName}-email"
+					ClaimValue = TSRAdminUser.Email,
+					Slug = $"{TSRAdminUser.UserName}-email"
 				};
 				await _context.UserClaims.AddAsync(userRoleClaim);
 			}
@@ -102,15 +102,15 @@ namespace TSR_Accoun_Infrastructure.Persistence
 
 			//create application claim
 			if (!await _context.UserClaims.AnyAsync(s =>
-					s.UserId == mraJobsAdminUser.Id &&
+					s.UserId == TSRAdminUser.Id &&
 					s.ClaimType == TSR_Accoun_Application.ClaimTypes.Application))
 			{
 				var userApplicationClaim = new ApplicationUserClaim
 				{
-					UserId = mraJobsAdminUser.Id,
+					UserId = TSRAdminUser.Id,
 					ClaimType = TSR_Accoun_Application.ClaimTypes.Application,
 					ClaimValue = applicationName,
-					Slug = $"{mraJobsAdminUser.UserName}-application"
+					Slug = $"{TSRAdminUser.UserName}-application"
 				};
 				await _context.UserClaims.AddAsync(userApplicationClaim);
 			}
@@ -119,15 +119,15 @@ namespace TSR_Accoun_Infrastructure.Persistence
 
 			//create username claim
 			if (!await _context.UserClaims.AnyAsync(s =>
-					s.UserId == mraJobsAdminUser.Id &&
+					s.UserId == TSRAdminUser.Id &&
 					s.ClaimType == TSR_Accoun_Application.ClaimTypes.Username))
 			{
 				var userApplicationClaim = new ApplicationUserClaim
 				{
-					UserId = mraJobsAdminUser.Id,
+					UserId = TSRAdminUser.Id,
 					ClaimType = TSR_Accoun_Application.ClaimTypes.Username,
-					ClaimValue = mraJobsAdminUser.UserName,
-					Slug = $"{mraJobsAdminUser.UserName}-username"
+					ClaimValue = TSRAdminUser.UserName,
+					Slug = $"{TSRAdminUser.UserName}-username"
 				};
 				await _context.UserClaims.AddAsync(userApplicationClaim);
 			}
@@ -135,15 +135,15 @@ namespace TSR_Accoun_Infrastructure.Persistence
 
 			//create id claim
 			if (!await _context.UserClaims.AnyAsync(s =>
-					s.UserId == mraJobsAdminUser.Id &&
+					s.UserId == TSRAdminUser.Id &&
 					s.ClaimType == TSR_Accoun_Application.ClaimTypes.Id))
 			{
 				var userApplicationClaim = new ApplicationUserClaim
 				{
-					UserId = mraJobsAdminUser.Id,
+					UserId = TSRAdminUser.Id,
 					ClaimType = TSR_Accoun_Application.ClaimTypes.Id,
-					ClaimValue = mraJobsAdminUser.Id.ToString(),
-					Slug = $"{mraJobsAdminUser.UserName}-id"
+					ClaimValue = TSRAdminUser.Id.ToString(),
+					Slug = $"{TSRAdminUser.UserName}-id"
 				};
 				await _context.UserClaims.AddAsync(userApplicationClaim);
 			}

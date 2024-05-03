@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -11,7 +10,7 @@ using TSR_Accoun_Infrastructure.Persistence;
 
 namespace Application.IntegrationTests
 {
-	[TestFixture]
+    [TestFixture]
 	public abstract class BaseTest
 	{
 		protected HttpClient _client { get; private set; } = null!;
@@ -34,8 +33,8 @@ namespace Application.IntegrationTests
 			{
 				Id = Guid.NewGuid(),
 				Email = "test@example.com",
-				UserName = "@Alex33",
-				NormalizedUserName = "@alex33",
+				UserName = "@Azamjon123",
+				NormalizedUserName = "@azamjon123",
 				PhoneNumber = "+992123456789",
 			};
 
@@ -121,7 +120,7 @@ namespace Application.IntegrationTests
 			var tokenService = scope.ServiceProvider.GetRequiredService<IJwtTokenService>();
 			var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-			var user = await userManager.FindByNameAsync("@Alex33");
+			var user = await userManager.FindByNameAsync("@Azamjon123");
 			Applicant = user;
 			var prefics = "http://schemas.microsoft.com/ws/2008/06/identity/claims/";
 
@@ -131,7 +130,7 @@ namespace Application.IntegrationTests
 			new Claim($"{prefics}Id", user.Id.ToString()),
 			new Claim($"{prefics}username", user.UserName),
 			new Claim($"{prefics}email", user.Email),
-			new Claim($"{prefics}application", "MraJobs")
+			new Claim($"{prefics}application", "TSR")
 		};
 			var token = tokenService.CreateTokenByClaims(claims, out _);
 
@@ -152,7 +151,7 @@ namespace Application.IntegrationTests
 			new Claim($"{prefics}Id", reviewer.Id.ToString()),
 			new Claim($"{prefics}username", reviewer.UserName),
 			new Claim($"{prefics}email", reviewer.Email),
-			new Claim($"{prefics}application", "MraJobs")
+			new Claim($"{prefics}application", "TSR")
 		};
 			var token = tokenService.CreateTokenByClaims(claims, out _);
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

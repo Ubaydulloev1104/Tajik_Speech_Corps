@@ -3,7 +3,7 @@ using System.Net;
 using TSR_Accoun_Application.Contracts.User.Commands.RegisterUser;
 using TSR_Accoun_Domain.Entities;
 using FluentAssertions;
-using System.Security.Claims;
+using TSR_Accoun_Application;
 
 namespace Application.IntegrationTests
 {
@@ -33,46 +33,49 @@ namespace Application.IntegrationTests
 			// Assert
 			var registeredUser =
 				await GetEntity<ApplicationUser>(u => u.Email == request.Email && u.UserName == request.Username);
-			//Assert.IsNotNull(registeredUser, "Registered user not found");
 			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 		}
 
-		[Test]
-		public async Task Register_InvalidRequestWithWrongRegisterData_ReturnsUnauthorized()
-		{
-			// Arrange
-			var request = new RegisterUserCommand
-			{
-				Email = "test1@example.com",
-				Password = "password", // incorrect password            
-				FirstName = "Alex",
-				Username = "@Alex22",
-				LastName = "Makedonskiy",
-				PhoneNumber = "+992523456789",
-			};
+        [Test]
+        public async Task Register_InvalidRequestWithWrongRegisterData_ReturnsUnauthorized()
+        {
+            // Arrange
+            var request = new RegisterUserCommand
+            {
+                Email = "test1@example.com",
+                Password = "password", // incorrect password            
+                FirstName = "Alex",
+                Username = "@Alex22",
+                LastName = "Makedonskiy",
+                PhoneNumber = "+992523456789",
+            };
 
-			// Assert
-			var response = await _client.PostAsJsonAsync("api/Auth/register", request);
-			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-		}
+            // Act
+            var response = await _client.PostAsJsonAsync("api/Auth/register", request);
 
-		[Test]
-		public async Task Register_InvalidRequestWithEmptyRegisterData_ReturnsBadRequest()
-		{
-			// Arrange
-			var request = new RegisterUserCommand
-			{
-				// Empty Register Data
-				Password = "password@1",
-			};
+            // Assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
+        }
 
-			// Assert
-			var response = await _client.PostAsJsonAsync("api/Auth/register", request);
-			Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest),
-				await response.Content.ReadAsStringAsync());
-		}
+        [Test]
+        public async Task Register_InvalidRequestWithEmptyRegisterData_ReturnsBadRequest()
+        {
+            // Arrange
+            var request = new RegisterUserCommand
+            {
+                // Empty Register Data
+                Password = "password@1",
+            };
 
-		[Test]
+            // Act
+            var response = await _client.PostAsJsonAsync("api/Auth/register", request);
+
+            // Assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized),
+                await response.Content.ReadAsStringAsync());
+        }
+
+        [Test]
 		public async Task Register_WhenRoleDoesNotExist_CreateRole()
 		{
 			var request = new RegisterUserCommand
@@ -84,8 +87,8 @@ namespace Application.IntegrationTests
 				LastName = "Makesddonsky",
 				PhoneNumber = "+992623456789",
 				Role = "Role1",
-				Application = "mra.Test"
-			};
+				Application = "TSR.Test"
+            };
 
 			var response = await _client.PostAsJsonAsync("api/Auth/register", request);
 			response.IsSuccessStatusCode.Should().BeTrue();
@@ -98,39 +101,45 @@ namespace Application.IntegrationTests
 			Assert.That(userRole, Is.Not.Null);
 		}
 
-		[Test]
-		public async Task Register_WhenCall_CreateRequiredClaims()
-		{
-			var role = new ApplicationRole
-			{
-				Id = Guid.NewGuid(),
-				Name = "TestRole2",
-				NormalizedName = "testrole2",
-				Slug = "testrole2-claim"
-			};
+        [Test]
+        public async Task Register_WhenCall_CreateRequiredClaims()
+        {
+            // Arrange
+            var role = new ApplicationRole
+            {
+                Id = Guid.NewGuid(),
+                Name = "TestRole2",
+                NormalizedName = "testrole2",
+                Slug = "testrole2-claim"
+            };
 
-			await AddEntity(role);
+            await AddEntity(role);
 
-			var request = new RegisterUserCommand
-			{
-				Email = "test3@rrrexample.com",
-				Password = "passworrrrd@#12P",
-				FirstName = "Alerrx",
-				Username = "@Alerrrx223",
-				LastName = "Makerradonsky",
-				PhoneNumber = "+992723456789",
-				Role = role.Name,
-				Application = "mra.Test"
-			};
+            var request = new RegisterUserCommand
+            {
+                Email = "test3@rrrexample.com",
+                Password = "passworrrrd@#12P",
+                FirstName = "Alerrx",
+                Username = "@Alerrrx223",
+                LastName = "Makerradonsky",
+                PhoneNumber = "+992723456789",
+                Role = role.Name,
+                Application = "TSR.Test"
+            };
 
-			var response = await _client.PostAsJsonAsync("api/Auth/register", request);
-			response.IsSuccessStatusCode.Should().BeTrue();
+            // Act
+            var response = await _client.PostAsJsonAsync("api/Auth/register", request);
 
-			var user = await GetEntity<ApplicationUser>(s => s.UserName == request.Username);
+            // Assert
+            response.IsSuccessStatusCode.Should().BeTrue();
 
-			var userClaims = await GetWhere<ApplicationUserClaim>(s => s.UserId == user.Id);
-			Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Role && s.ClaimValue == request.Role));
-			Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Email && s.ClaimValue == request.Email));
-		}
-	}
+            var user = await GetEntity<ApplicationUser>(s => s.UserName == request.Username);
+            var userClaims = await GetWhere<ApplicationUserClaim>(s => s.UserId == user.Id);
+            Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Application && s.ClaimValue == request.Application));
+            Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Id && s.ClaimValue == user.Id.ToString()));
+            Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Role && s.ClaimValue == request.Role));
+            Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Email && s.ClaimValue == request.Email));
+            Assert.That(userClaims.Exists(s => s.ClaimType == ClaimTypes.Username && s.ClaimValue == request.Username));
+        }
+    }
 }

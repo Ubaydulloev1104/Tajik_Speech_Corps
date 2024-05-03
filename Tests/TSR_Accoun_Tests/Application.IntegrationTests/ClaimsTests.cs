@@ -45,7 +45,7 @@ namespace Application.IntegrationTests
 			{
 				UserId = userId,
 				ClaimType = "Application",
-				ClaimValue = "Mra.Identity"
+				ClaimValue = "TSR_Accoun"
 			};
 			await AddAuthorizationAsync();
 			HttpResponseMessage createResponse = await _client.PostAsJsonAsync("api/claims", createCommand);
@@ -62,8 +62,8 @@ namespace Application.IntegrationTests
 			{
 				UserId = Guid.Empty,
 				ClaimType = "Application",
-				ClaimValue = "Mra.Identity"
-			};
+				ClaimValue = "TSR_Accoun"
+            };
 
 			await AddAuthorizationAsync();
 
@@ -85,7 +85,7 @@ namespace Application.IntegrationTests
 				Id = 0,
 				UserId = userId,
 				ClaimType = "Application",
-				ClaimValue = "Mra.Test",
+				ClaimValue = "TSR.Test",
 				Slug = "user1-application"
 			};
 
@@ -93,7 +93,7 @@ namespace Application.IntegrationTests
 
 			await AddAuthorizationAsync();
 
-			var putCommand = new UpdateClaimCommand { ClaimValue = "Mra.Test", Slug = "user1-application" };
+			var putCommand = new UpdateClaimCommand { ClaimValue = "TSR.Test", Slug = "user1-application" };
 			HttpResponseMessage response = await _client.PutAsJsonAsync($"api/claims/{sampleClaim.Slug}", putCommand);
 
 			response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -116,7 +116,7 @@ namespace Application.IntegrationTests
 				Id = 0,
 				UserId = userId,
 				ClaimType = "Application",
-				ClaimValue = "Mra.Test",
+				ClaimValue = "TSR.Test",
 				Slug = "user1-application"
 			};
 			await AddAuthorizationAsync();

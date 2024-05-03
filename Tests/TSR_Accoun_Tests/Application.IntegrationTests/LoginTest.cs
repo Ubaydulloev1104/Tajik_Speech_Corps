@@ -13,7 +13,7 @@ namespace Application.IntegrationTests
 		public async Task Login_RequestWithCorrectLoginData_ReturnsOk()
 		{
 			// Arrange
-			var request = new LoginUserCommand { Username = "@Alex33", Password = "password@#12P" };
+			var request = new LoginUserCommand { Username = "@Azamjon123", Password = "password@#12P" };
 
 			// Act
 			var response = await _client.PostAsJsonAsync("api/Auth/login", request);

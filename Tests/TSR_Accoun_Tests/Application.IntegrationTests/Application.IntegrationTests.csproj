@@ -3,12 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.14" />
@@ -25,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Src\TSR_Accoun\Src\TSR_Accoun_Api\TSR_Accoun_Api\TSR_Accoun_Api.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UserRoles\Commands\" />
   </ItemGroup>
 
 </Project>
