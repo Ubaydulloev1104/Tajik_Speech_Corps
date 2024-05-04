@@ -9,7 +9,7 @@ namespace Application.IntegrationTests.Users.Query
         [TestCase("test@example.com", "+992111111111", "@Azamjon123", false)]
         [TestCase("test2123@example.com", "+992522222222", "@Bob456", true)]
         [TestCase("test31@example.com", "+992333333333", "@Charlie789", true)]
-        [TestCase("test1@example.com", "+992123456789", "@Alex33", false)]
+        [TestCase("test1@example.com", "+992123456789", "@Alex132454", true)]
         [TestCase("reviewer@example.com", "+992223456789", "@Reviewer", false)]
         public async Task CheckUserDetailsQuery_UserDataAvailability(string email, string phoneNumber, string userName, bool expectedResult)
         {
