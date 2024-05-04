@@ -10,7 +10,38 @@ namespace Application.IntegrationTests
 	[TestFixture]
 	public class RegistrationTests : BaseTest
 	{
-		[Test]
+
+        [Test]
+        [TestCase("Tommi", "Tommi99@example.com", "+992123423289", "adfqs@#155P")]
+        [TestCase("Jekeee", "Jonee29@example.com","+992123445289", "asdfnmmn@#sftg2P")]
+        [TestCase("Astro", "astro0034@example.com", "+992123436765", "afgsdfn@#sftg2P")]
+        [TestCase("JONE", "JONE29@example.com", "+992124342565", "assdfmn@#sftg2P")]
+
+        public async Task Register_ValidRequestWithCorrectRegisterData_ReturnsOkAndSavesUserIntoDbTestCase(string userName, string email, string phoneNumber, string password)
+        {
+            // Arrange
+            var request = new RegisterUserCommand
+            {
+                Email = email,
+                Password = password,
+                FirstName = "Ali",
+                Username = userName,
+                LastName = "Alihan",
+                PhoneNumber = phoneNumber,
+                ConfirmPassword = password
+            };
+           
+            // Assert
+            var response = await _client.PostAsJsonAsync("api/Auth/register", request);
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+            // Assert
+            var registeredUser =
+                await GetEntity<ApplicationUser>(u => u.Email == request.Email && u.UserName == request.Username);
+            Assert.That(registeredUser, Is.Not.Null, "Registered user not found");
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        }
+        [Test]
 		public async Task Register_ValidRequestWithCorrectRegisterData_ReturnsOkAndSavesUserIntoDb()
 		{
 			// Arrange
