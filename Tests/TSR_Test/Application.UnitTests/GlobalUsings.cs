@@ -1,1 +1,10 @@
-global using Xunit;
+global using AutoMapper;
+global using FluentAssertions;
+global using Microsoft.EntityFrameworkCore;
+global using Moq;
+global using NUnit.Framework;
+global using Application.Common.Exceptions;
+global using Application.Common.Interfaces;
+global using FluentValidation.TestHelper;
+global using Domain.Entities;
+global using Domain.Enums;
