@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace TSR_WebUl.Controllers
 {
-    [Microsoft.AspNetCore.Components.Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Application.Common.Security.Authorize]
     public class CategoriesController : ApiControllerBase

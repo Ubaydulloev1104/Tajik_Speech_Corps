@@ -47,6 +47,7 @@ using (var scope = app.Services.CreateScope())
 {
     var initializer = scope.ServiceProvider.GetRequiredService<DbMigration>();
     await initializer.InitialiseAsync();
+
 }
 
 app.UseHealthChecks("/status", new HealthCheckOptions
