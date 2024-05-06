@@ -49,7 +49,7 @@ namespace TSR_WebUl.Controllers
         }
 
         [HttpPost]
-        [Authorize(ApplicationPolicies.Reviewer)]
+        //[Authorize(ApplicationPolicies.Reviewer)]
         public async Task<ActionResult<string>> CreateNewCategoryVacancy(CreateWordCategoryCommand request,
             CancellationToken cancellationToken)
         {
