@@ -3,13 +3,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 using Sieve.Models;
 using Infrastructure.Persistence;
-using Microsoft.AspNetCore.Http;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
 using Infrastructure;
 using TSR_WebUl;
-using Microsoft.Extensions.DependencyInjection;
 using Application;
 
 var builder = WebApplication.CreateBuilder(args);

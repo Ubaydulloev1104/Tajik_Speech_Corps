@@ -2,86 +2,82 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using TSR_WebUl.Filters;
-namespace TSR_WebUl
+namespace TSR_WebUl;
+
+public static class ConfigureServices
 {
-    public static class ConfigureServices
+    public static void AddWebUiServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static void AddWebUiServices(this IServiceCollection services, IConfiguration configuration)
+        services.AddHttpContextAccessor();
+
+        services.AddHealthChecks();
+
+        services.AddControllers(options =>
         {
-            services.AddHttpContextAccessor();
+            options.Filters.Add<ApiExceptionFilterAttribute>();
+        })
+            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-            services.AddHealthChecks();
+        services.AddFluentValidationAutoValidation()
+            .AddFluentValidationClientsideAdapters();
 
-            services.AddControllers(options =>
+        services.AddValidatorsFromAssembly(typeof(CreateWordCommand).Assembly);
+
+        services.AddRouting(options => options.LowercaseUrls = true);
+        services.AddEndpointsApiExplorer();
+        services.AddCors();
+        services.Configure<ApiBehaviorOptions>(options =>
+            options.SuppressModelStateInvalidFilter = true);
+
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo());
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                options.Filters.Add<ApiExceptionFilterAttribute>();
-            })
-                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
-            services.AddFluentValidationAutoValidation()
-                .AddFluentValidationClientsideAdapters();
-
-            services.AddValidatorsFromAssembly(typeof(CreateWordCommand).Assembly);
-
-            services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddEndpointsApiExplorer();
-            services.AddCors();
-            services.Configure<ApiBehaviorOptions>(options =>
-                options.SuppressModelStateInvalidFilter = true);
-
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo());
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
                       Enter 'Bearer' [space] and then your token in the text input below.
                       \r\n\r\nExample: 'Bearer 12345abcdef'",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
 
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            {
                 {
+                    new OpenApiSecurityScheme
                     {
-                        new OpenApiSecurityScheme
+                        Reference = new OpenApiReference
                         {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
                         },
-                        new List<string>()
-                    }
-                });
+                        Scheme = "oauth2",
+                        Name = "Bearer",
+                        In = ParameterLocation.Header,
+                    },
+                    new List<string>()
+                }
             });
+        });
 
-            services.AddMvc(options =>
+        services.AddMvc(options =>
+        {
+            options.Filters.Add(typeof(BadRequestResponseFilter));
+        });
+        var corsAllowedHosts = configuration.GetSection("TSR-CORS").Get<string[]>();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("CORS_POLICY", policyConfig =>
             {
-                options.Filters.Add(typeof(BadRequestResponseFilter));
+                policyConfig.WithOrigins(corsAllowedHosts)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
             });
-            var corsAllowedHosts = configuration.GetSection("TSR-CORS").Get<string[]>();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CORS_POLICY", policyConfig =>
-                {
-                    policyConfig.WithOrigins(corsAllowedHosts)
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                });
-            });
-        }
+        });
     }
 }

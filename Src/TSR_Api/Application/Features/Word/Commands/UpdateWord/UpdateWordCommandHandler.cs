@@ -23,17 +23,17 @@ namespace Application.Features.Word.Commands.UpdateWord
         }
         public async Task<string> Handle(UpdateWordCommand request, CancellationToken cancellationToken)
         {
-            var Words = await _dbContext.Words
+            var words = await _dbContext.Words
                 .Include(j => j.Category)
                 .FirstOrDefaultAsync(j => j.Slug == request.Slug, cancellationToken);
-            _ = Words ?? throw new NotFoundException(nameof(Word), request.Slug);
+            _ = words ?? throw new NotFoundException(nameof(Words), request.Slug);
 
-            _mapper.Map(request, Words);
+            _mapper.Map(request, words);
 
             WordTimelineEvent timelineEvent = new WordTimelineEvent
             {
-                Words = Words,
-                WordId = Words.Id,
+                Words = words,
+                WordId = words.Id,
                 EventType = TimelineEventType.Updated,
                 Time = _dateTime.Now,
                 Note = "Word updated",
@@ -41,7 +41,7 @@ namespace Application.Features.Word.Commands.UpdateWord
             };
             await _dbContext.WordTimelineEvents.AddAsync(timelineEvent, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return Words.Slug;
+            return words.Slug;
         }
     }
 }

@@ -17,10 +17,10 @@ namespace Application.Features.Word.queries.GetWordBySlug
 
         public async Task<WordDetailsDto> Handle(GetWordBySlugQuery request, CancellationToken cancellationToken)
         {
-            Words Words = await _dbContext.Words.Include(i => i.History)
+            Words words = await _dbContext.Words.Include(i => i.History)
                 .FirstOrDefaultAsync(i => i.Slug == request.Slug);
-            _ = Words ?? throw new NotFoundException(nameof(Word), request.Slug);
-            return _mapper.Map<WordDetailsDto>(Words);
+            _ = words ?? throw new NotFoundException(nameof(Words), request.Slug);
+            return _mapper.Map<WordDetailsDto>(words);
         }
     }
 }

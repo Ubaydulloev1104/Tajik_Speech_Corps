@@ -1,41 +1,40 @@
 ﻿using FluentValidation.Results;
 using ValidationException = Application.Common.Exceptions.ValidationException;
 
-namespace Application.Common.Behaviours
+namespace Application.Common.Behaviours;
+
+public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+where TRequest : IRequest<TResponse>
 {
-    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-	where TRequest : IRequest<TResponse>
-	{
-		private readonly IEnumerable<IValidator<TRequest>> _validators;
+    private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-		public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
-		{
-			_validators = validators;
-		}
-		 
-		public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
-			CancellationToken cancellationToken)
-		{
-			if (_validators.Any())
-			{
-				ValidationContext<TRequest> context = new ValidationContext<TRequest>(request);
+    public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+    {
+        _validators = validators;
+    }
 
-				ValidationResult[] validationResults = await Task.WhenAll(
-					_validators.Select(v =>
-						v.ValidateAsync(context, cancellationToken)));
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
+    {
+        if (_validators.Any())
+        {
+            ValidationContext<TRequest> context = new ValidationContext<TRequest>(request);
 
-				List<ValidationFailure> failures = validationResults
-					.Where(r => r.Errors.Any())
-					.SelectMany(r => r.Errors)
-					.ToList();
+            ValidationResult[] validationResults = await Task.WhenAll(
+                _validators.Select(v =>
+                    v.ValidateAsync(context, cancellationToken)));
 
-				if (failures.Any())
-				{
-                    throw new ValidationException(failures);
-                }
-			}
+            List<ValidationFailure> failures = validationResults
+                .Where(r => r.Errors.Any())
+                .SelectMany(r => r.Errors)
+                .ToList();
 
-			return await next();
-		}
-	}
+            if (failures.Any())
+            {
+                throw new ValidationException(failures);
+            }
+        }
+
+        return await next();
+    }
 }

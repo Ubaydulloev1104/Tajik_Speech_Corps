@@ -18,22 +18,22 @@ namespace Application.Features.Word.Commands.DeleteWord
         }
         public async Task<bool> Handle(DeleteWordCommand request, CancellationToken cancellationToken)
         {
-            var Word = await _dbContext.Words.FirstOrDefaultAsync(j => j.Slug == request.Slug, cancellationToken);
+            var word = await _dbContext.Words.FirstOrDefaultAsync(j => j.Slug == request.Slug, cancellationToken);
 
-            if (Word == null)
-                throw new NotFoundException(nameof(Word), request.Slug);
+            if (word == null)
+                throw new NotFoundException(nameof(Words), request.Slug);
 
             WordTimelineEvent timelineEvent = new WordTimelineEvent
             {
-                Words = Word,
-                WordId = Word.Id,
+                Words = word,
+                WordId = word.Id,
                 EventType = TimelineEventType.Deleted,
                 Time = _dateTime.Now,
-                Note = "Word deleted",
+                Note = "word deleted",
                 CreateBy = _currentUserService.GetUserId() ?? Guid.Empty
             };
 
-            _dbContext.Words.Remove(Word);
+            _dbContext.Words.Remove(word);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return true;

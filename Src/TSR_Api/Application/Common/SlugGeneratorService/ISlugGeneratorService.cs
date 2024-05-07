@@ -1,7 +1,6 @@
-﻿namespace Application.Common.SlugGeneratorService
+﻿namespace Application.Common.SlugGeneratorService;
+
+public interface ISlugGeneratorService
 {
-	public interface ISlugGeneratorService
-	{
-		string GenerateSlug(string inputText);
-	}
+    string GenerateSlug(string inputText);
 }

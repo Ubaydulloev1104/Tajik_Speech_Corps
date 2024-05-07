@@ -5,31 +5,30 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
-namespace Application.IntegrationTests.Common.Services
+namespace Application.IntegrationTests.Common.Services;
+
+public class JwtTokenService : IJwtTokenService
 {
-    public class JwtTokenService : IJwtTokenService
+    private readonly IConfiguration _configuration;
+
+    public JwtTokenService(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
+        _configuration = configuration;
+    }
+    public string CreateTokenByClaims(IList<Claim> claims)
+    {
+        SymmetricSecurityKey key = new(Encoding.UTF8
+            .GetBytes(_configuration.GetSection("JWT")["Secret"]!));
 
-        public JwtTokenService(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-        public string CreateTokenByClaims(IList<Claim> claims)
-        {
-            SymmetricSecurityKey key = new(Encoding.UTF8
-                .GetBytes(_configuration.GetSection("JWT")["Secret"]!));
+        SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha512Signature);
 
-            SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha512Signature);
+        JwtSecurityToken token = new(
+            claims: claims,
+            expires: DateTime.Now.AddDays(int.Parse(_configuration.GetSection("JWT")["ExpireDayFromNow"]!)),
+            signingCredentials: creds);
 
-            JwtSecurityToken token = new(
-                claims: claims,
-                expires: DateTime.Now.AddDays(int.Parse(_configuration.GetSection("JWT")["ExpireDayFromNow"]!)),
-                signingCredentials: creds);
+        string jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-            string jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwt;
-        }
+        return jwt;
     }
 }

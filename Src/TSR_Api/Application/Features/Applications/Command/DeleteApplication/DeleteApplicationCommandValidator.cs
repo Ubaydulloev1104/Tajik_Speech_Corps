@@ -1,12 +1,11 @@
 ﻿using Application.Contracts.Applications.Commands.Delete;
 
-namespace Application.Features.Applications.Command.DeleteApplication
+namespace Application.Features.Applications.Command.DeleteApplication;
+
+public class DeleteApplicationCommandValidator : AbstractValidator<DeleteApplicationCommand>
 {
-    public class DeleteApplicationCommandValidator : AbstractValidator<DeleteApplicationCommand>
+    public DeleteApplicationCommandValidator()
     {
-        public DeleteApplicationCommandValidator()
-        {
-            RuleFor(x => x.Slug).NotEmpty();
-        }
+        RuleFor(x => x.Slug).NotEmpty();
     }
 }

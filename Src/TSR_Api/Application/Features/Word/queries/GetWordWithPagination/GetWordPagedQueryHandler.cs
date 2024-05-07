@@ -27,6 +27,8 @@ namespace Application.Features.Word.queries.GetWordWithPagination
                 .Include(j => j.Category)
                 .AsNoTracking(),
                 _mapper.Map<WordListDto>);
+
+            var user = await _dbContext.Categories.ToListAsync();
             return await Task.FromResult(result);
         }
     }

@@ -1,10 +1,9 @@
-﻿namespace Application.Common.Sieve
-{
-	public interface ISieveConfigurationsAssemblyMarker
-	{
-	}
+﻿namespace Application.Common.Sieve;
 
-	public class ApplicationSieveConfigurationsAssemblyMarker : ISieveConfigurationsAssemblyMarker
-	{
-	}
+public interface ISieveConfigurationsAssemblyMarker
+{
+}
+
+public class ApplicationSieveConfigurationsAssemblyMarker : ISieveConfigurationsAssemblyMarker
+{
 }

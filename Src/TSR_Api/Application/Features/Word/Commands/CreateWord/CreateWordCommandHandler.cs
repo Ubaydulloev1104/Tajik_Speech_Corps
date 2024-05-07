@@ -26,29 +26,29 @@ namespace Application.Features.Word.Commands.CreateWord
             WordCategory category = await _dbContext.Categories.FindAsync(request.CategoryId);
             _ = category ?? throw new NotFoundException(nameof(WordCategory), request.CategoryId);
 
-            var Word = _mapper.Map<Words>(request);
+            var word = _mapper.Map<Words>(request);
 
-            Word.Category = category;
-            Word.Slug = GenerateSlug(Word);
-            Word.LastModifiedBy = Word.CreatedBy = _currentUserService.GetUserId() ?? Guid.Empty;
-            Word.LastModifiedAt = Word.CreatedAt = _dateTime.Now;
+            word.Category = category;
+            word.Slug = GenerateSlug(word);
+            word.LastModifiedBy = word.CreatedBy = _currentUserService.GetUserId() ?? Guid.Empty;
+            word.LastModifiedAt = word.CreatedAt = _dateTime.Now;
 
 
-            await _dbContext.Words.AddAsync(Word, cancellationToken);
+            await _dbContext.Words.AddAsync(word, cancellationToken);
 
             WordTimelineEvent timelineEvent = new WordTimelineEvent
             {
-                WordId = Word.Id,
-                Words = Word,
+                WordId = word.Id,
+                Words = word,
                 EventType = TimelineEventType.Created,
                 Time = _dateTime.Now,
-                Note = "Word created",
+                Note = "word created",
                 CreateBy = _currentUserService.GetUserId() ?? Guid.Empty
 
             };
             await _dbContext.WordTimelineEvents.AddAsync(timelineEvent, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return Word.Slug;
+            return word.Slug;
         }
 
         private string GenerateSlug(Words job) =>

@@ -1,11 +1,10 @@
-﻿namespace Application.Common.Interfaces
-{
-    public interface IUserHttpContextAccessor
-    {
-        bool IsAuthenticated();
-        Guid GetUserId();
-        String GetUserName();
+﻿namespace Application.Common.Interfaces;
 
-        List<string> GetUserRoles();
-    }
+public interface IUserHttpContextAccessor
+{
+    bool IsAuthenticated();
+    Guid GetUserId();
+    String GetUserName();
+
+    List<string> GetUserRoles();
 }
