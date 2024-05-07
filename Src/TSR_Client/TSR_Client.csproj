@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+   <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +21,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TSR_Api\Application.Contracts\Application.Contracts.csproj" />
     <ProjectReference Include="..\TSR_Accoun\Src\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj" />

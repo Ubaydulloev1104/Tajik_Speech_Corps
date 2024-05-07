@@ -118,29 +118,7 @@ else
                                 <MudItem lg="6" xs="12">
                                     <MudTextField @bind-Value="@_updateProfileCommand.Email" Variant="Variant.Outlined" Margin="Margin.Dense" For="@(() => _updateProfileCommand.Email)"/>
                                 </MudItem>
-                                <MudItem lg="6" xs="12">
-                                    @if (!_profile.EmailConfirmed)
-                                    {
-                                        <MudStack Row="true">
-                                            <MudStack Row="true" Style="padding-top: 10px;">
-                                            <MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Warning"/>
-                                            <MudText Color="Color.Warning">
-                                                @ContentService["Profile:EmailisnotConfirmed"]
-                                            </MudText>
-                                            </MudStack>
-                                            <MudButton Variant="Variant.Filled" OnClick="SendEmailConfirms">
-                                                <MudText>Send verification email</MudText>
-                                            </MudButton>
-                                        </MudStack>
-                                    }
-                                    else
-                                    {
-                                        <MudText Typo="Typo.body2" Color="Color.Success">
-                                            <MudIcon Icon="@Icons.Material.Filled.Check" Color="Color.Success"/>
-                                            @ContentService["Profile:Confirmed"]
-                                        </MudText>
-                                    }
-                                </MudItem>
+                               
                             </MudGrid>
                             <br/>
                             <MudText Typo="Typo.body2" Class="mud-text-secondary">@ContentService["Profile:DateOfBirth"]</MudText>

@@ -54,6 +54,11 @@
                 <b>@ContentService["Header:Words"]</b>
             </MudText>
         </MudButton>
+        <MudButton Href="/Audio_Recorder" Color="Color.Inherit" Variant="Variant.Text" Class="@GetActiveClass(DocPages.Word)">
+            <MudText>
+                <b> Audio_Recorder </b>
+            </MudText>
+        </MudButton>
         <MudButton Href="/contact" Color="Color.Inherit" Variant="Variant.Text" Class="@GetActiveClass(DocPages.Contact)">
             <MudText>
                 <b>Contact</b>
@@ -78,13 +83,13 @@
         <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer"/>
         <MudSpacer/>
      <ToolBarSettingsButtons/>
+    <UserButton />
     </MudToolBar>
 
     <MudNavMenu Rounded="true" Dense="true" Color="Color.Primary" Class="pa-2">
         <MudNavLink Match="NavLinkMatch.All" Href="/">@ContentService["Header:Home"]</MudNavLink>
             <MudNavLink Match="NavLinkMatch.All" Href="/jobs">@ContentService["Header:Words"]</MudNavLink>
         <MudNavLink Match="NavLinkMatch.All" Href="/contact">Contact</MudNavLink>
-
     </MudNavMenu>
 </MudDrawer>
 

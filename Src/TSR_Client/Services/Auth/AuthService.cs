@@ -1,5 +1,4 @@
-﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 using System.Net.Http;
@@ -11,34 +10,20 @@ using System;
 using TSR_Accoun_Application.Contracts.User.Responses;
 using TSR_Client.Identity;
 using TSR_Accoun_Application.Contracts.User.Queries.CheckUserDetails;
+using AltairCA.Blazor.WebAssembly.Cookie;
+using TSR_Client.Services.Profile;
 
 namespace TSR_Client.Services.Auth
 {
-    public class AuthService: IAuthService
+    public class AuthService(IdentityHttpClient identityHttpClient,
+         AuthenticationStateProvider authenticationStateProvider, NavigationManager navigationManager,
+         IAltairCABlazorCookieUtil cookieUtil, LayoutService layoutService, IUserProfileService userProfileService)
+     : IAuthService
     {
-        private readonly IdentityHttpClient _identityHttpClient;
-        private readonly ILocalStorageService _localStorage;
-        private readonly AuthenticationStateProvider _authenticationStateProvider;
-        private readonly NavigationManager _navigationManager;
-
-        public AuthService(IdentityHttpClient identityHttpClient, ILocalStorageService localStorage,
-            AuthenticationStateProvider authenticationStateProvider, NavigationManager navigationManager)
-        {
-            _identityHttpClient = identityHttpClient;
-            _localStorage = localStorage;
-            _authenticationStateProvider = authenticationStateProvider;
-            _navigationManager = navigationManager;
-        }
-
         public async Task<HttpResponseMessage> ChangePassword(ChangePasswordUserCommand command)
         {
-            var result = await _identityHttpClient.PutAsJsonAsync("Auth/ChangePassword", command);
-            return result;
-        }
 
-        public async Task<HttpResponseMessage> CheckUserName(string userName)
-        {
-            var result = await _identityHttpClient.GetAsync($"User/CheckUserName/{userName}");
+            var result = await identityHttpClient.PutAsJsonAsync("Auth/ChangePassword", command);
             return result;
         }
 
@@ -47,14 +32,15 @@ namespace TSR_Client.Services.Auth
             string errorMessage = null;
             try
             {
-                var result = await _identityHttpClient.PostAsJsonAsync("Auth/login", command);
+                var result = await identityHttpClient.PostAsJsonAsync("Auth/login", command);
                 if (result.IsSuccessStatusCode)
                 {
                     var response = await result.Content.ReadFromJsonAsync<JwtTokenResponse>();
-                    await _localStorage.SetItemAsync("authToken", response);
-                    await _authenticationStateProvider.GetAuthenticationStateAsync();
+                    await cookieUtil.SetValueAsync("authToken", response);
+                    await authenticationStateProvider.GetAuthenticationStateAsync();
+                    layoutService.User = await userProfileService.Get();
                     if (!newRegister)
-                        _navigationManager.NavigateTo("/");
+                        navigationManager.NavigateTo("/");
                     return null;
                 }
 
@@ -85,7 +71,7 @@ namespace TSR_Client.Services.Auth
                 if (command.PhoneNumber.Length == 9) command.PhoneNumber = "+992" + command.PhoneNumber.Trim();
                 else if (command.PhoneNumber.Length == 12 && command.PhoneNumber[0] != '+') command.PhoneNumber = "+" + command.PhoneNumber;
 
-                var result = await _identityHttpClient.PostAsJsonAsync("Auth/register", command);
+                var result = await identityHttpClient.PostAsJsonAsync("Auth/register", command);
                 if (result.IsSuccessStatusCode)
                 {
                     await LoginUserAsync(new LoginUserCommand()
@@ -93,8 +79,8 @@ namespace TSR_Client.Services.Auth
                         Password = command.Password,
                         Username = command.Username
                     });
-
-                    _navigationManager.NavigateTo("/profile");
+                    layoutService.User = await userProfileService.Get();
+                    navigationManager.NavigateTo("/profile");
 
                     return "";
                 }
@@ -115,12 +101,20 @@ namespace TSR_Client.Services.Auth
                 return "An error occurred";
             }
         }
-        public async Task<HttpResponseMessage> CheckUserDetails(CheckUserDetailsQuery query)
+
+        public async Task<HttpResponseMessage> CheckUserName(string userName)
         {
-            var result = await _identityHttpClient.GetAsync($"User/CheckUserDetails/{query.UserName}/{query.PhoneNumber}/{query.Email}");
+            var result = await identityHttpClient.GetAsync($"User/CheckUserName/{userName}");
             return result;
         }
 
+        public async Task<HttpResponseMessage> CheckUserDetails(CheckUserDetailsQuery query)
+        {
+            var result = await identityHttpClient.GetAsync($"User/CheckUserDetails/{query.UserName}/{query.PhoneNumber}/{query.Email}");
+            return result;
+        }
+
+       
     }
 
 }
