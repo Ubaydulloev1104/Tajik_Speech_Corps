@@ -381,10 +381,10 @@
     
     <!--Home-->
     <data name="Home:Hero_Title_1" xml:space="preserve">
-    <value>Мо дар инҷо ҳастем.</value>
+    <value>Хуш омадед</value>
 </data>
     <data name="Home:Hero_Title_2" xml:space="preserve">
-    <value> Барои кӯмак ба шумо!</value>
+    <value> ба TSR</value>
 </data>
     <data name="Home:Hero_Content" xml:space="preserve">
     <value>Мо нармафзорро тавсия мекунем ва дастгирии барномасозиро фароҳам мекунем.</value>
