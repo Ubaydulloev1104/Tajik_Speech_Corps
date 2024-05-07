@@ -33,6 +33,7 @@ namespace Infrastructure
             });
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             services.AddScoped<DbMigration>();
+            services.AddScoped<ApplicationDbContextInitializer>();
             services.AddScoped<ISieveConfigurationsAssemblyMarker, InfrastructureSieveConfigurationsAssemblyMarker>();
             services.AddTransient<IDateTime, DateTimeService>();
 
