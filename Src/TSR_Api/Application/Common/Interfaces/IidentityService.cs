@@ -4,5 +4,5 @@ namespace Application.Common.Interfaces;
 
 public interface IidentityService
 {
-    Task<UserProfileResponse> ApplicantDetailsInfo();
+    Task<UserProfileResponse> ApplicantDetailsInfo(string userName = null);
 }

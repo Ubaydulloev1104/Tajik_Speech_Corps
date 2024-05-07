@@ -19,7 +19,7 @@ namespace Application.ApplicationServices
             _factory = factory;
         }
 
-        public async Task<UserProfileResponse> ApplicantDetailsInfo()
+        public async Task<UserProfileResponse> ApplicantDetailsInfo(string userName = null)
         {
             using var identityHttpClient = _factory.CreateClient("IdentityHttpClientProfile");
             var applicantDetails = new UserProfileResponse();
@@ -32,11 +32,12 @@ namespace Application.ApplicationServices
             }
 
             using var response = await identityHttpClient.GetAsync(
-                _configuration["MraJobs-IdentityApi:Profile"]);
+                $"{_configuration["MraJobs-IdentityApi:Profile"]}{(userName != null ? $"?userName={userName}" : "")}");
             if (response.IsSuccessStatusCode)
             {
                 applicantDetails = await response.Content.ReadFromJsonAsync<UserProfileResponse>();
             }
+
             return applicantDetails;
         }
     }

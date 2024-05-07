@@ -12,7 +12,7 @@ public static class ConfigureServices
     public static void AddWebUiServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHttpContextAccessor();
-
+        services.AddHttpClient();
         services.AddHealthChecks();
 
         services.AddControllers(options =>
