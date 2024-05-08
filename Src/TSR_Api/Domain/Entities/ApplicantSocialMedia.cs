@@ -1,10 +1,9 @@
-﻿namespace Domain.Entities
-{
-    public class ApplicantSocialMedia : BaseEntity
-	{
-		public string ProfileUrl { get; set; }
-		public SocialMediaType Type { get; set; }
+﻿namespace Domain.Entities;
 
-		public Guid UserId { get; set; }
-	}
+    public class ApplicantSocialMedia : BaseEntity
+{
+	public string ProfileUrl { get; set; }
+	public SocialMediaType Type { get; set; }
+
+	public Guid UserId { get; set; }
 }

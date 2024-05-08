@@ -1,9 +1,8 @@
 ﻿using Application.Contracts.Word.Responses;
 
-namespace Application.Contracts.Word.Queries.GetWordBySlug
+namespace Application.Contracts.Word.Queries.GetWordBySlug;
+
+public class GetWordBySlugQuery : IRequest<WordDetailsDto>
 {
-    public class GetWordBySlugQuery : IRequest<WordDetailsDto>
-    {
-        public string Slug { get; set; }
-    }
+    public string Slug { get; set; }
 }

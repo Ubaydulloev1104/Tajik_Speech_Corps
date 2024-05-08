@@ -1,13 +1,12 @@
-﻿namespace Domain.Common
+﻿namespace Domain.Common;
+
+public abstract class BaseAuditableEntity : BaseEntity
 {
-	public abstract class BaseAuditableEntity : BaseEntity
-	{
-		public DateTime CreatedAt { get; set; }
+	public DateTime CreatedAt { get; set; }
 
-		public Guid CreatedBy { get; set; }
+	public Guid CreatedBy { get; set; }
 
-		public DateTime? LastModifiedAt { get; set; }
+	public DateTime? LastModifiedAt { get; set; }
 
-		public Guid LastModifiedBy { get; set; }
-	}
+	public Guid LastModifiedBy { get; set; }
 }

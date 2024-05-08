@@ -35,6 +35,7 @@ namespace Infrastructure
             services.AddScoped<DbMigration>();
             services.AddScoped<ApplicationDbContextInitializer>();
             services.AddScoped<ISieveConfigurationsAssemblyMarker, InfrastructureSieveConfigurationsAssemblyMarker>();
+            services.AddScoped<IUserHttpContextAccessor, UserHttpContextAccessor>();
             services.AddTransient<IDateTime, DateTimeService>();
 
             return services;

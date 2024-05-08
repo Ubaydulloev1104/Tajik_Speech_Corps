@@ -1,10 +1,9 @@
-﻿namespace Application.Contracts.WordCategore.Commands.CreateWordCategory
+﻿namespace Application.Contracts.WordCategore.Commands.CreateWordCategory;
+
+public class CreateWordCategoryCommandValidator : AbstractValidator<CreateWordCategoryCommand>
 {
-    public class CreateWordCategoryCommandValidator : AbstractValidator<CreateWordCategoryCommand>
+    public CreateWordCategoryCommandValidator()
     {
-        public CreateWordCategoryCommandValidator()
-        {
-            RuleFor(s => s.Name).NotEmpty();
-        }
+        RuleFor(s => s.Name).NotEmpty();
     }
 }

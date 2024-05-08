@@ -1,10 +1,9 @@
-﻿namespace Application.Contracts.Applications.Queries.GetApplicationBySlug
+﻿namespace Application.Contracts.Applications.Queries.GetApplicationBySlug;
+
+public class GetApplicationBySlugQueryValidator : AbstractValidator<GetBySlugApplicationQuery>
 {
-    public class GetApplicationBySlugQueryValidator : AbstractValidator<GetBySlugApplicationQuery>
+    public GetApplicationBySlugQueryValidator()
     {
-        public GetApplicationBySlugQueryValidator()
-        {
-            RuleFor(v => v.Slug).NotEmpty();
-        }
+        RuleFor(v => v.Slug).NotEmpty();
     }
 }

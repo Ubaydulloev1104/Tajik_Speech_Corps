@@ -24,7 +24,7 @@ namespace TSR_Client.Services.WordService
                 Description = "",
                 CategoryId = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
-                UpdatedDate = DateTime.Now,
+               
             };
         }
 

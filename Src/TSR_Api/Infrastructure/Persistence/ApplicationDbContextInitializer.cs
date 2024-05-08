@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Persistence;
+﻿using Application.Contracts.Word;
+
+namespace Infrastructure.Persistence;
 public class ApplicationDbContextInitializer(ApplicationDbContext dbContext)
 {
 
@@ -9,28 +11,26 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext)
 
     private async Task CreateNoVacancy(string wordTitle)
     {
-        var hiddenCategory = await dbContext.Categories.FirstOrDefaultAsync(c => c.Name == "NoWord");
+        var hiddenCategory = await dbContext.Categories.FirstOrDefaultAsync(c => c.Slug == CommonWordSlugs.NoWordSlug);
         if (hiddenCategory == null)
         {
-            var category = new WordCategory() { Name = "NoWord", Slug = "no_word" };
+            var category = new WordCategory() { Name = "NoWord", Slug = CommonWordSlugs.NoWordSlug };
             await dbContext.Categories.AddAsync(category);
             hiddenCategory = category;
         }
 
-        var hiddenWords = await dbContext.Words.FirstOrDefaultAsync(hv => hv.Value == wordTitle);
+        var hiddenWords = await dbContext.Words.FirstOrDefaultAsync(hv => hv.Slug == CommonWordSlugs.NoWordSlug);
         if (hiddenWords == null)
         {
             var words = new Words()
             {
-                Id = Guid.NewGuid(),
                 Value = wordTitle,
                 CreateDate = DateTime.Now,
                 UpdatedDate = new DateTime(2099, 12, 31),
                 Description = "",
-                Slug = "no_word",
+                Slug = CommonWordSlugs.NoWordSlug,
                 CategoryId = hiddenCategory.Id,
                 CreatedAt = DateTime.Now,
-               
             };
 
             await dbContext.Words.AddAsync(words);

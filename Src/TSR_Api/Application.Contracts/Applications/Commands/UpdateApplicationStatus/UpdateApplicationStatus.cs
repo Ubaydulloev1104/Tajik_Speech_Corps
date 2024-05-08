@@ -1,8 +1,7 @@
-﻿namespace Application.Contracts.Applications.Commands.UpdateApplicationStatus
+﻿namespace Application.Contracts.Applications.Commands.UpdateApplicationStatus;
+
+public class UpdateApplicationStatuss : IRequest<bool>
 {
-    public class UpdateApplicationStatuss : IRequest<bool>
-    {
-        public string Slug { get; set; }
-        public int StatusId { get; set; }
-    }
+    public string Slug { get; set; }
+    public int StatusId { get; set; }
 }

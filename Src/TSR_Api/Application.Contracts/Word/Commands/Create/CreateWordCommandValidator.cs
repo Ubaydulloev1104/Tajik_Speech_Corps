@@ -1,13 +1,12 @@
-﻿namespace Application.Contracts.Word.Commands.Create
+﻿namespace Application.Contracts.Word.Commands.Create;
+
+public class CreateWordCommandValidator : AbstractValidator<CreateWordCommand>
 {
-    public class CreateWordCommandValidator : AbstractValidator<CreateWordCommand>
+    public CreateWordCommandValidator()
     {
-        public CreateWordCommandValidator()
-        {
-            RuleFor(x => x.Value).NotEmpty();
-            RuleFor(x => x.Description).NotEmpty();
-            RuleFor(x => x.CreateDate).NotEmpty();
-            RuleFor(x => x.CategoryId).NotEmpty();
-        }
+        RuleFor(x => x.Value).NotEmpty();
+        RuleFor(x => x.Description).NotEmpty();
+        RuleFor(x => x.CreateDate).NotEmpty();
+        RuleFor(x => x.CategoryId).NotEmpty();
     }
 }

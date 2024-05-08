@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Persistence.TableConfigurations
+namespace Infrastructure.Persistence.TableConfigurations;
+
+public class AudioConfiguration : IEntityTypeConfiguration<Audio>
 {
-    public class AudioConfiguration : IEntityTypeConfiguration<Audio>
+    public void Configure(EntityTypeBuilder<Audio> builder)
     {
-        public void Configure(EntityTypeBuilder<Audio> builder)
-        {
-            builder.HasQueryFilter(e => !e.IsDeleted);
-            builder.Property(v => v.FileName).HasColumnType("nvarchar(256)").IsRequired();
-     
-        }
+        builder.HasQueryFilter(e => !e.IsDeleted);
+        builder.Property(v => v.FileName).HasColumnType("nvarchar(256)").IsRequired();
+ 
     }
 }

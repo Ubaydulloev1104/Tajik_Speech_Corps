@@ -1,11 +1,10 @@
-﻿namespace Application.Contracts.WordCategore.Commands.UpdateWordCategory
+﻿namespace Application.Contracts.WordCategore.Commands.UpdateWordCategory;
+
+public class UpdateWordCategoryCommandValidator : AbstractValidator<UpdateWordCategoryCommand>
 {
-    public class UpdateWordCategoryCommandValidator : AbstractValidator<UpdateWordCategoryCommand>
+    public UpdateWordCategoryCommandValidator()
     {
-        public UpdateWordCategoryCommandValidator()
-        {
-            RuleFor(s => s.Slug).NotEmpty();
-            RuleFor(s => s.Name).NotEmpty();
-        }
+        RuleFor(s => s.Slug).NotEmpty();
+        RuleFor(s => s.Name).NotEmpty();
     }
 }

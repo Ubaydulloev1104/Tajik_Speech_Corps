@@ -13,8 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Applications\Commands\UpdateApplication\" />
     <Folder Include="Identity\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TSR_Accoun\Src\TSR_Accoun_Application.Contracts\TSR_Accoun_Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

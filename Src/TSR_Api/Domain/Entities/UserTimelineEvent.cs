@@ -1,7 +1,6 @@
-﻿namespace Domain.Entities
+﻿namespace Domain.Entities;
+
+public class UserTimelineEvent : TimelineEvent
 {
-	public class UserTimelineEvent : TimelineEvent
-	{
-		public Guid UserId { get; set; }
-	}
+    public Guid UserId { get; set; }
 }

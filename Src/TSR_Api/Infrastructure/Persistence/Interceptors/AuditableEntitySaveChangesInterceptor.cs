@@ -1,69 +1,68 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Infrastructure.Persistence.Interceptors
+namespace Infrastructure.Persistence.Interceptors;
+
+public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {
-    public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
+    private readonly ICurrentUserService _currentUserService;
+    private readonly IDateTime _dateTime;
+
+    public AuditableEntitySaveChangesInterceptor(
+        ICurrentUserService currentUserService,
+        IDateTime dateTime)
     {
-        private readonly ICurrentUserService _currentUserService;
-        private readonly IDateTime _dateTime;
+        _currentUserService = currentUserService;
+        _dateTime = dateTime;
+    }
 
-        public AuditableEntitySaveChangesInterceptor(
-            ICurrentUserService currentUserService,
-            IDateTime dateTime)
+    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+    {
+        UpdateEntities(eventData.Context);
+
+        return base.SavingChanges(eventData, result);
+    }
+
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
+        InterceptionResult<int> result, CancellationToken cancellationToken = default)
+    {
+        UpdateEntities(eventData.Context);
+
+        return base.SavingChangesAsync(eventData, result, cancellationToken);
+    }
+
+    public void UpdateEntities(DbContext context)
+    {
+        if (context == null)
         {
-            _currentUserService = currentUserService;
-            _dateTime = dateTime;
+            return;
         }
 
-        public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+        foreach (EntityEntry<BaseAuditableEntity> entry in context.ChangeTracker.Entries<BaseAuditableEntity>())
         {
-            UpdateEntities(eventData.Context);
-
-            return base.SavingChanges(eventData, result);
-        }
-
-        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
-            InterceptionResult<int> result, CancellationToken cancellationToken = default)
-        {
-            UpdateEntities(eventData.Context);
-
-            return base.SavingChangesAsync(eventData, result, cancellationToken);
-        }
-
-        public void UpdateEntities(DbContext context)
-        {
-            if (context == null)
+            if (entry.State == EntityState.Added)
             {
-                return;
+                entry.Entity.CreatedBy = _currentUserService.GetUserId() ?? Guid.Empty;
+                entry.Entity.CreatedAt = _dateTime.Now;
             }
 
-            foreach (EntityEntry<BaseAuditableEntity> entry in context.ChangeTracker.Entries<BaseAuditableEntity>())
+            if (entry.State == EntityState.Added || entry.State == EntityState.Modified ||
+                entry.HasChangedOwnedEntities())
             {
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Entity.CreatedBy = _currentUserService.GetUserId() ?? Guid.Empty;
-                    entry.Entity.CreatedAt = _dateTime.Now;
-                }
-
-                if (entry.State == EntityState.Added || entry.State == EntityState.Modified ||
-                    entry.HasChangedOwnedEntities())
-                {
-                    entry.Entity.LastModifiedBy = _currentUserService.GetUserId() ?? Guid.Empty;
-                    entry.Entity.LastModifiedAt = _dateTime.Now;
-                }
+                entry.Entity.LastModifiedBy = _currentUserService.GetUserId() ?? Guid.Empty;
+                entry.Entity.LastModifiedAt = _dateTime.Now;
             }
         }
     }
+}
 
-    public static class Extensions
+public static class Extensions
+{
+    public static bool HasChangedOwnedEntities(this EntityEntry entry)
     {
-        public static bool HasChangedOwnedEntities(this EntityEntry entry)
-        {
-            return entry.References.Any(r =>
-                r.TargetEntry != null &&
-                r.TargetEntry.Metadata.IsOwned() &&
-                (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
-        }
+        return entry.References.Any(r =>
+            r.TargetEntry != null &&
+            r.TargetEntry.Metadata.IsOwned() &&
+            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
     }
 }

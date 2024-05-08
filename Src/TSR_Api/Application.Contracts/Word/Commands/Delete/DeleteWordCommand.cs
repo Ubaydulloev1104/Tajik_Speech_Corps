@@ -1,8 +1,7 @@
-﻿namespace Application.Contracts.Word.Commands.Delete
+﻿namespace Application.Contracts.Word.Commands.Delete;
+
+public class DeleteWordCommand : IRequest<bool>
 {
-    public class DeleteWordCommand : IRequest<bool>
-    {
-        public string Slug { get; set; }
-    }
+    public string Slug { get; set; }
 }
 

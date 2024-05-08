@@ -1,8 +1,7 @@
-﻿namespace Application.Contracts.Identity.Events
+﻿namespace Application.Contracts.Identity.Events;
+
+public class IdentityEmailChangedEvent : INotification
 {
-    public class IdentityEmailChangedEvent : INotification
-    {
-        public Guid Id { get; set; }
-        public string NewEmail { get; set; }
-    }
+    public Guid Id { get; set; }
+    public string NewEmail { get; set; }
 }

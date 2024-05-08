@@ -1,9 +1,8 @@
 ﻿using Application.Contracts.Word.Responses;
 
-namespace Application.Contracts.Word.Queries.GetWordCategories
+namespace Application.Contracts.Word.Queries.GetWordCategories;
+
+public class GetWordCategoriesQuery : IRequest<List<WordCategoriesResponse>>
 {
-    public class GetWordCategoriesQuery : IRequest<List<WordCategoriesResponse>>
-    {
-        public bool CheckDate { get; set; } = true;
-    }
+    public bool CheckDate { get; set; } = true;
 }

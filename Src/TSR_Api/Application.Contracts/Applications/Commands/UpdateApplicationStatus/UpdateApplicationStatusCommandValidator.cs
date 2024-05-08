@@ -1,13 +1,12 @@
-﻿namespace Application.Contracts.Applications.Commands.UpdateApplicationStatus
+﻿namespace Application.Contracts.Applications.Commands.UpdateApplicationStatus;
+
+public class UpdateApplicationStatusCommandValidator : AbstractValidator<UpdateApplicationStatuss>
 {
-    public class UpdateApplicationStatusCommandValidator : AbstractValidator<UpdateApplicationStatuss>
+    public UpdateApplicationStatusCommandValidator()
     {
-        public UpdateApplicationStatusCommandValidator()
-        {
-            RuleFor(v => v.Slug)
-                .NotEmpty();
-            RuleFor(v => v.StatusId)
-                .NotEmpty();
-        }
+        RuleFor(v => v.Slug)
+            .NotEmpty();
+        RuleFor(v => v.StatusId)
+            .NotEmpty();
     }
 }

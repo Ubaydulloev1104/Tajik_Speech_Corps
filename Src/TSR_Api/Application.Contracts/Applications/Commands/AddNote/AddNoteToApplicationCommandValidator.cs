@@ -1,16 +1,13 @@
-﻿using FluentValidation;
+﻿namespace Application.Contracts.Applications.Commands.AddNote;
 
-namespace Application.Contracts.Applications.Commands.AddNote
+public class AddNoteToApplicationCommandValidator : AbstractValidator<AddNoteToApplicationCommand>
 {
-    public class AddNoteToApplicationCommandValidator : AbstractValidator<AddNoteToApplicationCommand>
+    public AddNoteToApplicationCommandValidator()
     {
-        public AddNoteToApplicationCommandValidator()
-        {
-            RuleFor(v => v.Slug)
-                .NotEmpty();
-            RuleFor(v => v.Note)
-                .NotEmpty()
-                .MaximumLength(200);
-        }
+        RuleFor(v => v.Slug)
+            .NotEmpty();
+        RuleFor(v => v.Note)
+            .NotEmpty()
+            .MaximumLength(1000);
     }
 }

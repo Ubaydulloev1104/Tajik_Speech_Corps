@@ -1,10 +1,9 @@
-﻿namespace Application.Contracts.Word.Commands.Delete
+﻿namespace Application.Contracts.Word.Commands.Delete;
+
+public class DeleteWordCommandValidator : AbstractValidator<DeleteWordCommand>
 {
-    public class DeleteWordCommandValidator : AbstractValidator<DeleteWordCommand>
+    public DeleteWordCommandValidator()
     {
-        public DeleteWordCommandValidator()
-        {
-            RuleFor(x => x.Slug).NotEmpty();
-        }
+        RuleFor(x => x.Slug).NotEmpty();
     }
 }

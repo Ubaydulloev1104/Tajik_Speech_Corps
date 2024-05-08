@@ -1,7 +1,6 @@
-﻿namespace Application.Contracts.WordCategore.Commands.DeleteWordCategory
+﻿namespace Application.Contracts.WordCategore.Commands.DeleteWordCategory;
+
+public class DeleteWordCategoryCommand : IRequest<bool>
 {
-    public class DeleteWordCategoryCommand : IRequest<bool>
-    {
-        public string Slug { get; set; }
-    }
+    public string Slug { get; set; }
 }

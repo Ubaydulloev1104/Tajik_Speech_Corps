@@ -1,20 +1,19 @@
-﻿namespace Infrastructure.Persistence
+﻿namespace Infrastructure.Persistence;
+
+public class DbMigration
 {
-    public class DbMigration
+    private readonly ApplicationDbContext _context;
+
+    public DbMigration(ApplicationDbContext context)
     {
-        private readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        public DbMigration(ApplicationDbContext context)
+    public async Task InitialiseAsync()
+    {
+        if (_context.Database.IsSqlServer())
         {
-            _context = context;
-        }
-
-        public async Task InitialiseAsync()
-        {
-            if (_context.Database.IsSqlServer())
-            {
-                await _context.Database.MigrateAsync();
-            }
+            await _context.Database.MigrateAsync();
         }
     }
 }

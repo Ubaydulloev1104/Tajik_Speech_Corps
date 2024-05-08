@@ -1,13 +1,13 @@
-﻿namespace Application.Contracts.Word.Commands.Update
+﻿namespace Application.Contracts.Word.Commands.Update;
+
+public class UpdateWordCommandValidator : AbstractValidator<UpdateWordCommand>
 {
-    public class UpdateWordCommandValidator : AbstractValidator<UpdateWordCommand>
+    public UpdateWordCommandValidator()
     {
-        public UpdateWordCommandValidator()
-        {
-            RuleFor(x => x.Value).NotEmpty();
-            RuleFor(x => x.Description).NotEmpty();
-            RuleFor(x => x.UpdatedDate).NotEmpty();
-            RuleFor(x => x.CategoryId).NotEmpty();
-        }
+        RuleFor(x => x.Value).NotEmpty();
+        RuleFor(x => x.Description).NotEmpty();
+        RuleFor(x => x.UpdatedDate).NotEmpty();
+        RuleFor(x => x.CategoryId).NotEmpty();
+        RuleFor(x => x.UpdatedDate).NotEmpty();
     }
 }

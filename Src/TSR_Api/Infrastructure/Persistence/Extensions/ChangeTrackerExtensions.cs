@@ -1,25 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Infrastructure.Persistence.Extensions
-{
-    public static class ChangeTrackerExtensions
-    {
-        public static void SetAuditProperties(this ChangeTracker changeTracker)
-        {
-            changeTracker.DetectChanges();
-            IEnumerable<EntityEntry> entities =
-                changeTracker
-                    .Entries()
-                    .Where(t => t.Entity is ISoftDelete && t.State == EntityState.Deleted);
+namespace Infrastructure.Persistence.Extensions;
 
-            if (entities.Any())
+public static class ChangeTrackerExtensions
+{
+    public static void SetAuditProperties(this ChangeTracker changeTracker)
+    {
+        changeTracker.DetectChanges();
+        IEnumerable<EntityEntry> entities =
+            changeTracker
+                .Entries()
+                .Where(t => t.Entity is ISoftDelete && t.State == EntityState.Deleted);
+
+        if (entities.Any())
+        {
+            foreach (EntityEntry entry in entities)
             {
-                foreach (EntityEntry entry in entities)
-                {
-                    ISoftDelete entity = (ISoftDelete)entry.Entity;
-                    entity.IsDeleted = true;
-                    entry.State = EntityState.Modified;
-                }
+                ISoftDelete entity = (ISoftDelete)entry.Entity;
+                entity.IsDeleted = true;
+                entry.State = EntityState.Modified;
             }
         }
     }

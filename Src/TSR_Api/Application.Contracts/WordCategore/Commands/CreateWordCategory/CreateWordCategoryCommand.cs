@@ -1,7 +1,6 @@
-﻿namespace Application.Contracts.WordCategore.Commands.CreateWordCategory
+﻿namespace Application.Contracts.WordCategore.Commands.CreateWordCategory;
+
+public class CreateWordCategoryCommand : IRequest<string>
 {
-    public class CreateWordCategoryCommand : IRequest<string>
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

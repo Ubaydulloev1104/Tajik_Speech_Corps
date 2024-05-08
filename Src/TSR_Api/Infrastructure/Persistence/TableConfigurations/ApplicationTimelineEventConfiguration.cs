@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Persistence.TableConfigurations
-{
-    public class ApplicationTimelineEventConfiguration : IEntityTypeConfiguration<ApplicationTimelineEvent>
-    {
-        public void Configure(EntityTypeBuilder<ApplicationTimelineEvent> builder)
-        {
-            // No need to specify the properties here as they are already defined in the base TimelineEventConfiguration
+namespace Infrastructure.Persistence.TableConfigurations;
 
-            // Navigation properties
-            builder.HasOne(ate => ate.Application)
-                .WithMany(a => a.History)
-                .HasForeignKey(ate => ate.ApplicationId)
-                .OnDelete(DeleteBehavior.Restrict);
-        }
+public class ApplicationTimelineEventConfiguration : IEntityTypeConfiguration<ApplicationTimelineEvent>
+{
+    public void Configure(EntityTypeBuilder<ApplicationTimelineEvent> builder)
+    {
+        // No need to specify the properties here as they are already defined in the base TimelineEventConfiguration
+
+        // Navigation properties
+        builder.HasOne(ate => ate.Application)
+            .WithMany(a => a.History)
+            .HasForeignKey(ate => ate.ApplicationId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

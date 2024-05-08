@@ -1,10 +1,9 @@
-﻿namespace Application.Contracts.Applications.Commands.CreateApplication
+﻿namespace Application.Contracts.Applications.Commands.CreateApplication;
+
+public class CreateApplicationCommandValidator : AbstractValidator<CreateApplicationCommand>
 {
-	public class CreateApplicationCommandValidator : AbstractValidator<CreateApplicationCommand>
+	public CreateApplicationCommandValidator()
 	{
-		public CreateApplicationCommandValidator()
-		{
-			RuleFor(v => v.WordId).NotEmpty();
-		}
+		RuleFor(v => v.WordId).NotEmpty();
 	}
 }

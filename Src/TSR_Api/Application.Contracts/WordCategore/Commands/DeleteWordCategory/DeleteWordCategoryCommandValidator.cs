@@ -1,10 +1,9 @@
-﻿namespace Application.Contracts.WordCategore.Commands.DeleteWordCategory
+﻿namespace Application.Contracts.WordCategore.Commands.DeleteWordCategory;
+
+public class DeleteWordCategoryCommandValidator : AbstractValidator<DeleteWordCategoryCommand>
 {
-    public class DeleteWordCategoryCommandValidator : AbstractValidator<DeleteWordCategoryCommand>
+    public DeleteWordCategoryCommandValidator()
     {
-        public DeleteWordCategoryCommandValidator()
-        {
-            RuleFor(x => x.Slug).NotEmpty();
-        }
+        RuleFor(x => x.Slug).NotEmpty();
     }
 }

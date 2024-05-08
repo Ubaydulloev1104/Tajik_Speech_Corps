@@ -1,8 +1,7 @@
-﻿namespace Application.Contracts.WordCategore.Commands.UpdateWordCategory
+﻿namespace Application.Contracts.WordCategore.Commands.UpdateWordCategory;
+
+public class UpdateWordCategoryCommand : IRequest<string>
 {
-    public class UpdateWordCategoryCommand : IRequest<string>
-    {
-        public string Slug { get; set; }
-        public string Name { get; set; }
-    }
+    public string Slug { get; set; }
+    public string Name { get; set; }
 }
