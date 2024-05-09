@@ -42,8 +42,8 @@ using (var scope = app.Services.CreateScope())
 {
     var initializer = scope.ServiceProvider.GetRequiredService<DbMigration>();
     await initializer.InitialiseAsync();
-    //var dbInitializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
-    //await dbInitializer.SeedAsync();
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+    await dbInitializer.SeedAsync();
 
 }
 

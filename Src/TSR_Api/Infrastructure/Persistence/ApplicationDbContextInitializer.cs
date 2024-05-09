@@ -7,13 +7,13 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
 {
     public async Task SeedAsync()
     {
-        await CreateNoWord("NoWord");
+        await CreateNoWord("Test");
 
-        if (configuration["Environment"] != "Production")
-        {
-            await CreateWordAsync();
-            await CreateApplicationsForAllOpenVacanciesAsync();
-        }
+        //if (configuration["Environment"] != "Production")
+        //{
+        //    await CreateWordAsync();
+        //    await CreateApplicationsForAllOpenVacanciesAsync();
+        //}
     }
 
     private async Task CreateNoWord(string vacancyTitle)
@@ -21,7 +21,7 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
         var noCategory = await dbContext.Categories.FirstOrDefaultAsync(c => c.Slug == CommonWordSlugs.NoWordSlug);
         if (noCategory == null)
         {
-            var category = new WordCategory { Name = "NoWord", Slug = CommonWordSlugs.NoWordSlug };
+            var category = new WordCategory { Name = "Test", Slug = CommonWordSlugs.NoWordSlug };
             await dbContext.Categories.AddAsync(category);
             await dbContext.SaveChangesAsync(); // SaveChangesAsync after adding category
             noCategory = category;
@@ -60,45 +60,19 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
 
     private async Task CreateWordAsync()
     {
-        var category = await CreateWordCategoryAsync("IT Specialists", "it-specialists");
+        var category = await CreateWordCategoryAsync("New Word", "new-Word");
 
-        if (await dbContext.Words.FirstOrDefaultAsync(x => x.Slug == "devops-engineer") == null)
+        if (await dbContext.Words.FirstOrDefaultAsync(x => x.Slug == "NEW Word") == null)
             await dbContext.Words.AddAsync(new Words
             {
-                Slug = "devops-engineer",
-                Value = "DevOps Engineer",
+                Slug = "new-Word",
+                Value = "New Word",
                 Description =
-                    "Не просто DevOps-инженер, а человек всесторонний, который с лёгкостью найдёт проблему и решит её, мыслит наперёд и предсказывает ошибки в будущем.\n\nУзнали в описании себя? Подайте заявку и станьте частью крутой финтех команды — Alif\n\nТребования:\n\nЗнания Linux (CentOS, Debian);\nПонимание работы с Linux в целом: настройка сети, устройство ФС, права доступа;\nУверенное знание командной строки и базовых утилит;\nУмение развернуть готовый стек (Python, PHP, Ruby, DB) для работы в production;\nУмение писать скрипты (sh, bash);\nMySQL, опыт написания простых запросов;\nБазовые знания docker.\nБудет плюсом:\n\nАnsible;\nGitLab;\nЗнание любой из систем мониторинга: zabbix, prometheus и сопутствующих утилит;\nОпыт работы с брокерами сообщений.\nДля нас самое ценное:\n\nЧестность и скромность;\nОтветственность и пунктуальность;\nУсердие в саморазвитии и в работе.\nПредлагаем:\n\nКарьерный рост;\nДружелюбный коллектив;\nКомфортный офис;\nВозможность развития вместе с компанией.\nЕсли Вы хотите участвовать в интересных проектах, работать в комфортных условиях и готовы стать частью нашей команды - ждем ваших резюме!",
+                    "Test test test",
                 CreateDate = DateTime.Today.AddDays(-10),
                 UpdatedDate = DateTime.Today.AddDays(30),
                 CategoryId = category.Id,
             });
-
-        if (await dbContext.Words.FirstOrDefaultAsync(x => x.Slug == "backend-developer") == null)
-            await dbContext.Words.AddAsync(new Words
-            {
-                Slug = "backend-developer",
-                Value= "Backend Developer",
-                Description =
-                    "As a Backend Developer, you will be responsible for server-side web application logic and integration of the front-end part...",
-                CreateDate = DateTime.Today.AddDays(-15),
-                UpdatedDate = DateTime.Today.AddDays(20),
-                CategoryId = category.Id,
-            });
-
-        if (await dbContext.Words.FirstOrDefaultAsync(x => x.Slug == "frontend-developer") == null)
-            await dbContext.Words.AddAsync(new Words
-            {
-                Slug = "frontend-developer",
-                Value = "Frontend Developer",
-                Description =
-                    "In this role, you will be responsible for developing and implementing user interface components...",
-                CreateDate = DateTime.Today.AddDays(-30),
-                UpdatedDate = DateTime.Today.AddDays(-1),
-                CategoryId = category.Id,
-            });
-
-
         await dbContext.SaveChangesAsync();
     }
 
@@ -107,7 +81,7 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
     private async Task CreateApplicationsAsync()
     {
         var word = await dbContext.Words
-            .FirstOrDefaultAsync(x => x.Slug == "backend-developer");
+            .FirstOrDefaultAsync(x => x.Slug == "new-word");
 
         if (word != null)
         {
@@ -165,18 +139,11 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
 
     private async Task CreateApplicationsForAllOpenVacanciesAsync()
     {
-        // Ensure dbContext is not null
-        if (dbContext == null)
-            throw new NullReferenceException("ApplicationDbContext is not initialized.");
-
-        // List of users who will apply for all open vacancies
+        
         var users = new List<string> { "applicant1", "Jerry" };
-
-        // Get all open job vacancies
         var words = await dbContext.Words
             .Where(x => x.CreateDate > DateTime.Now)
             .ToListAsync();
-
         // Loop through each user
         foreach (var user in users)
         {
@@ -189,7 +156,7 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
                 var application = new Domain.Entities.Application()
                 {
                     WordId = vacancy.Id,
-                    commit = "I am very interested in this position.",
+                    commit = "Test",
                     AppliedAt = RandomDayFunc(vacancy.CreateDate, vacancy.UpdatedDate),
                     ApplicantUsername = user,
                     Slug = $"{user}-{vacancy.Slug}",

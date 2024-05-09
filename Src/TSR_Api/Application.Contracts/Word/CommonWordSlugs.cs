@@ -2,5 +2,5 @@
 
 public static class CommonWordSlugs
 {
-    public const string NoWordSlug = "no_word";
+    public const string NoWordSlug = "Test";
 }
