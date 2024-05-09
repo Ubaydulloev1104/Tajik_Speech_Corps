@@ -76,7 +76,7 @@
         const formData = new FormData();
         formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), 'recording.wav');
 
-        await fetch('/api/AudioRecorder/SaveAudio', {
+        await fetch('https://localhost:7160/api/audiorecorder/saveaudio', {
             method: 'POST',
             body: formData
         });

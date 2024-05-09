@@ -27,8 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Application\" />
-    <Folder Include="Words\Command\" />
-    <Folder Include="Words\Queries\" />
   </ItemGroup>
 
 </Project>
