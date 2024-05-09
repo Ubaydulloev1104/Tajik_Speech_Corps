@@ -22,7 +22,7 @@
         });
 
         mMediaRecorder.addEventListener('stop', () => {
-            var pAudioBlob = new Blob(mAudioChunks, { type: "audio/mp3;" });
+            var pAudioBlob = new Blob(mAudioChunks, { type: "audio/wav;" });
             var pAudioUrl = URL.createObjectURL(pAudioBlob);
             mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
 
@@ -72,4 +72,14 @@
         // Remove the link from the body
         document.body.removeChild(link);
     };
+    BlazorAudioRecorder.SaveAudioOnServer = async function () {
+        const formData = new FormData();
+        formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), 'recording.wav');
+
+        await fetch('/api/AudioRecorder/SaveAudio', {
+            method: 'POST',
+            body: formData
+        });
+    };
+
 })();

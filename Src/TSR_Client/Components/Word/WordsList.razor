@@ -10,7 +10,7 @@
 @if (Words is null)
 {
     <div style="text-align: center;">
-        <MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true" />
+        <MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true"/>
     </div>
 }
 else
@@ -33,19 +33,20 @@ else
                                                 </MudText>
                                             </div>
                                             <div class="customTabContainerRight">
+
                                             </div>
                                         </div>
 
                                     </MudNavLink>
-                                    @foreach (var cat in WordsCategories)
+                                    @foreach (var cat in WordCategories)
                                     {
                                         <MudNavLink OnClick="@(() => SelectCategory(cat))" Class="@(_selectedCategory == cat ? "mud-chip-text mud-chip-color-primary" : "")">
                                             <div class="d-flex flex-grow-1">
                                                 <MudText>
                                                     <b>@cat</b>
                                                 </MudText>
-                                                <MudSpacer />
-                                                <MudBadge Origin="Origin.CenterRight" Color="Color.Primary" Content="@GetWordsCategoryCount(cat)"></MudBadge>
+                                                <MudSpacer/>
+                                                <MudBadge Origin="Origin.CenterRight" Color="Color.Primary" Content="@GetWordCategoryCount(cat)"></MudBadge>
                                             </div>
                                         </MudNavLink>
                                     }
@@ -63,19 +64,20 @@ else
                                                     </MudText>
                                                 </div>
                                                 <div class="customTabContainerRight">
+
                                                 </div>
                                             </div>
 
                                         </MudNavLink>
-                                        @foreach (var cat in WordsCategories)
+                                        @foreach (var cat in WordCategories)
                                         {
                                             <MudNavLink OnClick="@(() => SelectCategory(cat))" Class="@(_selectedCategory == cat ? "mud-chip-text mud-chip-color-primary" : "")">
                                                 <div class="d-flex flex-grow-1">
                                                     <MudText>
                                                         <b>@cat</b>
                                                     </MudText>
-                                                    <MudSpacer />
-                                                    <MudBadge Origin="Origin.CenterRight" Color="Color.Primary" Content="@GetWordsCategoryCount(cat)"></MudBadge>
+                                                    <MudSpacer/>
+                                                    <MudBadge Origin="Origin.CenterRight" Color="Color.Primary" Content="@GetWordCategoryCount(cat)"></MudBadge>
                                                 </div>
                                             </MudNavLink>
                                         }
@@ -88,11 +90,9 @@ else
             </MudGrid>
 
         </MudItem>
-        @if (WordsCategories.Count == 0)
+        @if (WordCategories.Count == 0)
         {
-            <MudText Typo="Typo.h5" Style="margin:50px;">
-                Currently available There are no words. Please check back later :)
-            </MudText>
+            <MudText Typo="Typo.h5" Style="margin:50px;">There are currently no job vacancies available. Please check back later :)</MudText>
         }
         else
         {
@@ -101,13 +101,13 @@ else
                     <MudItem xs="12">
                         <MudCard Class="rounded-lg p-3 mud-elevation-4 p-5">
 
-                            <MudTextField @bind-Value="Search" TextChanged="SearchWords" Label="Search" Class="rounded-lg"
-                                          Variant="Variant.Outlined" OnAdornmentClick="SearchWords" Adornment="Adornment.End"
-                                          AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Info" />
+                            <MudTextField @bind-Value="Search" TextChanged="SearchVacancy" Label="Search" Class="rounded-lg"
+                                          Variant="Variant.Outlined" OnAdornmentClick="SearchVacancy" Adornment="Adornment.End"
+                                          AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Info"/>
 
                         </MudCard>
                     </MudItem>
-                    @foreach (var Words in GetVisibleWords())
+                    @foreach (var Words in GetVisibleWord())
                     {
                         <MudItem xs="12" md="12" lg="6">
                             <a href="/@Route/@Words.Slug">
@@ -121,8 +121,7 @@ else
                                                 <b>Posted @DateTimeConvertToStringService.GetDisplayPostedDate(Words.CreateDate)</b>
                                             </small>
                                         </MudText>
-                                        <br />
-                                        <MudText>@Words.Description</MudText>
+                                        <br/> 
                                     </MudCardContent>
                                 </MudCard>
                             </a>
@@ -131,7 +130,7 @@ else
                     @if (GetTotalPages() > 1)
                     {
                         <MudItem xs="12" Class="d-flex justify-content-center">
-                            <MudPagination Color="Color.Info" Variant="Variant.Outlined" Count="@GetTotalPages()" @bind-Selected="@_selected" />
+                            <MudPagination Color="Color.Info" Variant="Variant.Outlined" Count="@GetTotalPages()" @bind-Selected="@_selected"/>
                         </MudItem>
                     }
                 </MudGrid>
@@ -146,7 +145,7 @@ else
     private bool showLoader = false;
 
     [Parameter]
-    public List<string> WordsCategories { get; set; }
+    public List<string> WordCategories { get; set; }
 
     [Parameter]
     public List<WordClientResponse> Words { get; set; }
@@ -155,7 +154,7 @@ else
     public string Route { get; set; }
 
     [Parameter]
-    public List<WordClientResponse> FilteredWords { get; set; }
+    public List<WordClientResponse> FilteredWord { get; set; }
 
     private int _activeIndex = 0;
     private string _selectedCategoryText = "All Word";
@@ -176,7 +175,7 @@ else
     private void SelectCategory(string cats = null)
     {
         _selectedCategory = cats;
-        FilteredWords = cats.IsNullOrEmpty() ? Words : Words.Where(j => j.Category == cats).ToList();
+        FilteredWord = cats.IsNullOrEmpty() ? Words : Words.Where(j => j.Category == cats).ToList();
     }
 
     private void HandleTabSelection(int index)
@@ -185,19 +184,19 @@ else
 
         if (index == 0)
         {
-            FilteredWords = Words;
+            FilteredWord = Words;
         }
-        else if (index > 0 && index <= WordsCategories.Count)
+        else if (index > 0 && index <= WordCategories.Count)
         {
-            _selectedCategoryText = WordsCategories[index - 1];
-            FilteredWords = Words.Where(j => j.Category == _selectedCategoryText).ToList();
+            _selectedCategoryText = WordCategories[index - 1];
+            FilteredWord = Words.Where(j => j.Category == _selectedCategoryText).ToList();
         }
 
-        // Reset pagination on tab change
+    // Reset pagination on tab change
         _selected = 1;
     }
 
-    private int GetWordsCategoryCount(string category)
+    private int GetWordCategoryCount(string category)
     {
         return Words.Count(j => j.Category == category);
     }
@@ -207,34 +206,34 @@ else
         if (!string.IsNullOrEmpty(query))
         {
             Console.WriteLine(query);
-            FilteredWords = Words
+            FilteredWord = Words
                 .Where(j => j.Value.Contains(Search, StringComparison.OrdinalIgnoreCase)
                             || j.Description.Contains(query, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
         else
         {
-            FilteredWords = Words;
+            FilteredWord = Words;
         }
 
-        // Reset pagination on search
+    // Reset pagination on search
         _selected = 1;
     }
 
-    private void SearchWords()
+    private void SearchVacancy()
     {
         ApplySearchFilter(Search);
     }
 
-    private List<WordClientResponse> GetVisibleWords()
+    private List<WordClientResponse> GetVisibleWord()
     {
         int startIndex = (_selected - 1) * _itemsPerPage;
-        return FilteredWords.Skip(startIndex).Take(_itemsPerPage).ToList();
+        return FilteredWord.Skip(startIndex).Take(_itemsPerPage).ToList();
     }
 
     private int GetTotalPages()
     {
-        return (int)Math.Ceiling((double)FilteredWords.Count / _itemsPerPage);
+        return (int)Math.Ceiling((double)FilteredWord.Count / _itemsPerPage);
     }
 
 }

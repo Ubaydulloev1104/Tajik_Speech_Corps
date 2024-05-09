@@ -10,6 +10,7 @@
 <button @onclick="butRecordAudioResume_Click" class="btn btn-primary" disabled=@mDisableRecordAudioResume>Resume</button>
 <button @onclick="butRecordAudioStop_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStop>Stop</button>
 <button @onclick="butDownloadBlob_Click" class="btn btn-primary" disabled=@mDisableDownloadBlob>Download Audio</button>
+<button @onclick="butSaveBlob_Click" class="btn btn-primary" disabled=@mDisableSaveBlob>Save Audio</button>
 <hr />
 <audio controls autoplay src=@mUrl></audio>
 <hr />
@@ -17,11 +18,6 @@
 <div class="alert alert-secondary mt-4">
     <span class="oi oi-pencil me-2" aria-hidden="true"></span>
     <strong></strong>
-
-    <span class="text-nowrap">
-        Read the tutorial and download the source code from
-        <a target="_blank" class="font-weight-bold link-dark" href="https://github.com/arvinboggs/BlazorGitHubPages">https://github.com/arvinboggs/BlazorGitHubPages</a>
-    </span>
 
 </div>
 
@@ -33,6 +29,7 @@
     bool mDisableRecordAudioResume = true;
     bool mDisableRecordAudioStop = true;
     bool mDisableDownloadBlob = true;
+    bool mDisableSaveBlob = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,6 +45,7 @@
         mDisableRecordAudioResume = true;
         mDisableRecordAudioStop = false;
         mDisableDownloadBlob = true;
+        mDisableSaveBlob = true;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.StartRecord");
     }
 
@@ -58,6 +56,7 @@
         mDisableRecordAudioResume = false;
         mDisableRecordAudioStop = false;
         mDisableDownloadBlob = true;
+        mDisableSaveBlob = true;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.PauseRecord");
     }
 
@@ -68,6 +67,7 @@
         mDisableRecordAudioResume = true;
         mDisableRecordAudioStop = false;
         mDisableDownloadBlob = true;
+        mDisableSaveBlob = true;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.ResumeRecord");
     }
 
@@ -78,12 +78,18 @@
         mDisableRecordAudioResume = true;
         mDisableRecordAudioStop = true;
         mDisableDownloadBlob = false;
+        mDisableSaveBlob = false;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.StopRecord");
     }
 
     void butDownloadBlob_Click()
     {
         mJS.InvokeVoidAsync("BlazorAudioRecorder.DownloadBlob", mUrl, "MyRecording_" + DateTimeStamp() + ".mp3");
+    }
+    void butSaveBlob_Click()
+    {
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer");
+
     }
 
     [JSInvokable]

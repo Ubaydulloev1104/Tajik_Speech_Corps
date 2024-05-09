@@ -9,7 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\api\"/>
+    <Compile Remove="wwwroot\api\**" />
+    <Content Remove="wwwroot\api\**" />
+    <EmbeddedResource Remove="wwwroot\api\**" />
+    <None Remove="wwwroot\api\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Audio\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
