@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.UnitTests", "..\Tests\TSR_Test\Domain.UnitTests\Domain.UnitTests.csproj", "{41A13CDE-2C81-44EA-8F77-9485F35E0BCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI.AcceptanceTests", "..\Tests\TSR_Test\WebUI.AcceptanceTests\WebUI.AcceptanceTests.csproj", "{180A9331-89D1-4602-91AB-505D2A009E24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI.AcceptanceTests", "..\Tests\TSR_Test\WebUI.AcceptanceTests\WebUI.AcceptanceTests.csproj", "{180A9331-89D1-4602-91AB-505D2A009E24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
