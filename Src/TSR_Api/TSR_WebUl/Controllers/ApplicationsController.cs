@@ -6,6 +6,8 @@ using Application.Contracts.Applications.Commands.UpdateApplicationStatus;
 using Application.Contracts.Applications.Queries.GetApplicationBySlug;
 using Application.Contracts.Applications.Responses;
 using Application.Contracts.Common;
+using Application.Contracts.TimeLineDTO;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,11 +65,11 @@ public class ApplicationsController : ApiControllerBase
         return await Mediator.Send(request, cancellationToken);
     }
 
-    [HttpPost("{slug}/add-note")]
-    public async Task<ActionResult<bool>> AddNote(string slug, AddNoteToApplicationCommand request,
-        CancellationToken cancellationToken)
+    [HttpPost("add-note")]
+    [Authorize(policy: ApplicationPolicies.Reviewer)]
+    public async Task<ActionResult<TimeLineDetailsDto>> AddNote(AddNoteToApplicationCommand request,
+         CancellationToken cancellationToken)
     {
-        request.Slug = slug;
         return await Mediator.Send(request, cancellationToken);
     }
 }

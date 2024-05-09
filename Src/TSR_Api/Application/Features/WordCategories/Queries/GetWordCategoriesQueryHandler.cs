@@ -1,4 +1,5 @@
-﻿using Application.Contracts.Word.Queries.GetWordCategories;
+﻿using Application.Contracts.Word;
+using Application.Contracts.Word.Queries.GetWordCategories;
 using Application.Contracts.Word.Responses;
 using Application.Contracts.WordCategore.Responses;
 using Microsoft.EntityFrameworkCore;
@@ -19,22 +20,24 @@ public class GetWordCategoriesQueryHandler : IRequestHandler<GetWordCategoriesQu
     public async Task<List<WordCategoriesResponse>> Handle(GetWordCategoriesQuery request, CancellationToken cancellationToken)
     {
 
-        var wordsQuery = _context.Words;
+        IEnumerable<Words> wordsQuery = _context.Words;
         if (request.CheckDate)
         {
-            DateTime now = DateTime.Now.Date;
-            wordsQuery = _context.Words;
+            DateTime now = DateTime.Now;
+            wordsQuery = _context.Words.Where(j => j.CreateDate.AddDays(-1) <= now && j.UpdatedDate >= now);
 
         }
-        var sortredJobs = (from j in wordsQuery
+        var sortredword = (from j in wordsQuery
                            group j by j.CategoryId).ToList();
 
         var words = wordsQuery.ToList();
 
         var WordsWithCategory = new List<WordCategoriesResponse>();
-        var categories = await _context.Categories.ToListAsync();
+        var categories = await _context.Categories
+           .Where(c => c.Slug != CommonWordSlugs.NoWordSlug)
+           .ToListAsync(cancellationToken: cancellationToken);
 
-        foreach (var word in sortredJobs)
+        foreach (var word in sortredword)
         {
             var category = categories.Where(c => c.Id == word.Key).FirstOrDefault();
 

@@ -4,7 +4,7 @@ namespace Application.Common.SlugGeneratorService;
 
 public class SlugGeneratorService : ISlugGeneratorService
 {
-    static readonly SlugHelper slugHelper = new SlugHelper();
+    static readonly SlugHelper slugHelper = new();
 
     public string GenerateSlug(string inputText)
     {

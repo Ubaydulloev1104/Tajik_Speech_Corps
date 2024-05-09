@@ -26,5 +26,6 @@ public class GetVacancyCategoriesPageQueryHandler : IRequestHandler<PagedListQue
             _dbContext.Categories.AsNoTracking(), _mapper.Map<CategoryResponse>);
         return await Task.FromResult(result);
     }
+
 }
 

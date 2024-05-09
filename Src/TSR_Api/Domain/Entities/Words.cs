@@ -15,6 +15,6 @@ public class Words : BaseAuditableEntity
     public ICollection<Application> Applications { get; set; }
     public ICollection<WordTimelineEvent> History { get; set; }
     public DateTime CreateDate { get; set; }
-    public DateTime? UpdatedDate { get; set; }
+    public DateTime UpdatedDate { get; set; }
 
 }
