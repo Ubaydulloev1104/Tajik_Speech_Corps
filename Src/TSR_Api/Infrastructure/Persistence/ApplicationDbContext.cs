@@ -10,6 +10,17 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
         base(options)
     {
+        Categories = Set<WordCategory>();
+        ApplicantSocialMedias = Set<ApplicantSocialMedia>(); // Инициализация ApplicantSocialMedias
+        UserTimelineEvents = Set<UserTimelineEvent>(); // Инициализация UserTimelineEvents
+        TimelineEvents = Set<TimelineEvent>(); // Инициализация TimelineEvents
+        Applications = Set<Domain.Entities.Application>(); // Инициализация Applications
+        ApplicationTimelineEvents = Set<ApplicationTimelineEvent>(); // Инициализация ApplicationTimelineEvents
+        EducationDetails = Set<EducationDetail>(); // Инициализация EducationDetails
+        Words = Set<Words>(); // Инициализация Words
+        WordTimelineEvents = Set<WordTimelineEvent>(); // Инициализация WordTimelineEvents
+        Audios = Set<Audio>(); // Инициализация Audios
+
     }
 
     public ApplicationDbContext(
@@ -18,6 +29,16 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         : base(options)
     {
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
+        Categories = Set<WordCategory>(); // Инициализация Categories
+        ApplicantSocialMedias = Set<ApplicantSocialMedia>(); // Инициализация ApplicantSocialMedias
+        UserTimelineEvents = Set<UserTimelineEvent>(); // Инициализация UserTimelineEvents
+        TimelineEvents = Set<TimelineEvent>(); // Инициализация TimelineEvents
+        Applications = Set<Domain.Entities.Application>(); // Инициализация Applications
+        ApplicationTimelineEvents = Set<ApplicationTimelineEvent>(); // Инициализация ApplicationTimelineEvents
+        EducationDetails = Set<EducationDetail>(); // Инициализация EducationDetails
+        Words = Set<Words>(); // Инициализация Words
+        WordTimelineEvents = Set<WordTimelineEvent>(); // Инициализация WordTimelineEvents
+        Audios = Set<Audio>(); // Инициализация Audios
     }
 
     public DbSet<ApplicantSocialMedia> ApplicantSocialMedias { get; set; }

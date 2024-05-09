@@ -9,41 +9,41 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
     {
         await CreateNoWord("NoWord");
 
-        //if (configuration["Environment"] != "Production")
-        //{
-        //    //await CreateWordAsync();
-        //    await CreateApplicationsForAllOpenVacanciesAsync();
-        //}
+        if (configuration["Environment"] != "Production")
+        {
+            await CreateWordAsync();
+            await CreateApplicationsForAllOpenVacanciesAsync();
+        }
     }
 
     private async Task CreateNoWord(string vacancyTitle)
     {
-        //var noCategory = await dbContext.Categories.FirstOrDefaultAsync(c => c.Slug == CommonWordSlugs.NoWordSlug);
-        //if (noCategory == null)
-        //{
+        var noCategory = await dbContext.Categories.FirstOrDefaultAsync(c => c.Slug == CommonWordSlugs.NoWordSlug);
+        if (noCategory == null)
+        {
             var category = new WordCategory { Name = "NoWord", Slug = CommonWordSlugs.NoWordSlug };
             await dbContext.Categories.AddAsync(category);
             await dbContext.SaveChangesAsync(); // SaveChangesAsync after adding category
-        //    noCategory = category;
-        //}
+            noCategory = category;
+        }
 
-        //var noWord = await dbContext.Words.FirstOrDefaultAsync(hv => hv.Slug == CommonWordSlugs.NoWordSlug);
-        //if (noWord == null)
-        //{
-        //    var vacancy = new Words
-        //    {
-        //        Value = vacancyTitle,
-        //        CreateDate = DateTime.Now,
-        //        UpdatedDate = new DateTime(2099, 12, 31),
-        //        Description = "",
-        //        Slug = CommonWordSlugs.NoWordSlug,
-        //        CategoryId = noCategory.Id,
-        //        CreatedAt = DateTime.Now,
-        //    };
+        var noWord = await dbContext.Words.FirstOrDefaultAsync(hv => hv.Slug == CommonWordSlugs.NoWordSlug);
+        if (noWord == null)
+        {
+            var vacancy = new Words
+            {
+                Value = vacancyTitle,
+                CreateDate = DateTime.Now,
+                UpdatedDate = new DateTime(2099, 12, 31),
+                Description = "",
+                Slug = CommonWordSlugs.NoWordSlug,
+                CategoryId = noCategory.Id,
+                CreatedAt = DateTime.Now,
+            };
 
-        //    await dbContext.Words.AddAsync(vacancy);
-        //    await dbContext.SaveChangesAsync(); // SaveChangesAsync after adding word
-        //}
+            await dbContext.Words.AddAsync(vacancy);
+            await dbContext.SaveChangesAsync(); // SaveChangesAsync after adding word
+        }
     }
 
     private async Task<WordCategory> CreateWordCategoryAsync(string name, string slug)

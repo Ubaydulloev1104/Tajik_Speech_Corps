@@ -22,9 +22,18 @@ public class GetVacancyCategoriesPageQueryHandler : IRequestHandler<PagedListQue
     public async Task<PagedList<CategoryResponse>> Handle(PagedListQuery<CategoryResponse> request,
         CancellationToken cancellationToken)
     {
-        PagedList<CategoryResponse> result = _sieveProcessor.ApplyAdnGetPagedList(request,
-            _dbContext.Categories.AsNoTracking(), _mapper.Map<CategoryResponse>);
-        return await Task.FromResult(result);
+        if (_dbContext.Categories != null)
+        {
+            PagedList<CategoryResponse> result = _sieveProcessor.ApplyAdnGetPagedList(request,
+                _dbContext.Categories.AsNoTracking(), _mapper.Map<CategoryResponse>);
+            return await Task.FromResult(result);
+        }
+        else
+        {
+            Console.WriteLine("Ошибка: таблица Categories недоступна.");
+            return new PagedList<CategoryResponse>();
+        }
+
     }
 
 }
