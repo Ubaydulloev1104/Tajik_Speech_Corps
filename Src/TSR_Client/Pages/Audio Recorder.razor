@@ -18,8 +18,92 @@
 <div class="alert alert-secondary mt-4">
     <span class="oi oi-pencil me-2" aria-hidden="true"></span>
     <strong></strong>
-
 </div>
+<script>
+    var BlazorAudioRecorder = {};
+    var mCaller;
+        var mStream;
+        var mAudioChunks;
+        var mMediaRecorder;
+        var mUrl = ""
+
+        BlazorAudioRecorder.Initialize = function (vCaller) {
+            mCaller = vCaller;
+        };
+        BlazorAudioRecorder.SaveAudioOnServer = async function (nameaudio) {
+        const formData = new FormData();
+        formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), nameaudio + '.wav');
+
+        await fetch('https://localhost:7160/api/audiorecorder/saveaudio?nameaudio=' + nameaudio, {
+            method: 'POST',
+            body: formData
+        });
+    };
+
+        BlazorAudioRecorder.StartRecord = async function () {
+            mStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mMediaRecorder = new MediaRecorder(mStream);
+            mMediaRecorder.addEventListener('dataavailable', vEvent => {
+                mAudioChunks.push(vEvent.data);
+            });
+
+            mMediaRecorder.addEventListener('error', vError => {
+                console.warn('media recorder error: ' + vError);
+            });
+
+            mMediaRecorder.addEventListener('stop', () => {
+                var pAudioBlob = new Blob(mAudioChunks, { type: "audio/wav;" });
+                var pAudioUrl = URL.createObjectURL(pAudioBlob);
+                mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
+
+                // uncomment the following if you want to play the recorded audio (without the using the audio HTML element)
+                //var pAudio = new Audio(pAudioUrl);
+                //pAudio.play();
+            });
+
+            mAudioChunks = [];
+            mMediaRecorder.start();
+        };
+
+        BlazorAudioRecorder.PauseRecord = function () {
+            mMediaRecorder.pause();
+        };
+
+        BlazorAudioRecorder.ResumeRecord = function () {
+            mMediaRecorder.resume();
+        };
+
+        BlazorAudioRecorder.StopRecord = function () {
+            mMediaRecorder.stop();
+            mStream.getTracks().forEach(pTrack => pTrack.stop());
+        };
+
+        BlazorAudioRecorder.DownloadBlob = function (vUrl, vName) {
+            // Create a link element
+            const link = document.createElement("a");
+
+            // Set the link's href to point to the Blob URL
+            link.href = vUrl;
+            link.download = vName;
+
+            // Append link to the body
+            document.body.appendChild(link);
+
+            // Dispatch click event on the link
+            // This is necessary as link.click() does not work on the latest firefox
+            link.dispatchEvent(
+                new 1('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                })
+            );
+
+            // Remove the link from the body
+            document.body.removeChild(link);
+        };
+    
+</script>
 
 @code {
     string mUrl;
@@ -35,8 +119,8 @@
     {
         await base.OnInitializedAsync();
         await mJS.InvokeVoidAsync("BlazorAudioRecorder.Initialize", DotNetObjectReference.Create(this));
-
     }
+
     void butRecordAudioStart_Click()
     {
         mUrl = "";
@@ -47,6 +131,7 @@
         mDisableDownloadBlob = true;
         mDisableSaveBlob = true;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.StartRecord");
+        StateHasChanged();
     }
 
     void butRecordAudioPause_Click()
@@ -80,16 +165,24 @@
         mDisableDownloadBlob = false;
         mDisableSaveBlob = false;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.StopRecord");
+        mUrl = "";
+        StateHasChanged(); 
+    
     }
 
     void butDownloadBlob_Click()
     {
-        mJS.InvokeVoidAsync("BlazorAudioRecorder.DownloadBlob", mUrl, "MyRecording_" + DateTimeStamp() + ".mp3");
+        if (!string.IsNullOrEmpty(mUrl))
+        {
+            Console.WriteLine("dd" + mUrl);
+            mJS.InvokeVoidAsync("BlazorAudioRecorder.DownloadBlob", mUrl, "MyRecording_" + DateTimeStamp() + ".wav");
+        }
     }
+
     void butSaveBlob_Click()
     {
-        mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer");
-
+        string nameaudio = "my_audio_file"; // Устанавливаем имя аудиофайла
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
     }
 
     [JSInvokable]
@@ -97,6 +190,7 @@
     {
         mUrl = vUrl;
         await InvokeAsync(() => StateHasChanged());
+        await mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", mUrl);
     }
 
     public static string DateTimeStamp()
@@ -104,6 +198,4 @@
         var pOut = DateTime.Now.ToString(FormatDateTimeStamp);
         return pOut;
     }
-
-
 }
