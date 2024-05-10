@@ -254,30 +254,30 @@ else
 		await base.OnInitializedAsync();
 		try
 		{
-			var result = await categoryService.GetWordCategoriesSinceCheckDate();
-			var allJobs = await vacancyService.GetWords();
-			if (result is not null && allJobs is not null)
-			{
-				wordsCategories = result.Select(r => r.Category.Name).ToList();
-				Words = allJobs.Select(r => new WordClientResponse
-					{
-						Category = r.Category,
-						Value = r.Value,
-						Description = r.Description,
-						Slug = r.Slug,
-						CreateDate = r.CreateDate,
-						UpdatedDate = r.UpdatedDate
-					}).ToList(); ;
-				FilteredWord = allJobs.Select(r => new WordClientResponse
-					{
-						Category = r.Category,
-						Value = r.Value,
-						Description = r.Description,
-						Slug = r.Slug,
-						CreateDate = r.CreateDate,
-						UpdatedDate = r.UpdatedDate
-					}).ToList(); ;
-			}
+			// var result = await categoryService.GetWordCategoriesSinceCheckDate();
+			// var allJobs = await vacancyService.GetWords();
+			// if (result is not null && allJobs is not null)
+			// {
+			// 	wordsCategories = result.Select(r => r.Category.Name).ToList();
+			// 	Words = allJobs.Select(r => new WordClientResponse
+			// 		{
+			// 			Category = r.Category,
+			// 			Value = r.Value,
+			// 			Description = r.Description,
+			// 			Slug = r.Slug,
+			// 			CreateDate = r.CreateDate,
+			// 			UpdatedDate = r.UpdatedDate
+			// 		}).ToList(); ;
+			// 	FilteredWord = allJobs.Select(r => new WordClientResponse
+			// 		{
+			// 			Category = r.Category,
+			// 			Value = r.Value,
+			// 			Description = r.Description,
+			// 			Slug = r.Slug,
+			// 			CreateDate = r.CreateDate,
+			// 			UpdatedDate = r.UpdatedDate
+			// 		}).ToList(); ;
+			// }
 		}
 		catch (Exception Ex)
 		{
