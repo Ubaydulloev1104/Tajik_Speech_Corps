@@ -46,7 +46,7 @@ public class CategoriesController : ApiControllerBase
     }
 
     [HttpPost]
-    //[Authorize(ApplicationPolicies.Reviewer)]
+    [Authorize(ApplicationPolicies.Reviewer)]
     public async Task<ActionResult<string>> CreateNewCategoryVacancy(CreateWordCategoryCommand request,
         CancellationToken cancellationToken)
     {

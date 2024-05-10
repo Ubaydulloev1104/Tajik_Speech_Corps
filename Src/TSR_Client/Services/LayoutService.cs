@@ -117,9 +117,10 @@ namespace TSR_Client.Services
 
         public DocPages GetDocsBasePage(string uri)
         {
-            if (uri.Contains("/jobs")) return DocPages.Word;
+            if (uri.Contains("/word")) return DocPages.Word;
             if (uri.Contains("/contact")) return DocPages.Contact;
             if (uri.Contains("/profile")) return DocPages.Profile;
+            if (uri.Contains("/Audio_Recorder")) return DocPages.Audio_Recorder;
             if (uri.Contains("/applications")) return DocPages.Applications;
             return DocPages.Home;
         }

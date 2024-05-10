@@ -6,6 +6,7 @@
         Word,
         Contact,
         Profile,
+        Audio_Recorder,
         Applications
     }
 }
