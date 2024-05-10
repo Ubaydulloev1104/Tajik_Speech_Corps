@@ -38,7 +38,7 @@ else
                                         </div>
 
                                     </MudNavLink>
-                                    @foreach (var cat in WordCategories)
+                                    @foreach (var cat in wordsCategories)
                                     {
                                         <MudNavLink OnClick="@(() => SelectCategory(cat))" Class="@(_selectedCategory == cat ? "mud-chip-text mud-chip-color-primary" : "")">
                                             <div class="d-flex flex-grow-1">
@@ -69,7 +69,7 @@ else
                                             </div>
 
                                         </MudNavLink>
-                                        @foreach (var cat in WordCategories)
+                                        @foreach (var cat in wordsCategories)
                                         {
                                             <MudNavLink OnClick="@(() => SelectCategory(cat))" Class="@(_selectedCategory == cat ? "mud-chip-text mud-chip-color-primary" : "")">
                                                 <div class="d-flex flex-grow-1">
@@ -90,7 +90,7 @@ else
             </MudGrid>
 
         </MudItem>
-        @if (WordCategories.Count == 0)
+        @if (wordsCategories.Count == 0)
         {
             <MudText Typo="Typo.h5" Style="margin:50px;">There are currently no job vacancies available. Please check back later :)</MudText>
         }
@@ -145,7 +145,7 @@ else
     private bool showLoader = false;
 
     [Parameter]
-    public List<string> WordCategories { get; set; }
+    public List<string> wordsCategories { get; set; }
 
     [Parameter]
     public List<WordClientResponse> Words { get; set; }
@@ -186,9 +186,9 @@ else
         {
             FilteredWord = Words;
         }
-        else if (index > 0 && index <= WordCategories.Count)
+        else if (index > 0 && index <= wordsCategories.Count)
         {
-            _selectedCategoryText = WordCategories[index - 1];
+            _selectedCategoryText = wordsCategories[index - 1];
             FilteredWord = Words.Where(j => j.Category == _selectedCategoryText).ToList();
         }
 

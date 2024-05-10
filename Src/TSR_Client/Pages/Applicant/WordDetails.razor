@@ -1,48 +1,201 @@
-﻿@page "/word/{Slug}"
+﻿@page "/words/{Slug}"
 @using Application.Contracts.WordClient
-
+@inject IJSRuntime mJS
 @inject IWordService wordService
-
 
 @if (_serverError)
 {
     <ServerErrorComponent/>
 }
-else
-{
-    <WordDetails Slug="@Slug" wordDetails="@_details" words="words" />
-}
+<h1>@Slug</h1>
+<hr />
+<button @onclick="butRecordAudioStart_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStart>Start Record</button>
+<button @onclick="butRecordAudioPause_Click" class="btn btn-primary" disabled=@mDisableRecordAudioPause>Pause</button>
+<button @onclick="butRecordAudioResume_Click" class="btn btn-primary" disabled=@mDisableRecordAudioResume>Resume</button>
+<button @onclick="butRecordAudioStop_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStop>Stop</button>
+<button @onclick="butSaveBlob_Click" class="btn btn-primary" disabled=@mDisableSaveBlob>Save Audio</button>
+<script>
+    var BlazorAudioRecorder = {};
+    var mCaller;
+        var mStream;
+        var mAudioChunks;
+        var mMediaRecorder;
+        var mUrl = ""
+
+        BlazorAudioRecorder.Initialize = function (vCaller) {
+            mCaller = vCaller;
+        };
+        BlazorAudioRecorder.SaveAudioOnServer = async function (nameaudio) {
+        const formData = new FormData();
+        formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), nameaudio + '.wav');
+
+        await fetch('https://localhost:7160/api/audiorecorder/saveaudio?nameaudio=' + nameaudio, {
+            method: 'POST',
+            body: formData
+        });
+    };
+
+        BlazorAudioRecorder.StartRecord = async function () {
+            mStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mMediaRecorder = new MediaRecorder(mStream);
+            mMediaRecorder.addEventListener('dataavailable', vEvent => {
+                mAudioChunks.push(vEvent.data);
+            });
+
+            mMediaRecorder.addEventListener('error', vError => {
+                console.warn('media recorder error: ' + vError);
+            });
+
+            mMediaRecorder.addEventListener('stop', () => {
+                var pAudioBlob = new Blob(mAudioChunks, { type: "audio/wav;" });
+                var pAudioUrl = URL.createObjectURL(pAudioBlob);
+                mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
+
+                // uncomment the following if you want to play the recorded audio (without the using the audio HTML element)
+                //var pAudio = new Audio(pAudioUrl);
+                //pAudio.play();
+            });
+
+            mAudioChunks = [];
+            mMediaRecorder.start();
+        };
+
+        BlazorAudioRecorder.PauseRecord = function () {
+            mMediaRecorder.pause();
+        };
+
+        BlazorAudioRecorder.ResumeRecord = function () {
+            mMediaRecorder.resume();
+        };
+
+        BlazorAudioRecorder.StopRecord = function () {
+            mMediaRecorder.stop();
+            mStream.getTracks().forEach(pTrack => pTrack.stop());
+        };
+    
+</script>
 
 @code {
+
+    private bool _serverError;
+    [Parameter]
+    public string Slug { get; set; }
+    string mUrl;
+    public const string FormatDateTimeStamp = "yyyy_MM_dd__HH_mm_ss_ffff";
+    bool mDisableRecordAudioStart;
+    bool mDisableRecordAudioPause = true;
+    bool mDisableRecordAudioResume = true;
+    bool mDisableRecordAudioStop = true;
+    bool mDisableDownloadBlob = true;
+    bool mDisableSaveBlob = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await mJS.InvokeVoidAsync("BlazorAudioRecorder.Initialize", DotNetObjectReference.Create(this));
+    }
+
+    void butRecordAudioStart_Click()
+    {
+        mUrl = "";
+        mDisableRecordAudioStart = true;
+        mDisableRecordAudioPause = false;
+        mDisableRecordAudioResume = true;
+        mDisableRecordAudioStop = false;
+        mDisableDownloadBlob = true;
+        mDisableSaveBlob = true;
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.StartRecord");
+        StateHasChanged();
+    }
+
+    void butRecordAudioPause_Click()
+    {
+        mDisableRecordAudioStart = true;
+        mDisableRecordAudioPause = true;
+        mDisableRecordAudioResume = false;
+        mDisableRecordAudioStop = false;
+        mDisableDownloadBlob = true;
+        mDisableSaveBlob = true;
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.PauseRecord");
+    }
+
+    void butRecordAudioResume_Click()
+    {
+        mDisableRecordAudioStart = true;
+        mDisableRecordAudioPause = false;
+        mDisableRecordAudioResume = true;
+        mDisableRecordAudioStop = false;
+        mDisableDownloadBlob = true;
+        mDisableSaveBlob = true;
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.ResumeRecord");
+    }
+
+    void butRecordAudioStop_Click()
+    {
+        mDisableRecordAudioStart = false;
+        mDisableRecordAudioPause = true;
+        mDisableRecordAudioResume = true;
+        mDisableRecordAudioStop = true;
+        mDisableDownloadBlob = false;
+        mDisableSaveBlob = false;
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.StopRecord");
+        mUrl = "";
+        StateHasChanged(); 
+    
+    }
+
+    void butSaveBlob_Click()
+    {
+        string nameaudio = Slug+DateTimeStamp(); // Устанавливаем имя аудиофайла
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
+    }
+
+    [JSInvokable]
+    public async Task OnAudioUrl(string vUrl)
+    {
+        mUrl = vUrl;
+        await InvokeAsync(() => StateHasChanged());
+        await mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", mUrl);
+    }
+
+    public static string DateTimeStamp()
+    {
+        var pOut = DateTime.Now.ToString(FormatDateTimeStamp);
+        return pOut;
+    }
+}
+
+
+@* @code {
     private bool _serverError;
 
     [Parameter]
     public string Slug { get; set; }
 
-    private WordDetailsResponse _details;
+    // private WordDetailsResponse _details;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        try
-        {
-            var response = await wordService.GetBySlug(Slug);
-            if (response is not null)
-            {
-                _details = new WordDetailsResponse
-                {
-                    Value = response.Value,
-                    Description = response.Description,
-                    CreateDate = response.CreateDate
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     await base.OnInitializedAsync();
+    //     try
+    //     {
+    //         var response = await wordService.GetBySlug(Slug);
+    //         if (response is not null)
+    //         {
+    //             _details = new WordDetailsResponse
+    //             {
+    //                 Value = response.Value,
+    //                 Description = response.Description,
+    //                 CreateDate = response.CreateDate
                     
-                };
-            }
-        }
-        catch (Exception)
-        {
-            _serverError = true;
-            StateHasChanged();
-        }
-    }
+    //             };
+    //         }
+    //     }
+    //     catch (Exception)
+    //     {
+    //         _serverError = true;
+    //         StateHasChanged();
+    //     }
+    // }
 
-}
+} *@

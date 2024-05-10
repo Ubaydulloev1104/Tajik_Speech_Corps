@@ -30,15 +30,15 @@
         BlazorAudioRecorder.Initialize = function (vCaller) {
             mCaller = vCaller;
         };
-        BlazorAudioRecorder.SaveAudioOnServer = async function (nameaudio) {
-        const formData = new FormData();
-        formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), nameaudio + '.wav');
+        BlazorAudioRecorder.SaveAudioOnServer = async function () {
+            const formData = new FormData();
+            formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), 'recording.wav');
 
-        await fetch('https://localhost:7160/api/audiorecorder/saveaudio?nameaudio=' + nameaudio, {
-            method: 'POST',
-            body: formData
-        });
-    };
+            await fetch('https://localhost:7160/api/audiorecorder/saveaudio', {
+                method: 'POST',
+                body: formData
+            });
+        };
 
         BlazorAudioRecorder.StartRecord = async function () {
             mStream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -54,7 +54,10 @@
             mMediaRecorder.addEventListener('stop', () => {
                 var pAudioBlob = new Blob(mAudioChunks, { type: "audio/wav;" });
                 var pAudioUrl = URL.createObjectURL(pAudioBlob);
-                mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
+                // mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
+                window.DotNet.invokeMethodAsync('Blazor', 'OnAudioUrl', pAudioUrl);
+                .then(() => console.log('OnAudioUrl method invoked successfully'))
+                .catch((error) => console.error('Error invoking OnAudioUrl method:', error));
 
                 // uncomment the following if you want to play the recorded audio (without the using the audio HTML element)
                 //var pAudio = new Audio(pAudioUrl);
@@ -165,7 +168,6 @@
         mDisableDownloadBlob = false;
         mDisableSaveBlob = false;
         mJS.InvokeVoidAsync("BlazorAudioRecorder.StopRecord");
-        mUrl = "";
         StateHasChanged(); 
     
     }
@@ -181,8 +183,7 @@
 
     void butSaveBlob_Click()
     {
-        string nameaudio = "my_audio_file"; // Устанавливаем имя аудиофайла
-        mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
+        mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer");
     }
 
     [JSInvokable]

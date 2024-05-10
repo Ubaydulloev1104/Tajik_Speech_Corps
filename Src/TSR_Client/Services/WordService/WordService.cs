@@ -6,12 +6,11 @@ using Application.Contracts.WordCategore.Responses;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace TSR_Client.Services.WordService
 {
-    public class WordService : IWordService
+	public class WordService : IWordService
     {
         private readonly HttpClient _http;
         public WordService(HttpClient http)
@@ -60,7 +59,7 @@ namespace TSR_Client.Services.WordService
 
         public async Task<WordDetailsDto> GetBySlug(string slug)
         {
-            var result = await _http.GetFromJsonAsync<WordDetailsDto>($"word/{slug}");
+            var result = await _http.GetFromJsonAsync<WordDetailsDto>($"words/{slug}");
             return result;
         }
 
@@ -104,8 +103,9 @@ namespace TSR_Client.Services.WordService
 
         public async Task<List<WordListDto>> GetWords()
         {
-            throw new NotImplementedException();
-        }
+			var result = await _http.GetFromJsonAsync<PagedList<WordListDto>>("words");
+			return result.Items;
+		}
 
         public async Task<List<WordListDto>> GetWordByValue(string Value)
         {
