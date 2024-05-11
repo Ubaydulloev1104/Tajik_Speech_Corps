@@ -7,7 +7,7 @@ public class ApplicationDbContextInitializer(ApplicationDbContext dbContext, ICo
 {
     public async Task SeedAsync()
     {
-        await CreateNoWord("Test");
+        //await CreateNoWord("Test");
 
         //if (configuration["Environment"] != "Production")
         //{

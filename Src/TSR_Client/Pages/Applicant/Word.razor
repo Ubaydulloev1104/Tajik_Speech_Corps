@@ -152,15 +152,9 @@ else
 
 @code {
     private bool serverError;
-    private List<string> wordsCategories = new List<string> { "New Word","Category1", "Category2", "Category3" }; // Ручное заполнение категорий слов
-    private List<WordClientResponse> Words = new List<WordClientResponse>
-	{
-		new WordClientResponse { Category = "Category1", Value = "Word1", Description = "Description1", Slug = "slug1", CreateDate = DateTime.Now, UpdatedDate = DateTime.Now },
-		new WordClientResponse { Category = "Category1", Value = "Word1", Description = "Description1", Slug = "slug1", CreateDate = DateTime.Now, UpdatedDate = DateTime.Now },
-		new WordClientResponse { Category = "Category2", Value = "Word2", Description = "Description2", Slug = "slug2", CreateDate = DateTime.Now, UpdatedDate = DateTime.Now },
-		new WordClientResponse { Category = "New Word", Value = "New Word", Description = "Hello  Haw are you I am where good bla  bla bla ", Slug = "new-Word", CreateDate = new DateTime(2024, 04, 29), UpdatedDate = new DateTime(2024, 06, 08)}
-	}; 
-    private List<WordClientResponse> FilteredWord; // Пустой список, который вы можете заполнить по мере необходимости
+    private List<string> wordsCategories;
+    private List<WordClientResponse> Words;
+    private List<WordClientResponse> FilteredWord; 
     public string Route { get; set; } = "words";
     private int _selected = 1;
     public string Search { get; set; }
@@ -252,7 +246,7 @@ else
 		await base.OnInitializedAsync();
 		try
 		{
-			var result = await categoryService.GetWordCategoriesSinceCheckDate();
+			var result = await categoryService.GetWordCategories();
 			var allJobs = await vacancyService.GetWords();
 			if (result is not null && allJobs is not null)
 			{
