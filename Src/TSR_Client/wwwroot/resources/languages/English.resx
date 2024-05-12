@@ -423,7 +423,7 @@
         <value>Welcome</value>
     </data>
   <data name="Home:Hero_Title_2" xml:space="preserve">
-        <value> to TSR </value>
+        <value> to Tajik speech corps </value>
     </data>
   <data name="Home:About" xml:space="preserve">
         <value>About</value>
@@ -432,7 +432,7 @@
         <value> Us</value>
     </data>
   <data name="Home:AboutTitle" xml:space="preserve">
-        <value>Tajik Speech Recognition</value>
+        <value>Tajik Speech corps</value>
     </data>
   <data name="Home:AboutContent" xml:space="preserve">
         <value>In the modern world of digital technology, voice technologies are becoming increasingly in demand, especially with the development of artificial intelligence and machine learning. However, when it comes to regional languages ​​such as Tajik, special challenges arise. The development of software modules to create a source of voice data in the Tajik language becomes an important step in increasing the availability of technology and introducing innovation in Tajikistan.</value>
