@@ -450,5 +450,7 @@
         <value>Ворид шавед</value>
     </data>
     <!-- VacancyDetails -->
-    
+  <data name="VacancyDetails:ViewApplication" xml:space="preserve">
+        <value>Посмотреть заявку</value>
+    </data>
 </root>

@@ -7,4 +7,5 @@ public class WordDetailsResponse
     public DateTime CreateDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
     public DateTime Deadline { get; set; }
+	public bool IsApplied { get; set; }
 }

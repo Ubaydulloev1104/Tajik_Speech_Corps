@@ -483,4 +483,7 @@
     <value>Sign In</value>
   </data>
   <!-- VacancyDetails -->
+  <data name="VacancyDetails:ViewApplication" xml:space="preserve">
+        <value>View Application</value>
+    </data>
 </root>

@@ -454,5 +454,7 @@
         <value>Войти</value>
     </data>
     <!-- VacancyDetails -->
-    
+  <data name="VacancyDetails:ViewApplication" xml:space="preserve">
+        <value>Дидани ариза</value>
+    </data>
 </root>
