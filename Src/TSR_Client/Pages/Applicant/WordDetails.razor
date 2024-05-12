@@ -2,18 +2,110 @@
 @using Application.Contracts.WordClient
 @inject IJSRuntime mJS
 @inject IWordService wordService
-
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Net
+@using Blazorise.Extensions
+@using TSR_Client.Services.ConverterService
+@inject AuthenticationStateProvider Provider
+@inject IApplicationService ApplicationService
+@inject IDateTimeConvertToStringService DateTimeConvert
+<PageTitle>Word Audio Recorder</PageTitle>
 @if (_serverError)
 {
     <ServerErrorComponent/>
 }
-<h1>@Slug</h1>
-<hr />
-<button @onclick="butRecordAudioStart_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStart>Start Record</button>
-<button @onclick="butRecordAudioPause_Click" class="btn btn-primary" disabled=@mDisableRecordAudioPause>Pause</button>
-<button @onclick="butRecordAudioResume_Click" class="btn btn-primary" disabled=@mDisableRecordAudioResume>Resume</button>
-<button @onclick="butRecordAudioStop_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStop>Stop</button>
-<button @onclick="butSaveBlob_Click" class="btn btn-primary" disabled=@mDisableSaveBlob>Save Audio</button>
+else if (notFound)
+{
+    <NotFound/>
+}
+
+<MudContainer>
+    <MudGrid>
+        <MudItem xs="12" lg="9" sm="6" md="8">
+            <MudCard Class="rounded-lg mud-elevation-4">
+                <MudCardHeader>
+
+                    <CardHeaderContent>
+                        <div class="d-flex flex-grow-1">
+                            <div class="flex-none d-flex py-lg-3">
+                                <MudLink Href="@("/" + words)">
+                                    <MudIcon Icon="@Icons.Material.Filled.ArrowBackIosNew" Size="Size.Large"></MudIcon>
+                                </MudLink>
+                            </div>
+                            <div class="">
+                                <MudText Typo="Typo.h5" Style="padding-top: 3px;">
+                                    <b>@wordDetails.Value</b>
+                                </MudText>
+                                <MudText Typo="Typo.body2" Style="color:rgb(128,128,128)">
+                                    <b> @ContentService["VacancyDetails:Posted"] @DateTimeConvert.GetDisplayPostedDate(wordDetails.CreateDate)</b>
+                                </MudText>
+                            </div>
+                        </div>
+
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardHeader>
+                    <MudDivider />
+                    <br />
+                    <MudText>@((MarkupString)wordDetails.Description)</MudText>
+                    <br />
+                    <MudDivider Style="padding:10px;" />
+                </MudCardHeader>
+                <hr />
+                <button @onclick="butRecordAudioStart_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStart>Start Record</button>
+                <button @onclick="butRecordAudioPause_Click" class="btn btn-primary" disabled=@mDisableRecordAudioPause>Pause</button>
+                <button @onclick="butRecordAudioResume_Click" class="btn btn-primary" disabled=@mDisableRecordAudioResume>Resume</button>
+                <button @onclick="butRecordAudioStop_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStop>Stop</button>
+                <button @onclick="butSaveBlob_Click" class="btn btn-primary" disabled=@mDisableSaveBlob>Save Audio</button>
+                <hr />
+                <audio controls autoplay src=@mUrl></audio>
+                <hr />
+
+                <div class="alert alert-secondary mt-4">
+                    <span class="oi oi-pencil me-2" aria-hidden="true"></span>
+                    <strong></strong>
+                </div>
+            </MudCard>
+
+
+        </MudItem>
+        <MudItem xs="12" lg="3" sm="6" md="4">
+            <CascadingAuthenticationState>
+                <AuthorizeView>
+                    <Authorized>
+                        <MudCard Class="rounded-lg mud-elevation-4">
+                            <MudCardActions Style="flex-direction: column">
+                                <MudButton Variant="Variant.Filled" href=@($"/{words}/apply/{Slug}") Color="Color.Primary" FullWidth="true">
+                                    <MudText>
+                                        <b>@ContentService["VacancyDetails:Apply Now"]</b>
+                                    </MudText>
+                                </MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </Authorized>
+                    <NotAuthorized>
+                        <MudCard Class="rounded-lg mud-elevation-4">
+                            <MudCardActions>
+                                <MudButton Variant="Variant.Filled" href="sign-up" Color="Color.Primary" FullWidth="true">
+                                    <MudText>
+                                        <b>@ContentService["VacancyDetails:Sign Up"]</b>
+                                    </MudText>
+                                </MudButton>
+                            </MudCardActions>
+                            <MudText Typo="Typo.body2" Style="padding:0 10px 10px 10px">
+                                @ContentService["VacancyDetails:Already have an account?"]
+                                <MudLink Typo="Typo.body2" href=@($"/sign-in?returnUrl={words}|{Slug}") Color="Color.Primary">
+                                    <b>@ContentService["VacancyDetails:Sign In"]</b>
+                                </MudLink>
+                            </MudText>
+                        </MudCard>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </CascadingAuthenticationState>
+
+        </MudItem>
+    </MudGrid>
+</MudContainer>
 <script>
     var BlazorAudioRecorder = {};
     var mCaller;
@@ -81,6 +173,7 @@
     [Parameter]
     public string Slug { get; set; }
     string mUrl;
+    bool notFound;
     public const string FormatDateTimeStamp = "yyyy_MM_dd__HH_mm_ss_ffff";
     bool mDisableRecordAudioStart;
     bool mDisableRecordAudioPause = true;
@@ -88,10 +181,33 @@
     bool mDisableRecordAudioStop = true;
     bool mDisableDownloadBlob = true;
     bool mDisableSaveBlob = true;
+    private bool _showLoader = false;
+    private WordDetailsResponse wordDetails;
+    public string words { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        try
+        {
+            var response = await wordService.GetBySlug(Slug);
+            if (response is not null)
+            {
+                wordDetails = new WordDetailsResponse
+                    {
+                        Value = response.Value,
+                        Description = response.Description,
+                        CreateDate = response.CreateDate,
+                        UpdatedDate = response.UpdatedDate
+                    };
+            }
+            else notFound = true;
+        }
+        catch (Exception)
+        {
+            _serverError = true;
+            StateHasChanged();
+        }
         await mJS.InvokeVoidAsync("BlazorAudioRecorder.Initialize", DotNetObjectReference.Create(this));
     }
 
@@ -163,39 +279,24 @@
         var pOut = DateTime.Now.ToString(FormatDateTimeStamp);
         return pOut;
     }
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                await Task.Delay(1000);
+                _showLoader = true;
+                StateHasChanged();
+            }
+        }
+        catch (Exception)
+        {
+        }
+    }
+
 }
 
 
-@* @code {
-    private bool _serverError;
 
-    [Parameter]
-    public string Slug { get; set; }
-
-    // private WordDetailsResponse _details;
-
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     await base.OnInitializedAsync();
-    //     try
-    //     {
-    //         var response = await wordService.GetBySlug(Slug);
-    //         if (response is not null)
-    //         {
-    //             _details = new WordDetailsResponse
-    //             {
-    //                 Value = response.Value,
-    //                 Description = response.Description,
-    //                 CreateDate = response.CreateDate
-                    
-    //             };
-    //         }
-    //     }
-    //     catch (Exception)
-    //     {
-    //         _serverError = true;
-    //         StateHasChanged();
-    //     }
-    // }
-
-} *@
+    

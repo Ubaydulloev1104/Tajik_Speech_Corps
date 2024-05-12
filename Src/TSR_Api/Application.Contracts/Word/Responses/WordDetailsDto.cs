@@ -4,8 +4,9 @@ using Newtonsoft.Json;
 
 namespace Application.Contracts.Word.Responses;
 
-	public class WordDetailsDto
+public class WordDetailsDto
 {
+    public bool IsApplied { get; set; }
     public Guid Id { get; set; }
     public Guid? CategoryId { get; set; }
     public string Category { get; set; }
@@ -26,6 +27,9 @@ namespace Application.Contracts.Word.Responses;
     public string Value { get; set; }
 
     [JsonConverter(typeof(DateTimeToUnixConverter))]
-    public DateTime CreateDate   { get; set; }
+    public DateTime CreateDate { get; set; }
+    [JsonConverter(typeof(DateTimeToUnixConverter))]
+    public DateTime UpdatedDate { get; set; }
+   
 
 }

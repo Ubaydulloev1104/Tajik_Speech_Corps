@@ -4,23 +4,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Word.queries.GetWordBySlug
 {
-    public class GetWordBySlugQueryHandler : IRequestHandler<GetWordBySlugQuery, WordDetailsDto>
+    public class GetWordBySlugQueryHandler(
+     IApplicationDbContext dbContext,
+     IMapper mapper,
+     ICurrentUserService currentUser)
+     : IRequestHandler<GetWordBySlugQuery, WordDetailsDto>
     {
-        private readonly IApplicationDbContext _dbContext;
-        private readonly IMapper _mapper;
-
-        public GetWordBySlugQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public async Task<WordDetailsDto> Handle(GetWordBySlugQuery request,
+            CancellationToken cancellationToken)
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
+            Words word = await dbContext.Words.FirstOrDefaultAsync(i => i.Slug == request.Slug, cancellationToken: cancellationToken);
+            _ = word ?? throw new NotFoundException(nameof(Words), request.Slug);
 
-        public async Task<WordDetailsDto> Handle(GetWordBySlugQuery request, CancellationToken cancellationToken)
-        {
-            Words words = await _dbContext.Words.Include(i => i.History)
-                .FirstOrDefaultAsync(i => i.Slug == request.Slug);
-            _ = words ?? throw new NotFoundException(nameof(Words), request.Slug);
-            return _mapper.Map<WordDetailsDto>(words);
+            word.History =
+                await dbContext.WordTimelineEvents.Where(t => t.WordId == word.Id)
+                    .ToListAsync(cancellationToken: cancellationToken);
+
+            var mapped = mapper.Map<WordDetailsDto>(word);
+            mapped.IsApplied = await dbContext.Applications.AnyAsync(
+                s => s.ApplicantUsername == currentUser.GetUserName() && s.WordId == word.Id,
+                cancellationToken: cancellationToken);
+            return mapped;
         }
     }
 }
