@@ -433,9 +433,11 @@
 
     <!-- VacancyDetails -->
     <data name="VacancyDetails:Posted">
-        <value>Опубликовано</value>
+        <value>нашр шудаги</value>
     </data>
-   
+  <data name="VacancyDetails:Updated">
+    <value>нав карда шуд </value>
+  </data>
     <data name="VacancyDetails:Apply Now">
         <value>Ҳозир интихоб кунед</value>
     </data>

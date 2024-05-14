@@ -438,7 +438,9 @@
     <data name="VacancyDetails:Posted">
         <value>Опубликовано</value>
     </data>
-
+  <data name="VacancyDetails:Updated">
+    <value>Обновлено </value>
+  </data>
 
     <data name="VacancyDetails:Apply Now">
         <value>Подать заявку сейчас</value>

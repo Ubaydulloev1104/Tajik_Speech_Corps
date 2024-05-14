@@ -468,6 +468,9 @@
   <data name="VacancyDetails:Posted">
     <value>Posted</value>
   </data>
+   <data name="VacancyDetails:Updated">
+    <value>Updated </value>
+  </data>
  
   <data name="VacancyDetails:Apply Now">
     <value>Apply Now</value>
