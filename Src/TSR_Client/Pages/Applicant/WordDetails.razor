@@ -1,339 +1,13 @@
 ﻿@page "/words/{Slug}"
-@using Application.Contracts.WordClient
-@inject IJSRuntime mJS
-@inject IWordService wordService
-@using Microsoft.AspNetCore.Components.Authorization;
-@using System.Net
-@using Blazorise.Extensions
-@using TSR_Client.Services.ConverterService
-@inject AuthenticationStateProvider Provider
-@inject IApplicationService ApplicationService
-@inject IDateTimeConvertToStringService DateTimeConvert
-@inject NavigationManager NavigationManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
-<PageTitle>Word Audio Recorder</PageTitle>
-<style>
-	p.mud-typography.mud-typography-body1 p img {
-		width: 100%;
-		height: auto;
-	}
-</style>
-@if (wordDetails is null)
-{
-	if (_showLoader)
-	{
-		<div style="text-align: center;">
-			<MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true" />
-		</div>
-	}
-}
-else if (notFound)
-{
-	<NotFound />
-}
-
-<MudContainer>
-	<MudGrid>
-		<MudItem xs="12" lg="9" sm="6" md="8">
-			<MudCard Class="rounded-lg mud-elevation-4">
-				<MudCardHeader>
-
-					<CardHeaderContent>
-						<div class="d-flex flex-grow-1">
-							<div class="flex-none d-flex py-lg-3">
-								<MudLink Href="@("/" + words)">
-									<MudIcon Icon="@Icons.Material.Filled.ArrowBackIosNew" Size="Size.Large"></MudIcon>
-								</MudLink>
-							</div>
-							<div class="">
-								<MudText Typo="Typo.h5" Style="padding-top: 3px;">
-									<b>@wordDetails.Value</b>
-								</MudText>
-								<MudText Typo="Typo.body2" Style="color:rgb(128,128,128)">
-									<b> @ContentService["VacancyDetails:Posted"] @DateTimeConvert.GetDisplayPostedDate(wordDetails.CreateDate)</b>
-								</MudText>
-							</div>
-						</div>
-
-					</CardHeaderContent>
-				</MudCardHeader>
-				<MudCardHeader>
-					<MudDivider />
-					<br />
-					<MudText>@((MarkupString)wordDetails.Description)</MudText>
-					<br />
-					<MudDivider Style="padding:10px;" />
-
-				</MudCardHeader>
-					<hr />
-					<button @onclick="butRecordAudioStart_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStart>Start Record</button>
-					<button @onclick="butRecordAudioPause_Click" class="btn btn-primary" disabled=@mDisableRecordAudioPause>Pause</button>
-					<button @onclick="butRecordAudioResume_Click" class="btn btn-primary" disabled=@mDisableRecordAudioResume>Resume</button>
-					<button @onclick="butRecordAudioStop_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStop>Stop</button>
-					<button @onclick="butSaveBlob_Click" class="btn btn-primary" disabled=@mDisableSaveBlob>Save Audio</button>
-					<hr />
-					<audio controls autoplay src=@mUrl></audio>
-					<hr />
-
-					<div class="alert alert-secondary mt-4">
-						<span class="oi oi-pencil me-2" aria-hidden="true"></span>
-						<strong></strong>
-					</div>
-
-			</MudCard>
-
-
-		</MudItem>
-		<MudItem xs="12" lg="3" sm="6" md="4">
-			<CascadingAuthenticationState>
-				<AuthorizeView>
-					<Authorized>
-						<MudCardActions Style="flex-direction: column">
-
-							@if (wordDetails.IsApplied)
-							{
-								<MudChip Icon="@Icons.Material.Filled.Check" Color="Color.Success">Applied</MudChip>
-								<MudLink Href=@_url>@ContentService["VacancyDetails:ViewApplication"]</MudLink>
-							}
-							else
-							{
-								<MudButton Variant="Variant.Filled" href=@($"/{words}/apply/{Slug}") Color="Color.Primary" FullWidth="true">
-									<MudText>
-										<b>@ContentService["VacancyDetails:Apply Now"]</b>
-									</MudText>
-								</MudButton>
-							}
-						</MudCardActions>
-					</Authorized>
-					<NotAuthorized>
-						<MudCard Class="rounded-lg mud-elevation-4">
-							<MudCardActions>
-								<MudButton Variant="Variant.Filled" href="sign-up" Color="Color.Primary" FullWidth="true">
-									<MudText>
-										<b>@ContentService["VacancyDetails:Sign Up"]</b>
-									</MudText>
-								</MudButton>
-							</MudCardActions>
-							<MudText Typo="Typo.body2" Style="padding:0 10px 10px 10px">
-								@ContentService["VacancyDetails:Already have an account?"]
-								<MudLink Typo="Typo.body2" href=@($"/sign-in?returnUrl={words}|{Slug}") Color="Color.Primary">
-									<b>@ContentService["VacancyDetails:Sign In"]</b>
-								</MudLink>
-							</MudText>
-						</MudCard>
-					</NotAuthorized>
-				</AuthorizeView>
-			</CascadingAuthenticationState>
-
-		</MudItem>
-	</MudGrid>
-</MudContainer>
-<script>
-	var BlazorAudioRecorder = {};
-	var mCaller;
-	var mStream;
-	var mAudioChunks;
-	var mMediaRecorder;
-	var mUrl = ""
-
-	BlazorAudioRecorder.Initialize = function (vCaller) {
-		mCaller = vCaller;
-	};
-	BlazorAudioRecorder.SaveAudioOnServer = async function (nameaudio) {
-		const formData = new FormData();
-		formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), nameaudio + '.wav');
-
-		await fetch('https://localhost:7160/api/audiorecorder/saveaudio?nameaudio=' + nameaudio, {
-			method: 'POST',
-			body: formData
-		});
-	};
-
-	BlazorAudioRecorder.StartRecord = async function () {
-		mStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-		mMediaRecorder = new MediaRecorder(mStream);
-		mMediaRecorder.addEventListener('dataavailable', vEvent => {
-			mAudioChunks.push(vEvent.data);
-		});
-
-		mMediaRecorder.addEventListener('error', vError => {
-			console.warn('media recorder error: ' + vError);
-		});
-
-		mMediaRecorder.addEventListener('stop', () => {
-			var pAudioBlob = new Blob(mAudioChunks, { type: "audio/wav;" });
-			var pAudioUrl = URL.createObjectURL(pAudioBlob);
-			mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
-
-			// uncomment the following if you want to play the recorded audio (without the using the audio HTML element)
-			//var pAudio = new Audio(pAudioUrl);
-			//pAudio.play();
-		});
-
-		mAudioChunks = [];
-		mMediaRecorder.start();
-	};
-
-	BlazorAudioRecorder.PauseRecord = function () {
-		mMediaRecorder.pause();
-	};
-
-	BlazorAudioRecorder.ResumeRecord = function () {
-		mMediaRecorder.resume();
-	};
-
-	BlazorAudioRecorder.StopRecord = function () {
-		mMediaRecorder.stop();
-		mStream.getTracks().forEach(pTrack => pTrack.stop());
-	};
-
-</script>
-
-@code {
-
-	private bool _serverError;
-	[Parameter]
-	public string Slug { get; set; }
-	string mUrl;
-	bool notFound;
-	public const string FormatDateTimeStamp = "yyyy_MM_dd__HH_mm_ss_ffff";
-	bool mDisableRecordAudioStart;
-	bool mDisableRecordAudioPause = true;
-	bool mDisableRecordAudioResume = true;
-	bool mDisableRecordAudioStop = true;
-	bool mDisableDownloadBlob = true;
-	bool mDisableSaveBlob = true;
-	private bool _showLoader = false;
-	private WordDetailsResponse wordDetails;
-	public string words { get; set; }
-	private string _url = "";
-
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-		try
-		{
-			var response = await wordService.GetBySlug(Slug);
-			if (response is not null)
-			{
-				wordDetails = new WordDetailsResponse
-					{
-						Value = response.Value,
-						Description = response.Description,
-						CreateDate = response.CreateDate,
-						UpdatedDate = response.UpdatedDate,
-						IsApplied = response.IsApplied
-					};
-			}
-			else notFound = true;
-		}
-		catch (Exception)
-		{
-			_serverError = true;
-			StateHasChanged();
-		}
-		await mJS.InvokeVoidAsync("BlazorAudioRecorder.Initialize", DotNetObjectReference.Create(this));
-	}
-
-	void butRecordAudioStart_Click()
-	{
-		mUrl = "";
-		mDisableRecordAudioStart = true;
-		mDisableRecordAudioPause = false;
-		mDisableRecordAudioResume = true;
-		mDisableRecordAudioStop = false;
-		mDisableDownloadBlob = true;
-		mDisableSaveBlob = true;
-		mJS.InvokeVoidAsync("BlazorAudioRecorder.StartRecord");
-		StateHasChanged();
-	}
-
-	void butRecordAudioPause_Click()
-	{
-		mDisableRecordAudioStart = true;
-		mDisableRecordAudioPause = true;
-		mDisableRecordAudioResume = false;
-		mDisableRecordAudioStop = false;
-		mDisableDownloadBlob = true;
-		mDisableSaveBlob = true;
-		mJS.InvokeVoidAsync("BlazorAudioRecorder.PauseRecord");
-	}
-
-	void butRecordAudioResume_Click()
-	{
-		mDisableRecordAudioStart = true;
-		mDisableRecordAudioPause = false;
-		mDisableRecordAudioResume = true;
-		mDisableRecordAudioStop = false;
-		mDisableDownloadBlob = true;
-		mDisableSaveBlob = true;
-		mJS.InvokeVoidAsync("BlazorAudioRecorder.ResumeRecord");
-	}
-
-	void butRecordAudioStop_Click()
-	{
-		mDisableRecordAudioStart = false;
-		mDisableRecordAudioPause = true;
-		mDisableRecordAudioResume = true;
-		mDisableRecordAudioStop = true;
-		mDisableDownloadBlob = false;
-		mDisableSaveBlob = false;
-		mJS.InvokeVoidAsync("BlazorAudioRecorder.StopRecord");
-		mUrl = "";
-		StateHasChanged();
-
-	}
-
-	void butSaveBlob_Click()
-	{
-		string nameaudio = Slug + DateTimeStamp(); // Устанавливаем имя аудиофайла
-		mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
-	}
-
-	[JSInvokable]
-	public async Task OnAudioUrl(string vUrl)
-	{
-		mUrl = vUrl;
-		await InvokeAsync(() => StateHasChanged());
-		await mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", mUrl);
-	}
-
-	public static string DateTimeStamp()
-	{
-		var pOut = DateTime.Now.ToString(FormatDateTimeStamp);
-		return pOut;
-	}
-	protected override async void OnAfterRender(bool firstRender)
-	{
-		try
-		{
-			if (firstRender)
-			{
-				await Task.Delay(1000);
-				_showLoader = true;
-				var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-				var usernameClaim = authState.User.Claims.FirstOrDefault(x => x.Type.Contains("username"));
-				var username = usernameClaim?.Value;
-				_url = $"ApplicationDetail/{username}-{Slug}";
-				StateHasChanged();
-			}
-		}
-		catch (Exception)
-		{
-		}
-	}
-
-}
-@* @page "/words/{Slug}"
 @using Application.Contracts.Applications.Commands.CreateApplication
 @using Application.Contracts.Dtos
 @using Application.Contracts.WordClient
-@inject IJSRuntime mJS
-@inject IWordService wordService
 @using Microsoft.AspNetCore.Components.Authorization;
 @using System.Net
 @using Blazorise.Extensions
 @using TSR_Client.Services.ConverterService
+@inject IJSRuntime mJS
+@inject IWordService wordService
 @inject AuthenticationStateProvider Provider
 @inject IApplicationService ApplicationService
 @inject IDateTimeConvertToStringService DateTimeConvert
@@ -342,6 +16,7 @@ else if (notFound)
 @layout MainLayout
 @inject ISnackbar Snackbar
 @inject LayoutService LayoutService
+@inject IUserProfileService UserProfileService
 <PageTitle>Word Audio Recorder</PageTitle>
 <style>
 	p.mud-typography.mud-typography-body1 p img {
@@ -676,8 +351,12 @@ else if (notFound)
 
 	void butSaveBlob_Click()
 	{
-
-		string nameaudio = Slug + DateTimeStamp(); // Устанавливаем имя аудиофайла
+		if (LayoutService.User != null)
+		{
+			string nameaudio3 = $"{Slug} + {LayoutService.User.UserName} + {DateTimeStamp()}"; // Устанавливаем имя аудиофайла
+			mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio3);
+		}
+		string nameaudio = Slug+"Null" + DateTimeStamp(); // Устанавливаем имя аудиофайла
 		mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
 	}
 
@@ -700,6 +379,7 @@ else if (notFound)
 		{
 			if (firstRender)
 			{
+				LayoutService.User = await UserProfileService.Get();
 				await Task.Delay(1000);
 				_showLoader = true;
 				var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -743,6 +423,332 @@ else if (notFound)
 		await ApplicationService.CreateApplication(application);
 		_processing = false;
 	}
+}
+@* @page "/words/{Slug}"
+@using Application.Contracts.WordClient
+@inject IJSRuntime mJS
+@inject IWordService wordService
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Net
+@using Blazorise.Extensions
+@using TSR_Client.Services.ConverterService
+@inject AuthenticationStateProvider Provider
+@inject IApplicationService ApplicationService
+@inject IDateTimeConvertToStringService DateTimeConvert
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<PageTitle>Word Audio Recorder</PageTitle>
+<style>
+	p.mud-typography.mud-typography-body1 p img {
+		width: 100%;
+		height: auto;
+	}
+</style>
+@if (wordDetails is null)
+{
+	if (_showLoader)
+	{
+		<div style="text-align: center;">
+			<MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true" />
+		</div>
+	}
+}
+else if (notFound)
+{
+	<NotFound />
+}
+
+<MudContainer>
+	<MudGrid>
+		<MudItem xs="12" lg="9" sm="6" md="8">
+			<MudCard Class="rounded-lg mud-elevation-4">
+				<MudCardHeader>
+
+					<CardHeaderContent>
+						<div class="d-flex flex-grow-1">
+							<div class="flex-none d-flex py-lg-3">
+								<MudLink Href="@("/" + words)">
+									<MudIcon Icon="@Icons.Material.Filled.ArrowBackIosNew" Size="Size.Large"></MudIcon>
+								</MudLink>
+							</div>
+							<div class="">
+								<MudText Typo="Typo.h5" Style="padding-top: 3px;">
+									<b>@wordDetails.Value</b>
+								</MudText>
+								<MudText Typo="Typo.body2" Style="color:rgb(128,128,128)">
+									<b> @ContentService["VacancyDetails:Posted"] @DateTimeConvert.GetDisplayPostedDate(wordDetails.CreateDate)</b>
+								</MudText>
+							</div>
+						</div>
+
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardHeader>
+					<MudDivider />
+					<br />
+					<MudText>@((MarkupString)wordDetails.Description)</MudText>
+					<br />
+					<MudDivider Style="padding:10px;" />
+
+				</MudCardHeader>
+					<hr />
+					<button @onclick="butRecordAudioStart_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStart>Start Record</button>
+					<button @onclick="butRecordAudioPause_Click" class="btn btn-primary" disabled=@mDisableRecordAudioPause>Pause</button>
+					<button @onclick="butRecordAudioResume_Click" class="btn btn-primary" disabled=@mDisableRecordAudioResume>Resume</button>
+					<button @onclick="butRecordAudioStop_Click" class="btn btn-primary" disabled=@mDisableRecordAudioStop>Stop</button>
+					<button @onclick="butSaveBlob_Click" class="btn btn-primary" disabled=@mDisableSaveBlob>Save Audio</button>
+					<hr />
+					<audio controls autoplay src=@mUrl></audio>
+					<hr />
+
+					<div class="alert alert-secondary mt-4">
+						<span class="oi oi-pencil me-2" aria-hidden="true"></span>
+						<strong></strong>
+					</div>
+
+			</MudCard>
+
+
+		</MudItem>
+		<MudItem xs="12" lg="3" sm="6" md="4">
+			<CascadingAuthenticationState>
+				<AuthorizeView>
+					<Authorized>
+						<MudCardActions Style="flex-direction: column">
+
+							@if (wordDetails.IsApplied)
+							{
+								<MudChip Icon="@Icons.Material.Filled.Check" Color="Color.Success">Applied</MudChip>
+								<MudLink Href=@_url>@ContentService["VacancyDetails:ViewApplication"]</MudLink>
+							}
+							else
+							{
+								<MudButton Variant="Variant.Filled" href=@($"/{words}/apply/{Slug}") Color="Color.Primary" FullWidth="true">
+									<MudText>
+										<b>@ContentService["VacancyDetails:Apply Now"]</b>
+									</MudText>
+								</MudButton>
+							}
+						</MudCardActions>
+					</Authorized>
+					<NotAuthorized>
+						<MudCard Class="rounded-lg mud-elevation-4">
+							<MudCardActions>
+								<MudButton Variant="Variant.Filled" href="sign-up" Color="Color.Primary" FullWidth="true">
+									<MudText>
+										<b>@ContentService["VacancyDetails:Sign Up"]</b>
+									</MudText>
+								</MudButton>
+							</MudCardActions>
+							<MudText Typo="Typo.body2" Style="padding:0 10px 10px 10px">
+								@ContentService["VacancyDetails:Already have an account?"]
+								<MudLink Typo="Typo.body2" href=@($"/sign-in?returnUrl={words}|{Slug}") Color="Color.Primary">
+									<b>@ContentService["VacancyDetails:Sign In"]</b>
+								</MudLink>
+							</MudText>
+						</MudCard>
+					</NotAuthorized>
+				</AuthorizeView>
+			</CascadingAuthenticationState>
+
+		</MudItem>
+	</MudGrid>
+</MudContainer>
+<script>
+	var BlazorAudioRecorder = {};
+	var mCaller;
+	var mStream;
+	var mAudioChunks;
+	var mMediaRecorder;
+	var mUrl = ""
+
+	BlazorAudioRecorder.Initialize = function (vCaller) {
+		mCaller = vCaller;
+	};
+	BlazorAudioRecorder.SaveAudioOnServer = async function (nameaudio) {
+		const formData = new FormData();
+		formData.append('audio', new Blob(mAudioChunks, { type: 'audio/wav' }), nameaudio + '.wav');
+
+		await fetch('https://localhost:7160/api/audiorecorder/saveaudio?nameaudio=' + nameaudio, {
+			method: 'POST',
+			body: formData
+		});
+	};
+
+	BlazorAudioRecorder.StartRecord = async function () {
+		mStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+		mMediaRecorder = new MediaRecorder(mStream);
+		mMediaRecorder.addEventListener('dataavailable', vEvent => {
+			mAudioChunks.push(vEvent.data);
+		});
+
+		mMediaRecorder.addEventListener('error', vError => {
+			console.warn('media recorder error: ' + vError);
+		});
+
+		mMediaRecorder.addEventListener('stop', () => {
+			var pAudioBlob = new Blob(mAudioChunks, { type: "audio/wav;" });
+			var pAudioUrl = URL.createObjectURL(pAudioBlob);
+			mCaller.invokeMethodAsync('OnAudioUrl', pAudioUrl);
+
+			// uncomment the following if you want to play the recorded audio (without the using the audio HTML element)
+			//var pAudio = new Audio(pAudioUrl);
+			//pAudio.play();
+		});
+
+		mAudioChunks = [];
+		mMediaRecorder.start();
+	};
+
+	BlazorAudioRecorder.PauseRecord = function () {
+		mMediaRecorder.pause();
+	};
+
+	BlazorAudioRecorder.ResumeRecord = function () {
+		mMediaRecorder.resume();
+	};
+
+	BlazorAudioRecorder.StopRecord = function () {
+		mMediaRecorder.stop();
+		mStream.getTracks().forEach(pTrack => pTrack.stop());
+	};
+
+</script>
+
+@code {
+
+	private bool _serverError;
+	[Parameter]
+	public string Slug { get; set; }
+	string mUrl;
+	bool notFound;
+	public const string FormatDateTimeStamp = "yyyy_MM_dd__HH_mm_ss_ffff";
+	bool mDisableRecordAudioStart;
+	bool mDisableRecordAudioPause = true;
+	bool mDisableRecordAudioResume = true;
+	bool mDisableRecordAudioStop = true;
+	bool mDisableDownloadBlob = true;
+	bool mDisableSaveBlob = true;
+	private bool _showLoader = false;
+	private WordDetailsResponse wordDetails;
+	public string words { get; set; }
+	private string _url = "";
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		try
+		{
+			var response = await wordService.GetBySlug(Slug);
+			if (response is not null)
+			{
+				wordDetails = new WordDetailsResponse
+					{
+						Value = response.Value,
+						Description = response.Description,
+						CreateDate = response.CreateDate,
+						UpdatedDate = response.UpdatedDate,
+						IsApplied = response.IsApplied
+					};
+			}
+			else notFound = true;
+		}
+		catch (Exception)
+		{
+			_serverError = true;
+			StateHasChanged();
+		}
+		await mJS.InvokeVoidAsync("BlazorAudioRecorder.Initialize", DotNetObjectReference.Create(this));
+	}
+
+	void butRecordAudioStart_Click()
+	{
+		mUrl = "";
+		mDisableRecordAudioStart = true;
+		mDisableRecordAudioPause = false;
+		mDisableRecordAudioResume = true;
+		mDisableRecordAudioStop = false;
+		mDisableDownloadBlob = true;
+		mDisableSaveBlob = true;
+		mJS.InvokeVoidAsync("BlazorAudioRecorder.StartRecord");
+		StateHasChanged();
+	}
+
+	void butRecordAudioPause_Click()
+	{
+		mDisableRecordAudioStart = true;
+		mDisableRecordAudioPause = true;
+		mDisableRecordAudioResume = false;
+		mDisableRecordAudioStop = false;
+		mDisableDownloadBlob = true;
+		mDisableSaveBlob = true;
+		mJS.InvokeVoidAsync("BlazorAudioRecorder.PauseRecord");
+	}
+
+	void butRecordAudioResume_Click()
+	{
+		mDisableRecordAudioStart = true;
+		mDisableRecordAudioPause = false;
+		mDisableRecordAudioResume = true;
+		mDisableRecordAudioStop = false;
+		mDisableDownloadBlob = true;
+		mDisableSaveBlob = true;
+		mJS.InvokeVoidAsync("BlazorAudioRecorder.ResumeRecord");
+	}
+
+	void butRecordAudioStop_Click()
+	{
+		mDisableRecordAudioStart = false;
+		mDisableRecordAudioPause = true;
+		mDisableRecordAudioResume = true;
+		mDisableRecordAudioStop = true;
+		mDisableDownloadBlob = false;
+		mDisableSaveBlob = false;
+		mJS.InvokeVoidAsync("BlazorAudioRecorder.StopRecord");
+		mUrl = "";
+		StateHasChanged();
+
+	}
+
+	void butSaveBlob_Click()
+	{
+		string nameaudio = Slug + DateTimeStamp(); // Устанавливаем имя аудиофайла
+		mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
+	}
+
+	[JSInvokable]
+	public async Task OnAudioUrl(string vUrl)
+	{
+		mUrl = vUrl;
+		await InvokeAsync(() => StateHasChanged());
+		await mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", mUrl);
+	}
+
+	public static string DateTimeStamp()
+	{
+		var pOut = DateTime.Now.ToString(FormatDateTimeStamp);
+		return pOut;
+	}
+	protected override async void OnAfterRender(bool firstRender)
+	{
+		try
+		{
+			if (firstRender)
+			{
+				await Task.Delay(1000);
+				_showLoader = true;
+				var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+				var usernameClaim = authState.User.Claims.FirstOrDefault(x => x.Type.Contains("username"));
+				var username = usernameClaim?.Value;
+				_url = $"ApplicationDetail/{username}-{Slug}";
+				StateHasChanged();
+			}
+		}
+		catch (Exception)
+		{
+		}
+	}
+
 } *@
 
 
