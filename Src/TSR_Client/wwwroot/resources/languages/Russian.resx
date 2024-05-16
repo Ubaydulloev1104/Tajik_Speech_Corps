@@ -360,7 +360,7 @@
     <value>Дополнительные детали</value>
 </data>
     <data name="VacancyApplication:Cover Letter" xml:space="preserve">
-    <value>Сопроводительное письмо</value>
+    <value>Комментарии </value>
 </data>
     <data name="VacancyApplication:Questions" xml:space="preserve">
     <value>Вопросы</value>
