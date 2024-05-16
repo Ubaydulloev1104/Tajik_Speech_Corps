@@ -353,13 +353,26 @@ else if (notFound)
 		StateHasChanged();
 
 	}
-
 	void butSaveBlob_Click()
 	{
 		if (LayoutService.User != null)
 		{
-			string nameaudio3 = $"{Slug}_{LayoutService.User.UserName}_{DateTimeStamp()}"; // Устанавливаем имя аудиофайла
+			string nameaudio3 = $"{wordDetails.Value}_{LayoutService.User.UserName}_{DateTimeStamp()}"; // Устанавливаем имя аудиофайла
 			mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio3);
+
+			WordResponseAudio.FileName = nameaudio3;
+			WordResponseAudio.Format = "wav";
+			WordResponseAudio.FilePath = "wwwroot";
+			WordResponseAudio.Word = wordDetails.Value;
+			foreach (var item in word.WordResponseAudioDto)
+			{
+				item.Word = WordResponseAudio.Word;
+				item.FilePath = WordResponseAudio.FilePath;
+				item.FileName = WordResponseAudio.FileName;
+				item.Format = WordResponseAudio.Format;
+			}
+
+
 		}
 		string nameaudio = Slug + "Null" + DateTimeStamp(); // Устанавливаем имя аудиофайла
 		mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
@@ -404,20 +417,23 @@ else if (notFound)
 
 	public WordApplicationResponse word { get; set; }
 
+
 	public CreateApplicationCommand application { get; set; }
 
 	public string vacancyType { get; set; }
 
 	private bool _processing;
-
+	public WordResponseAudioDto WordResponseAudio { get; set; }
 
 	private async Task CreateApplication()
 	{
-		var updatedResponses = application.WordResponseAudioDto.Select(vr => new WordResponseAudioDto
+		var updatedResponses = word.WordResponseAudioDto.Select(vr => new WordResponseAudioDto
 			{
-				FileName = vr.FileName,
-				FilePath = vr.FilePath,
-				Format = vr.Format
+				Word = WordResponseAudio.Word,
+				FileName = WordResponseAudio.FileName,
+				Format = WordResponseAudio.Format,
+				FilePath = WordResponseAudio.FilePath
+
 			}).ToList();
 		application.WordResponseAudioDto = updatedResponses;
 		_processing = true;
