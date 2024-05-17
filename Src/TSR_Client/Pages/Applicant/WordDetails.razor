@@ -353,20 +353,6 @@ else if (notFound)
 		{
 			string nameaudio3 = $"{wordDetails.Value}_{LayoutService.User.UserName}_{DateTimeStamp()}"; // Устанавливаем имя аудиофайла
 			mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio3);
-
-			WordResponseAudio.FileName = nameaudio3;
-			WordResponseAudio.Format = "wav";
-			WordResponseAudio.FilePath = "wwwroot";
-			WordResponseAudio.Word = wordDetails.Value;
-			foreach (var item in word.WordResponseAudioDto)
-			{
-				item.Word = WordResponseAudio.Word;
-				item.FilePath = WordResponseAudio.FilePath;
-				item.FileName = WordResponseAudio.FileName;
-				item.Format = WordResponseAudio.Format;
-			}
-
-
 		}
 		string nameaudio = Slug + "Null" + DateTimeStamp(); // Устанавливаем имя аудиофайла
 		mJS.InvokeVoidAsync("BlazorAudioRecorder.SaveAudioOnServer", nameaudio);
@@ -421,14 +407,18 @@ else if (notFound)
 
 	private async Task CreateApplication()
 	{
-		var updatedResponses = word.WordResponseAudioDto.Select(vr => new WordResponseAudioDto
+		string nameaudio3 = $"{wordDetails.Value}_{LayoutService.User.UserName}_{DateTimeStamp()}";
+		WordResponseAudioDto wordResponseAudio = new WordResponseAudioDto
 			{
-				Word = WordResponseAudio.Word,
-				FileName = WordResponseAudio.FileName,
-				Format = WordResponseAudio.Format,
-				FilePath = WordResponseAudio.FilePath
+				FileName = nameaudio3,
+				Format = "wav",
+				FilePath = "wwwroot",
+				Word = wordDetails.Value
+			};
+		var updatedResponses = new List<WordResponseAudioDto> { wordResponseAudio };
 
-			}).ToList();
+		// Устанавливаем флаг обработки
+		_processing = true;
 		application.WordResponseAudioDto = updatedResponses;
 		_processing = true;
 		await ApplicationService.CreateApplication(application);
