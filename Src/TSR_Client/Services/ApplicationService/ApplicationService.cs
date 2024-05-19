@@ -38,35 +38,41 @@ namespace TSR_Client.Services.ApplicationService
         }
 
 
-        public async Task CreateApplication(CreateApplicationCommand application)
-        {
-            try
-            {
-           
-                var response = await httpClient.PostAsJsonAsync(ApplicationsEndPoint, application);
-                switch (response.StatusCode)
-                {
-                    case HttpStatusCode.OK:
-                        snackbar.Add("Applications sent successfully!", Severity.Success);
-                        navigationManager.NavigateTo(navigationManager.Uri.Replace("/apply/", "/"));
-                        break;
-                    case HttpStatusCode.Conflict:
-                        snackbar.Add((await response.Content.ReadFromJsonAsync<CustomProblemDetails>()).Detail,
-                            Severity.Error);
-                        break;
-                    default:
-                        snackbar.Add("Something went wrong", Severity.Error);
-                        break;
-                }
-            }
-            catch (Exception e)
-            {
-                snackbar.Add("Server is not responding, please try later", Severity.Error);
-                Console.WriteLine(e.Message);
-            }
-        }
+		public async Task CreateApplication(CreateApplicationCommand application)
+		{
+			try
+			{
+				var response = await httpClient.PostAsJsonAsync(ApplicationsEndPoint, application);
+				switch (response.StatusCode)
+				{
+					case HttpStatusCode.OK:
+						snackbar.Add("Applications sent successfully!", Severity.Success);
+						navigationManager.NavigateTo(navigationManager.Uri.Replace("/apply/", "/"));
+						break;
+					case HttpStatusCode.Conflict:
+						snackbar.Add((await response.Content.ReadFromJsonAsync<CustomProblemDetails>()).Detail,
+									   Severity.Error);
+						break;
+					case HttpStatusCode.BadRequest:
+						snackbar.Add("Invalid application data. Please check your information.", Severity.Error);
+						break;
+					case HttpStatusCode.InternalServerError:
+						snackbar.Add("Server error. Please try again later.", Severity.Error);
+						
+						break;
+					default:
+						snackbar.Add($"Unknown error: {response.StatusCode}", Severity.Error);
+						break;
+				}
+			}
+			catch (Exception e)
+			{
+				snackbar.Add("Server is not responding, please try later", Severity.Error);
+				Console.WriteLine(e.Message);
+			}
+		}
 
-        private async Task<byte[]> GetFileBytesAsync(IBrowserFile file)
+		private async Task<byte[]> GetFileBytesAsync(IBrowserFile file)
         {
             if (file.Size <= int.Parse(configuration["CvSettings:MaxFileSize"]!) * 1024 * 1024)
             {
