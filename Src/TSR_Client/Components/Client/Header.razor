@@ -5,6 +5,7 @@
 @using TSR_Client.wwwroot.resources
 @using TSR_Client.Services.Profile
 @using TSR_Client.Components.Buttons
+@using TSR_Client.Identity
 @using Anchor = MudBlazor.Anchor
 @using Breakpoint = MudBlazor.Breakpoint
 @using Color = MudBlazor.Color
@@ -60,6 +61,12 @@
                 <b>@ContentService["Home:Contact"]</b>
             </MudText>
         </MudButton>
+        <AuthorizeView Roles="@ApplicationClaimValues.Administrator" Context="admin">
+            <MudNavLink Match="NavLinkMatch.All" Href="dashboard/categories">Category</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/dashboard/applications">Applications</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/dashboard/word">Words</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Href="/userManager">Users manager</MudNavLink>
+        </AuthorizeView>
     </MudHidden>
     <MudSpacer/>
     <MudHidden Breakpoint="Breakpoint.Xs">
