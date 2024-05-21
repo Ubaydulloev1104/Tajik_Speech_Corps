@@ -405,20 +405,21 @@ else if (notFound)
 	private async Task CreateApplication()
 	{
 		_processing = true;
-		string nameaudio3 = $"{wordDetails.Value}_{LayoutService.User.UserName}_{DateTimeStamp()}";
-		WordResponseAudioDto wordResponseAudio = new WordResponseAudioDto
-			{
-				Slug = nameaudio3,
-				FileName = nameaudio3,
-				Format = "wav",
-				FilePath = "wwwroot",
-				Word = wordDetails.Value
+		// string nameaudio3 = $"{wordDetails.Value}_{LayoutService.User.UserName}_{DateTimeStamp()}";
+		// WordResponseAudioDto wordResponseAudio = new WordResponseAudioDto
+		// 	{
+		// 		Slug = nameaudio3,
+		// 		FileName = nameaudio3,
+		// 		Format = "wav",
+		// 		FilePath = "wwwroot",
+		// 		Word = wordDetails.Value
 
-			};
-		var updatedResponses = new List<WordResponseAudioDto> { wordResponseAudio };
+		// 	};
+		// var updatedResponses = new List<WordResponseAudioDto> { wordResponseAudio };
 
-		application.WordResponseAudioDto = updatedResponses;
+		// application.WordResponseAudioDto = updatedResponses;
 		await ApplicationService.CreateApplication(application);
+		
 		_processing = false;
 
 	}
